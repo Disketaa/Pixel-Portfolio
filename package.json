@@ -1,0 +1,12 @@
+{
+  "name": "pixel-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-manifest": "node scripts/generate-manifest.mjs"
+  },
+  "dependencies": {
+    "image-size": "^1.1.1"
+  }
+}
