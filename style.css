@@ -187,7 +187,7 @@ main {
   display: flex;
   padding: var(--card-padding);
   background-color: var(--panel);
-  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
+  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 95%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
   background-size: var(--card-background-size) var(--card-background-size);
 }
 
@@ -373,7 +373,7 @@ button {
   justify-content: center;
   padding: var(--lightbox-frame-padding);
   background-color: var(--panel);
-  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
+  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 95%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
   background-size: var(--card-background-size) var(--card-background-size);
   overflow: hidden;
 }
