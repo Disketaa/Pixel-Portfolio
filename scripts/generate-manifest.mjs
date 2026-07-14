@@ -13,10 +13,13 @@ const HERO_AREA_THRESHOLD = 1_000_000;
 const HERO_RATIO_MIN = 0.75;
 const HERO_RATIO_MAX = 1.35;
 
-function getGridSpan(ratio) {
-  if (ratio >= 2.4) return { col: 3, row: 1 };
-  if (ratio >= 1.6) return { col: 2, row: 1 };
-  if (ratio <= 0.6) return { col: 1, row: 2 };
+function getGridSpan(width, height, ratio) {
+  const area = width * height;
+  const isBigEnough = area >= 4096;
+
+  if (ratio >= 2.4 && isBigEnough) return { col: 3, row: 1 };
+  if (ratio >= 1.6 && isBigEnough) return { col: 2, row: 1 };
+  if (ratio <= 0.6 && isBigEnough) return { col: 1, row: 2 };
   return { col: 1, row: 1 };
 }
 
@@ -63,7 +66,7 @@ function buildEntry(filename) {
   const buffer = readFileSync(filePath);
   const { width, height } = imageSize(buffer);
   const ratio = width / height;
-  const baseSpan = getGridSpan(ratio);
+  const baseSpan = getGridSpan(width, height, ratio);
   const gridSpan = maybeUpgradeToHero(baseSpan, width, height, ratio);
 
   return {
