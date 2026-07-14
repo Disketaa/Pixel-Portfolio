@@ -187,6 +187,17 @@ function resetZoom() {
   }
 }
 
+function resetZoomImmediate() {
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  zoomLevel = 1;
+  targetZoomLevel = 1;
+  panX = 0;
+  panY = 0;
+  targetPanX = 0;
+  targetPanY = 0;
+  isAnimating = false;
+}
+
 function openLightbox(work, triggerEl, index) {
   currentIndex = index;
   if (triggerEl) lastFocusedCard = triggerEl;
@@ -194,11 +205,11 @@ function openLightbox(work, triggerEl, index) {
 
   const img = new Image();
   img.src = `works/${work.file}`;
-  img.onload = () => {
-    if (currentIndex !== index) return;
-    loadedLightboxImg = img;
-    resetZoom();
-    drawLightboxImage();
+img.onload = () => {
+     if (currentIndex !== index) return;
+     loadedLightboxImg = img;
+     resetZoomImmediate();
+     drawLightboxImage();
     if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
     lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
     lightboxResizeObserver.observe(document.querySelector('.lightbox__frame'));
