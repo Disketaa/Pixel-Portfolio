@@ -3,6 +3,8 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "EditorConfig.EditorConfig",
-    "usernamehw.errorlens"
+    "usernamehw.errorlens",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag"
   ]
 }
