@@ -110,7 +110,7 @@ main {
   position: relative;
   grid-column: span var(--col-desktop, 1);
   grid-row: span var(--row-desktop, 1);
-  background-image: repeating-conic-gradient(var(--panel) 0% 25%, var(--panel-alt) 0% 50%);
+  background-image: repeating-conic-gradient(var(--dark-moon) 0% 25%, var(--kettle-black) 0% 50%);
   background-size: 20px 20px;
   border: 1px solid var(--panel-line);
   overflow: hidden;
@@ -310,7 +310,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 28px;
-  background-image: repeating-conic-gradient(var(--panel) 0% 25%, var(--panel-alt) 0% 50%);
+  background-image: repeating-conic-gradient(var(--dark-moon) 0% 25%, var(--kettle-black) 0% 50%);
   background-size: 20px 20px;
   overflow: hidden;
 }
