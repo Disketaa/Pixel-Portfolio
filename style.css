@@ -1,4 +1,4 @@
-@import url("palette.css");
+@import url("assets/palette.css");
 
 :root {
   --ink: var(--orka-black);
@@ -6,7 +6,7 @@
   --paper: var(--white-raisin);
   --muted: var(--moroccan-dusk);
   --accent: var(--maple-syrup-brown);
-  --font: "Tinylorder", monospace;
+  --font: "tinylorder", monospace;
   --font-size-xs: 14px;
   --font-size-sm: 18px;
   --font-size-md: 24px;
@@ -57,8 +57,8 @@
 }
 
 @font-face {
-  font-family: "Tinylorder";
-  src: url("Tinylorder.ttf") format("truetype");
+  font-family: "tinylorder";
+  src: url("assets/tinylorder.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
