@@ -61,6 +61,8 @@
   --site-header-padding-bottom: 32px;
   --site-header-brand-gap: 16px;
   --site-logo-size: 48px;
+  --focus-outline-width: 2px;
+  --focus-outline-offset: 2px;
 }
 
 @font-face {
@@ -256,8 +258,8 @@ main {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: var(--focus-outline-width, 2px) solid var(--accent);
+  outline-offset: var(--focus-outline-offset, 2px);
 }
 
 img {
