@@ -17,23 +17,28 @@ function getGridSpan(width, height) {
 
   if (area < 1000) return { col: 1, row: 1 };
 
-  const minCells = area >= 1000000 ? 12 : area >= 200000 ? 6 : area >= 50000 ? 4 : 1;
-  const maxCells = area >= 1000000 ? 28 : area >= 200000 ? 12 : area >= 50000 ? 8 : 4;
+  const targetCells =
+    area >= 1000000 ? 144 :
+    area >= 200000 ? 80 :
+    area >= 50000 ? 54 :
+    24;
 
-  let bestCol = 1, bestRow = 1;
-  let bestDiff = Infinity;
+  let cols = Math.max(1, Math.round(Math.sqrt(targetCells * ratio)));
+  let rows = Math.max(1, Math.round(Math.sqrt(targetCells / ratio)));
 
-  for (let rows = 1; rows <= maxCells; rows++) {
-    const maxCols = Math.floor(maxCells / rows);
-    for (let cols = 1; cols <= maxCols; cols++) {
-      const cells = cols * rows;
-      if (cells < minCells) continue;
-      const spanRatio = cols / rows;
-      const diff = Math.abs(spanRatio - ratio);
-      if (diff < bestDiff) {
-        bestDiff = diff;
-        bestCol = cols;
-        bestRow = rows;
+  let bestCol = cols, bestRow = rows;
+  let bestScore = Infinity;
+
+  for (let c = Math.max(1, cols - 3); c <= cols + 3; c++) {
+    for (let r = Math.max(1, rows - 3); r <= rows + 3; r++) {
+      const cells = c * r;
+      const ratioDiff = Math.abs(c / r - ratio);
+      const cellDiff = Math.abs(cells - targetCells) / targetCells;
+      const score = ratioDiff + cellDiff * 0.5;
+      if (score < bestScore) {
+        bestScore = score;
+        bestCol = c;
+        bestRow = r;
       }
     }
   }
