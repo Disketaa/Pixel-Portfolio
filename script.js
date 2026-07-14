@@ -167,21 +167,16 @@ function render(works) {
 }
 
 function loadManifest() {
-  fetch('manifest.json')
-    .then((response) => response.json())
-    .then(render)
-    .catch(() => {
-      const inline = document.getElementById('manifest-data');
-      if (inline) {
-        try {
-          render(JSON.parse(inline.textContent));
-        } catch (_) {
-          render([]);
-        }
-      } else {
-        render([]);
-      }
-    });
+  const inline = document.getElementById('manifest-data');
+  if (inline) {
+    try {
+      render(JSON.parse(inline.textContent));
+    } catch (_) {
+      render([]);
+    }
+  } else {
+    render([]);
+  }
 }
 
 loadManifest();
