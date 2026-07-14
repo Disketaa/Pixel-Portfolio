@@ -25,6 +25,7 @@ function getGridSpan(width, height) {
     area >= 50000 ? 54 :
     24;
 
+  const ZOOM = 64, PAD = 8;
   let cols = Math.max(1, Math.round(Math.sqrt(targetCells * ratio)));
   let rows = Math.max(1, Math.round(Math.sqrt(targetCells / ratio)));
 
@@ -36,7 +37,8 @@ function getGridSpan(width, height) {
       const cells = c * r;
       const ratioDiff = Math.abs(c / r - ratio);
       const cellDiff = Math.abs(cells - targetCells) / targetCells;
-      const score = ratioDiff + cellDiff * 0.5;
+      const coversAt1 = (c * ZOOM - PAD * 2) <= width && (r * ZOOM - PAD * 2) <= height;
+      const score = ratioDiff + cellDiff * 0.5 - (coversAt1 ? 0.15 : 0);
       if (score < bestScore) {
         bestScore = score;
         bestCol = c;
