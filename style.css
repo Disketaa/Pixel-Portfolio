@@ -1,4 +1,4 @@
-@import url('palette.css');
+@import url("palette.css");
 
 :root {
   --ink: var(--orka-black);
@@ -8,9 +8,9 @@
   --muted: var(--moroccan-dusk);
   --accent: var(--maple-syrup-brown);
   --accent-pink: var(--crab-bisque);
-  --font-display: 'Tinylorder', monospace;
-  --font-body: 'Tinylorder', monospace;
-  --font-mono: 'Tinylorder', monospace;
+  --font-display: "Tinylorder", monospace;
+  --font-body: "Tinylorder", monospace;
+  --font-mono: "Tinylorder", monospace;
   --font-size-xs: 14px;
   --font-size-sm: 18px;
   --font-size-md: 24px;
@@ -65,18 +65,21 @@
 }
 
 @font-face {
-  font-family: 'Tinylorder';
-  src: url('Tinylorder.ttf') format('truetype');
+  font-family: "Tinylorder";
+  src: url("Tinylorder.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -86,20 +89,10 @@ body {
   color: var(--paper);
   font-family: var(--font-body);
   min-height: 100vh;
-  cursor: url('cursor_default@4x.png') 0 0, auto;
 }
 
-.card,
-.lightbox__close,
-.lightbox__backdrop {
-  cursor: url('cursor_finger@4x.png') 0 0, pointer;
-}
-
-.lightbox__frame {
-  cursor: url('cursor_move@4x.png') 0 0, move;
-}
-
-img, canvas {
+img,
+canvas {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
@@ -138,7 +131,8 @@ img, canvas {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--site-header-gap-vertical) var(--site-header-gap-horizontal);
-  padding: var(--site-header-padding-top) var(--site-header-padding-horizontal) var(--site-header-padding-bottom);
+  padding: var(--site-header-padding-top) var(--site-header-padding-horizontal)
+    var(--site-header-padding-bottom);
 }
 
 .site-header__brand {
@@ -170,7 +164,8 @@ img, canvas {
 }
 
 main {
-  padding: var(--main-padding-vertical) var(--main-padding-horizontal) var(--main-padding-bottom);
+  padding: var(--main-padding-vertical) var(--main-padding-horizontal)
+    var(--main-padding-bottom);
 }
 
 .grid {
@@ -189,10 +184,12 @@ main {
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
-  cursor: url('cursor_finger@4x.png') 0 0, pointer;
   padding: var(--card-padding);
   background-color: var(--panel);
-  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
+  background-image: repeating-conic-gradient(
+    color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%,
+    var(--panel) 0% 50%
+  );
   background-size: var(--card-background-size) var(--card-background-size);
   line-height: 0;
   opacity: 0.25;
@@ -204,24 +201,48 @@ main {
 }
 
 @keyframes card-frame-enter {
-  from { opacity: 0.25; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--badge-transition-opacity-duration) ease;
   background-image:
-    repeating-linear-gradient(90deg, var(--accent) 0 var(--accent-line-length), transparent var(--accent-line-length) var(--accent-line-spacing)),
-    repeating-linear-gradient(90deg, var(--accent) 0 var(--accent-line-length), transparent var(--accent-line-length) var(--accent-line-spacing)),
-    repeating-linear-gradient(0deg, var(--accent) 0 var(--accent-line-length), transparent var(--accent-line-length) var(--accent-line-spacing)),
-    repeating-linear-gradient(0deg, var(--accent) 0 var(--accent-line-length), transparent var(--accent-line-length) var(--accent-line-spacing));
+    repeating-linear-gradient(
+      90deg,
+      var(--accent) 0 var(--accent-line-length),
+      transparent var(--accent-line-length) var(--accent-line-spacing)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--accent) 0 var(--accent-line-length),
+      transparent var(--accent-line-length) var(--accent-line-spacing)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      var(--accent) 0 var(--accent-line-length),
+      transparent var(--accent-line-length) var(--accent-line-spacing)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      var(--accent) 0 var(--accent-line-length),
+      transparent var(--accent-line-length) var(--accent-line-spacing)
+    );
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-position:
+    0 0,
+    0 100%,
+    0 0,
+    100% 0;
   background-size:
     var(--accent-h-line-thickness) var(--accent-v-line-thickness),
     var(--accent-h-line-thickness) var(--accent-v-line-thickness),
@@ -239,7 +260,11 @@ main {
 
 @keyframes march {
   to {
-    background-position: 12px 0, -12px 100%, 0 -12px, 100% 12px;
+    background-position:
+      12px 0,
+      -12px 100%,
+      0 -12px,
+      100% 12px;
   }
 }
 
@@ -380,7 +405,6 @@ button {
   font-family: var(--font-mono);
   font-size: var(--font-size-xl);
   line-height: 1;
-  cursor: url('cursor_finger@4x.png') 0 0, pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -399,7 +423,10 @@ button {
   justify-content: center;
   padding: var(--lightbox-frame-padding);
   background-color: var(--panel);
-  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
+  background-image: repeating-conic-gradient(
+    color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%,
+    var(--panel) 0% 50%
+  );
   background-size: var(--card-background-size) var(--card-background-size);
   overflow: hidden;
 }
