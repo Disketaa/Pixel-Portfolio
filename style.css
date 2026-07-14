@@ -180,6 +180,8 @@ main {
   position: relative;
   grid-column: span var(--col-desktop, 1);
   grid-row: span var(--row-desktop, 1);
+  user-select: none;
+  -webkit-user-select: none;
   overflow: hidden;
   cursor: pointer;
   display: flex;
