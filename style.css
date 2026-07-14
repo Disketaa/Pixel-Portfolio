@@ -372,7 +372,9 @@ button {
   align-items: center;
   justify-content: center;
   padding: var(--lightbox-frame-padding);
-  background: var(--panel);
+  background-color: var(--panel);
+  background-image: repeating-conic-gradient(color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%, var(--panel) 0% 50%);
+  background-size: var(--card-background-size) var(--card-background-size);
   overflow: hidden;
 }
 
