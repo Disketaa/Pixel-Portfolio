@@ -58,18 +58,6 @@ function buildCard(work, index) {
   img.loading = 'lazy';
   img.decoding = 'async';
 
-  const root = document.documentElement;
-  const zoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom-level')) || 180;
-  const pad = parseFloat(getComputedStyle(root).getPropertyValue('--card-padding')) || 8;
-  const content = zoom - pad * 2;
-  const maxW = content * work.gridSpan.col;
-  const maxH = content * work.gridSpan.row;
-  const dims = calcIntDims(work.width, work.height, maxW, maxH);
-  if (dims) {
-    img.style.width = `${dims.w}px`;
-    img.style.height = `${dims.h}px`;
-  }
-
   frame.appendChild(img);
 
   if (work.isAnimated) {
