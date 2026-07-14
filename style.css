@@ -50,7 +50,6 @@ button {
   flex-wrap: wrap;
   gap: 8px 20px;
   padding: 28px 24px 20px;
-  border-bottom: 1px solid var(--panel-line);
 }
 
 .site-header__brand {
@@ -59,20 +58,10 @@ button {
   gap: 12px;
 }
 
-.pixel-mark {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: var(--accent);
-  box-shadow:
-    -8px -8px 0 0 transparent,
-    0 -8px 0 0 transparent,
-    8px -8px 0 0 transparent,
-    -8px 0 0 0 var(--panel-line),
-    8px 0 0 0 var(--panel-line),
-    -8px 8px 0 0 transparent,
-    0 8px 0 0 transparent,
-    8px 8px 0 0 var(--accent);
+.site-logo {
+  display: block;
+  width: 32px;
+  height: 32px;
 }
 
 .site-title {
@@ -82,10 +71,6 @@ button {
   letter-spacing: 1px;
   margin: 0;
   color: var(--paper);
-}
-
-.site-title__dot {
-  color: var(--accent);
 }
 
 .site-header__meta {
@@ -255,19 +240,6 @@ main {
   border: 1px solid var(--panel-line);
   padding: 1px 5px;
   color: var(--accent);
-}
-
-.site-footer {
-  border-top: 1px solid var(--panel-line);
-  padding: 18px 24px 28px;
-  text-align: center;
-}
-
-.site-footer p {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--muted);
-  margin: 0;
 }
 
 .lightbox {

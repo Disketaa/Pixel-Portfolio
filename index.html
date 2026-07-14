@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>pixel·folio</title>
+<title>Disketaa</title>
 <meta name="description" content="A pixel art portfolio, laid out automatically from whatever lands in /works.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 fill=%22%230c0c11%22/><rect x=%224%22 y=%224%22 width=%224%22 height=%224%22 fill=%22%23ffd23f%22/><rect x=%228%22 y=%228%22 width=%224%22 height=%224%22 fill=%22%23ffd23f%22/></svg>">
+<link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
 
 <header class="site-header">
   <div class="site-header__brand">
-    <span class="pixel-mark" aria-hidden="true"></span>
-    <h1 class="site-title">pixel<span class="site-title__dot">·</span>folio</h1>
+    <img class="site-logo" src="icon.png" alt="Disketaa" width="32" height="32">
+    <h1 class="site-title">Disketaa's Art</h1>
   </div>
   <p class="site-header__meta" id="work-count">loading works&hellip;</p>
 </header>
@@ -29,10 +29,6 @@
     <p class="empty-state__body">Drop a PNG or GIF into <code>/works</code> and push to <code>main</code>. The layout builds itself.</p>
   </div>
 </main>
-
-<footer class="site-footer">
-  <p>Every card's size comes from its own pixel dimensions &mdash; nothing here is hand-placed.</p>
-</footer>
 
 <div class="lightbox" id="lightbox" hidden>
   <div class="lightbox__backdrop" data-close></div>
