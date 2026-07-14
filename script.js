@@ -8,6 +8,7 @@ const lightboxData = document.getElementById('lightbox-data');
 const lightboxClose = document.getElementById('lightbox-close');
 
 let lastFocusedCard = null;
+let currentIndex = -1;
 let worksData = [];
 
 function clampSpan(value) {
@@ -53,8 +54,9 @@ function buildCard(work, index) {
   return card;
 }
 
-function openLightbox(work, triggerEl) {
-  lastFocusedCard = triggerEl;
+function openLightbox(work, triggerEl, index) {
+  currentIndex = index;
+  if (triggerEl) lastFocusedCard = triggerEl;
   lightboxImage.src = `works/${work.file}`;
   lightboxImage.alt = work.title;
   lightboxTitle.textContent = work.title;
@@ -64,10 +66,17 @@ function openLightbox(work, triggerEl) {
   lightboxClose.focus();
 }
 
+function navigateLightbox(direction) {
+  const next = currentIndex + direction;
+  if (next >= 0 && next < worksData.length) {
+    openLightbox(worksData[next], null, next);
+  }
+}
+
 function handleCardActivation(card) {
-  const index = card.dataset.index;
-  if (index !== undefined && worksData[index]) {
-    openLightbox(worksData[index], card);
+  const index = parseInt(card.dataset.index, 10);
+  if (!isNaN(index) && worksData[index]) {
+    openLightbox(worksData[index], card, index);
   }
 }
 
@@ -96,7 +105,10 @@ function closeLightbox() {
 lightboxClose.addEventListener('click', closeLightbox);
 lightbox.querySelector('.lightbox__backdrop').addEventListener('click', closeLightbox);
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
+  if (lightbox.hidden) return;
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') navigateLightbox(-1);
+  if (event.key === 'ArrowRight') navigateLightbox(1);
 });
 
 function render(works) {
