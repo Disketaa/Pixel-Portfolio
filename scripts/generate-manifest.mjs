@@ -9,28 +9,35 @@ const ROOT = path.resolve(__dirname, '..');
 const WORKS_DIR = path.join(ROOT, 'works');
 const MANIFEST_PATH = path.join(ROOT, 'manifest.json');
 const ALLOWED_EXT = new Set(['.png', '.gif']);
-const HERO_AREA_THRESHOLD = 100_000;
-const HERO_RATIO_MIN = 0.75;
-const HERO_RATIO_MAX = 1.35;
 
-function getGridSpan(width, height, ratio) {
+function getGridSpan(width, height) {
   const area = width * height;
-  const isBigEnough = area >= 4096;
+  const ratio = width / height;
 
-  if (ratio >= 2.4 && isBigEnough) return { col: 3, row: 1 };
-  if (ratio >= 1.5 && isBigEnough) return { col: 2, row: 1 };
-  if (ratio <= 0.6 && isBigEnough) return { col: 1, row: 2 };
-  return { col: 1, row: 1 };
-}
+  if (area < 4096) return { col: 1, row: 1 };
 
-function maybeUpgradeToHero(span, width, height, ratio) {
-  const isSquareBucket = span.col === 1 && span.row === 1;
-  const isLargeEnough = width * height >= HERO_AREA_THRESHOLD;
-  const isNearSquare = ratio >= HERO_RATIO_MIN && ratio <= HERO_RATIO_MAX;
-  if (isSquareBucket && isLargeEnough && isNearSquare) {
-    return { col: 2, row: 2 };
+  if (ratio > 2.5) {
+    if (area >= 400000) return { col: 4, row: 2 };
+    return { col: 3, row: 1 };
   }
-  return span;
+  if (ratio > 1.3) {
+    if (area >= 400000) return { col: 4, row: 2 };
+    if (area >= 100000) return { col: 3, row: 2 };
+    return { col: 2, row: 1 };
+  }
+
+  if (ratio < 0.4) {
+    if (area >= 400000) return { col: 2, row: 4 };
+    return { col: 1, row: 3 };
+  }
+  if (ratio < 0.7) {
+    if (area >= 400000) return { col: 2, row: 4 };
+    if (area >= 100000) return { col: 2, row: 3 };
+    return { col: 1, row: 2 };
+  }
+
+  if (area >= 100000) return { col: 2, row: 2 };
+  return { col: 1, row: 1 };
 }
 
 function toTitleCase(filename) {
@@ -66,8 +73,7 @@ function buildEntry(filename) {
   const buffer = readFileSync(filePath);
   const { width, height } = imageSize(buffer);
   const ratio = width / height;
-  const baseSpan = getGridSpan(width, height, ratio);
-  const gridSpan = maybeUpgradeToHero(baseSpan, width, height, ratio);
+  const gridSpan = getGridSpan(width, height);
 
   return {
     file: filename,

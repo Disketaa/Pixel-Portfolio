@@ -136,8 +136,8 @@
     "height": 1350,
     "ratio": 1.778,
     "gridSpan": {
-      "col": 2,
-      "row": 1
+      "col": 4,
+      "row": 2
     },
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -227,7 +227,7 @@
     "height": 322,
     "ratio": 1.348,
     "gridSpan": {
-      "col": 2,
+      "col": 3,
       "row": 2
     },
     "isAnimated": false,
