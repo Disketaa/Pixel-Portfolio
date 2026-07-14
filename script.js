@@ -11,10 +11,21 @@ let lastFocusedCard = null;
 let currentIndex = -1;
 let worksData = [];
 
-function calcIntScale(nativeW, nativeH, maxW, maxH) {
-  if (nativeW < 1 || nativeH < 1) return 1;
-  const s = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
-  return Math.max(1, s);
+function calcIntDims(nativeW, nativeH, maxW, maxH, threshold) {
+  if (nativeW < 1 || nativeH < 1) return { w: 1, h: 1 };
+  const up = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
+  if (up >= 1) return { w: nativeW * up, h: nativeH * up };
+  if (threshold && nativeW <= maxW * threshold && nativeH <= maxH * threshold) {
+    return { w: nativeW, h: nativeH };
+  }
+  for (let div = 2; div <= 100; div++) {
+    const w = Math.ceil(nativeW / div);
+    const h = Math.ceil(nativeH / div);
+    if (w <= maxW && h <= maxH) return { w, h };
+  }
+  return { w: 1, h: 1 };
+}
+  return { w: 1, h: 1 };
 }
 
 function clampSpan(value) {
@@ -50,9 +61,9 @@ function buildCard(work, index) {
   const content = zoom - pad * 2;
   const maxW = content * work.gridSpan.col;
   const maxH = content * work.gridSpan.row;
-  const scale = calcIntScale(work.width, work.height, maxW, maxH);
-  img.style.width = `${work.width * scale}px`;
-  img.style.height = `${work.height * scale}px`;
+  const scale = calcIntDims(work.width, work.height, maxW, maxH, 1.3);
+  img.style.width = `${scale.w}px`;
+  img.style.height = `${scale.h}px`;
 
   frame.appendChild(img);
 
@@ -84,9 +95,9 @@ function openLightbox(work, triggerEl, index) {
   const availH = window.innerHeight * 0.72 - framePad * 2;
   const panelW = Math.min(window.innerWidth * 0.96, parseFloat(getComputedStyle(root).getPropertyValue('--lightbox-max-width')) || 1400);
   const availW = panelW - framePad * 2;
-  const scale = calcIntScale(work.width, work.height, availW, availH);
-  lightboxImage.style.width = `${work.width * scale}px`;
-  lightboxImage.style.height = `${work.height * scale}px`;
+  const scale = calcIntDims(work.width, work.height, availW, availH);
+  lightboxImage.style.width = `${scale.w}px`;
+  lightboxImage.style.height = `${scale.h}px`;
 
   lightbox.hidden = false;
   document.body.style.overflow = 'hidden';
