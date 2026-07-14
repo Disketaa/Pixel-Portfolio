@@ -1,12 +1,14 @@
+@import url('palette.css');
+
 :root {
-  --ink: #0c0c11;
-  --panel: #16161d;
-  --panel-alt: #1c1c25;
-  --panel-line: #29293a;
-  --paper: #eceae5;
-  --muted: #86848f;
-  --accent: #ffd23f;
-  --accent-pink: #ff5fa8;
+  --ink: var(--back-in-black);
+  --panel: var(--back-in-black);
+  --panel-alt: var(--navy-blazer);
+  --panel-line: var(--darkshore);
+  --paper: var(--floral-scent);
+  --muted: var(--self-powered);
+  --accent: var(--pyrite);
+  --accent-pink: var(--simple-pink);
   --font-display: 'Tinylorder', monospace;
   --font-body: 'Tinylorder', monospace;
   --font-mono: 'Tinylorder', monospace;
@@ -192,7 +194,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(12, 12, 17, 0.92), transparent);
+  background: linear-gradient(to top, color-mix(in srgb, var(--ink) 92%, transparent), transparent);
   color: var(--paper);
   font-size: 12px;
   padding: 16px 10px 6px;
@@ -267,7 +269,7 @@ button {
 .lightbox__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(12, 12, 17, 0.9);
+  background: color-mix(in srgb, var(--ink) 90%, transparent);
   backdrop-filter: blur(3px);
 }
 
