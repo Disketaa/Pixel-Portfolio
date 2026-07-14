@@ -14,8 +14,6 @@ function getGridSpan(width, height) {
   const area = width * height;
   const ratio = width / height;
 
-  if (area < 4096) return { col: 1, row: 1 };
-
   if (ratio > 2.5) {
     if (area >= 400000) return { col: 4, row: 2 };
     return { col: 3, row: 1 };
