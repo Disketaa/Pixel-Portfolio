@@ -24,6 +24,7 @@ function buildCard(work) {
   card.style.setProperty('--row-desktop', work.gridSpan.row);
   card.style.setProperty('--col-mobile', clampSpan(work.gridSpan.col));
   card.style.setProperty('--row-mobile', clampSpan(work.gridSpan.row));
+  card.style.aspectRatio = work.ratio;
 
   const frame = document.createElement('div');
   frame.className = 'card__frame';
