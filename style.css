@@ -12,6 +12,11 @@
   --font-display: 'Tinylorder', monospace;
   --font-body: 'Tinylorder', monospace;
   --font-mono: 'Tinylorder', monospace;
+  --font-size-xs: 16px;
+  --font-size-sm: 24px;
+  --font-size-md: 32px;
+  --font-size-lg: 40px;
+  --font-size-xl: 48px;
 }
 
 @font-face {
@@ -43,26 +48,25 @@ body {
   align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px 20px;
-  padding: 28px 24px 20px;
+  gap: 12px 24px;
+  padding: 40px 32px 32px;
 }
 
 .site-header__brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .site-logo {
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
 }
 
 .site-title {
   font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 400;
+  font-size: var(--font-size-lg);
   letter-spacing: 1px;
   margin: 0;
   color: var(--paper);
@@ -70,7 +74,7 @@ body {
 
 .site-header__meta {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--font-size-sm);
   color: var(--muted);
   margin: 0;
 }
@@ -81,28 +85,28 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 140px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 400px;
   grid-auto-flow: dense;
-  gap: 10px;
-  padding: 20px 10px;
-  max-width: 1400px;
+  gap: 16px;
+  padding: 28px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
 @media (max-width: 900px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 120px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 320px;
   }
 }
 
 @media (max-width: 640px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 44vw;
-    gap: 8px;
-    padding: 12px 6px;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 60vw;
+    gap: 12px;
+    padding: 20px;
   }
 }
 
@@ -160,7 +164,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 12px;
 }
 
 .card__frame img {
@@ -177,16 +181,15 @@ main {
 
 .card__badge {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 10px;
+  right: 10px;
   background: var(--accent-pink);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
+  font-size: var(--font-size-sm);
+  letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 2px 6px;
+  padding: 4px 10px;
 }
 
 .card__label {
@@ -196,8 +199,9 @@ main {
   bottom: 0;
   background: linear-gradient(to top, color-mix(in srgb, var(--ink) 92%, transparent), transparent);
   color: var(--paper);
-  font-size: 12px;
-  padding: 16px 10px 6px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  padding: 20px 12px 8px;
   transform: translateY(100%);
   transition: transform 0.18s ease;
 }
@@ -223,23 +227,23 @@ button {
 }
 
 .empty-state {
-  max-width: 480px;
-  margin: 60px auto;
+  max-width: 640px;
+  margin: 100px auto;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 28px;
 }
 
 .empty-state__title {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: var(--font-size-lg);
   color: var(--paper);
-  margin: 0 0 14px;
+  margin: 0 0 20px;
   line-height: 1.8;
 }
 
 .empty-state__body {
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--font-size-lg);
   line-height: 1.7;
   margin: 0;
 }
@@ -248,7 +252,7 @@ button {
   font-family: var(--font-mono);
   background: var(--panel);
   border: 1px solid var(--panel-line);
-  padding: 1px 5px;
+  padding: 2px 8px;
   color: var(--accent);
 }
 
@@ -259,7 +263,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 40px;
 }
 
 .lightbox[hidden] {
@@ -270,14 +274,14 @@ button {
   position: absolute;
   inset: 0;
   background: color-mix(in srgb, var(--ink) 90%, transparent);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(4px);
 }
 
 .lightbox__panel {
   position: relative;
   z-index: 1;
-  width: min(90vw, 900px);
-  max-height: 88vh;
+  width: min(92vw, 1200px);
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   background: var(--panel);
@@ -286,15 +290,16 @@ button {
 
 .lightbox__close {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
   z-index: 2;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   background: var(--ink);
   color: var(--paper);
   border: 1px solid var(--panel-line);
-  font-size: 20px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xl);
   line-height: 1;
   cursor: pointer;
 }
@@ -305,11 +310,11 @@ button {
 
 .lightbox__frame {
   flex: 1;
-  min-height: 220px;
+  min-height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 28px;
+  padding: 36px;
   background-image: repeating-conic-gradient(var(--dark-moon) 0% 25%, var(--kettle-black) 0% 50%);
   background-size: 20px 20px;
   overflow: hidden;
@@ -317,24 +322,24 @@ button {
 
 .lightbox__image {
   max-width: 100%;
-  max-height: 68vh;
+  max-height: 72vh;
 }
 
 .lightbox__meta {
-  padding: 14px 20px 18px;
+  padding: 20px 28px 24px;
   border-top: 1px solid var(--panel-line);
 }
 
 .lightbox__title {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 4px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  margin: 0 0 6px;
   color: var(--paper);
 }
 
 .lightbox__data {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--font-size-md);
   color: var(--muted);
   margin: 0;
 }

@@ -102,8 +102,3 @@ function render(works) {
 fetch('manifest.json')
   .then((response) => response.json())
   .then(render)
-  .catch(() => {
-    emptyState.hidden = false;
-    grid.hidden = true;
-    workCount.textContent = 'couldn\u2019t load manifest.json';
-  });
