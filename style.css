@@ -28,6 +28,9 @@
   --grid-auto-rows-desktop: 30vw;
   --grid-auto-rows-tablet: 44vw;
   --grid-mobile-auto-rows: 60vw;
+  --grid-columns-desktop: 3;
+  --grid-columns-tablet: 2;
+  --grid-columns-mobile: 1;
   --badge-position: 10px;
   --badge-padding-vertical: 4px;
   --badge-padding-horizontal: 10px;
@@ -53,16 +56,21 @@
   --lightbox-meta-padding: 20px;
   --lightbox-meta-padding-horizontal: 28px;
   --lightbox-meta-padding-bottom: 24px;
-  --lightbox-title-margin-bottom: 6px;
-  --site-header-gap-vertical: 12px;
-  --site-header-gap-horizontal: 24px;
-  --site-header-padding-top: 40px;
-  --site-header-padding-horizontal: 32px;
-  --site-header-padding-bottom: 32px;
-  --site-header-brand-gap: 16px;
-  --site-logo-size: 48px;
-  --focus-outline-width: 2px;
-  --focus-outline-offset: 2px;
+--lightbox-title-margin-bottom: 6px;
+  --site-header-letter-spacing: 1px;
+  --badge-letter-spacing: 1px;
+  --card-transition-opacity-duration: 0.15s;
+  --card-transition-transform-duration: 0.2s;
+  --badge-transition-opacity-duration: 0.18s;
+  --march-animation-duration: 0.6s;
+  --card-hover-scale: 1.04;
+  --lightbox-z-index: 50;
+  --lightbox-close-z-index: 2;
+  --card-background-size: 20px;
+  --accent-line-length: 6px;
+  --accent-line-spacing: 12px;
+  --accent-h-line-thickness: 12px;
+  --accent-v-line-thickness: 2px;
 }
 
 @font-face {
@@ -131,7 +139,7 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--grid-columns-desktop, 3), 1fr);
   grid-auto-rows: var(--grid-auto-rows-desktop, 30vw);
   grid-auto-flow: dense;
   gap: var(--card-gap);
@@ -141,7 +149,7 @@ main {
 
 @media (max-width: 900px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(var(--grid-columns-tablet, 2), 1fr);
     grid-auto-rows: var(--grid-auto-rows-tablet, 44vw);
     gap: var(--card-gap);
   }
@@ -149,7 +157,7 @@ main {
 
 @media (max-width: 640px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(var(--grid-columns-mobile, 1), 1fr);
     grid-auto-rows: var(--grid-mobile-auto-rows, 60vw);
     gap: calc(var(--card-gap) * 0.75);
     padding: var(--grid-mobile-padding, 20px);
@@ -161,7 +169,7 @@ main {
   grid-column: span var(--col-desktop, 1);
   grid-row: span var(--row-desktop, 1);
   background-image: repeating-conic-gradient(var(--dark-moon) 0% 25%, var(--kettle-black) 0% 50%);
-  background-size: 20px 20px;
+  background-size: var(--card-background-size, 20px) var(--card-background-size, 20px);
   border: var(--panel-border-width) solid var(--panel-line);
   overflow: hidden;
   cursor: pointer;
@@ -180,16 +188,16 @@ main {
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.15s ease;
+  transition: opacity var(--badge-transition-opacity-duration) ease;
   background-image:
-    repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px),
-    repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px),
-    repeating-linear-gradient(0deg, var(--accent) 0 6px, transparent 6px 12px),
-    repeating-linear-gradient(0deg, var(--accent) 0 6px, transparent 6px 12px);
+    repeating-linear-gradient(90deg, var(--accent) 0 var(--accent-line-length, 6px), transparent var(--accent-line-length, 6px) var(--accent-line-spacing, 12px)),
+    repeating-linear-gradient(90deg, var(--accent) 0 var(--accent-line-length, 6px), transparent var(--accent-line-length, 6px) var(--accent-line-spacing, 12px)),
+    repeating-linear-gradient(0deg, var(--accent) 0 var(--accent-line-length, 6px), transparent var(--accent-line-length, 6px) var(--accent-line-spacing, 12px)),
+    repeating-linear-gradient(0deg, var(--accent) 0 var(--accent-line-length, 6px), transparent var(--accent-line-length, 6px) var(--accent-line-spacing, 12px));
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
   background-position: 0 0, 0 100%, 0 0, 100% 0;
-  background-size: 12px 2px, 12px 2px, 2px 12px, 2px 12px;
-  animation: march 0.6s linear infinite paused;
+  background-size: var(--accent-h-line-thickness, 12px) var(--accent-v-line-thickness, 2px), var(--accent-h-line-thickness, 12px) var(--accent-v-line-thickness, 2px), var(--accent-v-line-thickness, 2px) var(--accent-h-line-thickness, 12px), var(--accent-v-line-thickness, 2px) var(--accent-h-line-thickness, 12px);
+  animation: march var(--march-animation-duration) linear infinite paused;
 }
 
 .card:hover::after,
@@ -217,12 +225,12 @@ main {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: transform 0.2s ease;
+  transition: transform var(--card-transition-transform-duration) ease;
 }
 
 .card:hover .card__frame img,
 .card:focus-visible .card__frame img {
-  transform: scale(1.04);
+  transform: scale(var(--card-hover-scale));
 }
 
 .card__badge {
@@ -249,7 +257,7 @@ main {
   font-size: var(--font-size-md);
   padding: var(--label-padding-top, 20px) var(--label-padding-sides, 12px) var(--label-padding-bottom, 8px);
   transform: translateY(100%);
-  transition: transform 0.18s ease;
+  transition: transform var(--badge-transition-opacity-duration) ease;
 }
 
 .card:hover .card__label,
