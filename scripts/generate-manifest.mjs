@@ -20,21 +20,25 @@ function getGridSpan(width, height) {
     return { col: 4, row: 1 };
   }
   if (ratio > 1.2) {
+    if (area >= 1000000) return { col: 4, row: 4 };
     if (area >= 400000) return { col: 4, row: 2 };
     if (area >= 50000) return { col: 3, row: 2 };
     return { col: 2, row: 1 };
   }
 
   if (ratio < 0.4) {
+    if (area >= 1000000) return { col: 4, row: 4 };
     if (area >= 50000) return { col: 2, row: 4 };
     return { col: 1, row: 3 };
   }
   if (ratio < 0.85) {
+    if (area >= 1000000) return { col: 4, row: 4 };
     if (area >= 400000) return { col: 2, row: 4 };
     if (area >= 50000) return { col: 2, row: 3 };
     return { col: 1, row: 2 };
   }
 
+  if (area >= 1000000) return { col: 4, row: 4 };
   if (area >= 50000) return { col: 2, row: 2 };
   return { col: 1, row: 1 };
 }
