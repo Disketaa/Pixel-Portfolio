@@ -11,6 +11,12 @@ let lastFocusedCard = null;
 let currentIndex = -1;
 let worksData = [];
 
+function calcIntScale(nativeW, nativeH, maxW, maxH) {
+  if (nativeW < 1 || nativeH < 1) return 1;
+  const s = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
+  return Math.max(1, s);
+}
+
 function clampSpan(value) {
   return Math.min(value, 2);
 }
@@ -37,6 +43,17 @@ function buildCard(work, index) {
   img.alt = work.title;
   img.loading = 'lazy';
   img.decoding = 'async';
+
+  const root = document.documentElement;
+  const zoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom-level')) || 180;
+  const pad = parseFloat(getComputedStyle(root).getPropertyValue('--card-padding')) || 8;
+  const content = zoom - pad * 2;
+  const maxW = content * work.gridSpan.col;
+  const maxH = content * work.gridSpan.row;
+  const scale = calcIntScale(work.width, work.height, maxW, maxH);
+  img.style.width = `${work.width * scale}px`;
+  img.style.height = `${work.height * scale}px`;
+
   frame.appendChild(img);
 
   if (work.isAnimated) {
@@ -61,6 +78,16 @@ function openLightbox(work, triggerEl, index) {
   lightboxImage.alt = work.title;
   lightboxTitle.textContent = work.title;
   lightboxData.textContent = `${work.width}\u00d7${work.height}px \u00b7 ${work.isAnimated ? 'animated' : 'static'} \u00b7 added ${work.addedAt}`;
+
+  const root = document.documentElement;
+  const framePad = parseFloat(getComputedStyle(root).getPropertyValue('--lightbox-frame-padding')) || 24;
+  const availH = window.innerHeight * 0.72 - framePad * 2;
+  const panelW = Math.min(window.innerWidth * 0.96, parseFloat(getComputedStyle(root).getPropertyValue('--lightbox-max-width')) || 1400);
+  const availW = panelW - framePad * 2;
+  const scale = calcIntScale(work.width, work.height, availW, availH);
+  lightboxImage.style.width = `${work.width * scale}px`;
+  lightboxImage.style.height = `${work.height * scale}px`;
+
   lightbox.hidden = false;
   document.body.style.overflow = 'hidden';
   lightboxClose.focus();

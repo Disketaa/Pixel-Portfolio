@@ -236,9 +236,7 @@ main {
 
 .card__frame img {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  margin: auto;
 }
 
 .card__badge {
@@ -379,9 +377,8 @@ button {
 }
 
 .lightbox__image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: block;
+  margin: auto;
 }
 
 .lightbox__meta {
