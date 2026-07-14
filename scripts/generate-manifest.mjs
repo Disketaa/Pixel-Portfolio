@@ -1,33 +1,29 @@
-import { readdirSync, statSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { execSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-import zlib from 'node:zlib';
-import { imageSize } from 'image-size';
+import {
+  readdirSync,
+  statSync,
+  readFileSync,
+  writeFileSync,
+  existsSync,
+} from "node:fs";
+import { execSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+import zlib from "node:zlib";
+import { imageSize } from "image-size";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
-const WORKS_DIR = path.join(ROOT, 'works');
-const MANIFEST_PATH = path.join(ROOT, 'manifest.json');
-const ALLOWED_EXT = new Set(['.png', '.gif']);
+const ROOT = path.resolve(__dirname, "..");
+const WORKS_DIR = path.join(ROOT, "works");
+const MANIFEST_PATH = path.join(ROOT, "manifest.json");
+const ALLOWED_EXT = new Set([".png", ".gif"]);
 
-function buildEntry(filename) {
-  const filePath = path.join(WORKS_DIR, filename);
-  const ext = path.extname(filename).toLowerCase();
-  const buffer = readFileSync(filePath);
-  const { width, height } = imageSize(buffer);
-  const isAnimated = ext === '.gif';
-  const hasAlpha = isAnimated ? false : hasTransparentPixels(buffer, width, height);
-
-  return {
-    file: filename,
-    width,
-    height,
-    ratio: Number((width / height).toFixed(3)),
-    hasAlpha,
-    isAnimated,
-    addedAt: getGitAddedDate(filePath),
-  };
+function toTitleCase(filename) {
+  return path
+    .basename(filename, path.extname(filename))
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function getGitAddedDate(filePath) {
@@ -35,11 +31,11 @@ function getGitAddedDate(filePath) {
     const relPath = path.relative(ROOT, filePath);
     const output = execSync(
       `git log --diff-filter=A --follow --format=%aI -- "${relPath}"`,
-      { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] }
+      { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"] },
     )
       .toString()
       .trim()
-      .split('\n')
+      .split("\n")
       .filter(Boolean);
     if (output.length > 0) {
       return output[output.length - 1].slice(0, 10);
@@ -55,7 +51,13 @@ function hasTransparentPixels(buffer, width, height) {
   if (colorType !== 6 && colorType !== 4 && colorType !== 3) return false;
   if (colorType === 3) {
     for (let i = 8; i < buffer.length - 11; i++) {
-      if (buffer[i] === 116 && buffer[i+1] === 82 && buffer[i+2] === 78 && buffer[i+3] === 83) return true;
+      if (
+        buffer[i] === 116 &&
+        buffer[i + 1] === 82 &&
+        buffer[i + 2] === 78 &&
+        buffer[i + 3] === 83
+      )
+        return true;
     }
     return false;
   }
@@ -64,17 +66,21 @@ function hasTransparentPixels(buffer, width, height) {
   let pos = 8;
   while (pos < buffer.length - 12) {
     const len = buffer.readUInt32BE(pos);
-    const type = buffer.toString('ascii', pos + 4, pos + 8);
-    if (type === 'IDAT') {
+    const type = buffer.toString("ascii", pos + 4, pos + 8);
+    if (type === "IDAT") {
       data = Buffer.concat([data, buffer.subarray(pos + 8, pos + 8 + len)]);
     }
-    if (type === 'IEND') break;
+    if (type === "IEND") break;
     pos += 12 + len;
   }
   if (data.length === 0) return false;
 
   let raw;
-  try { raw = zlib.inflateSync(data); } catch { return false; }
+  try {
+    raw = zlib.inflateSync(data);
+  } catch {
+    return false;
+  }
 
   const bpp = colorType === 6 ? 4 : 2;
   const sl = width * bpp + 1;
@@ -96,16 +102,16 @@ function hasTransparentPixels(buffer, width, height) {
 
       let a;
       if (filter === 0) a = rawA;
-      else if (filter === 1) a = (rawA + left) & 0xFF;
-      else if (filter === 2) a = (rawA + up) & 0xFF;
-      else if (filter === 3) a = (rawA + ((left + up) >> 1)) & 0xFF;
+      else if (filter === 1) a = (rawA + left) & 0xff;
+      else if (filter === 2) a = (rawA + up) & 0xff;
+      else if (filter === 3) a = (rawA + ((left + up) >> 1)) & 0xff;
       else {
         const p = left + up - upLeft;
         const pa = Math.abs(p - left);
         const pb = Math.abs(p - up);
         const pc = Math.abs(p - upLeft);
-        const pr = (pa <= pb && pa <= pc) ? left : (pb <= pc ? up : upLeft);
-        a = (rawA + pr) & 0xFF;
+        const pr = pa <= pb && pa <= pc ? left : pb <= pc ? up : upLeft;
+        a = (rawA + pr) & 0xff;
       }
 
       curr[x] = a;
@@ -126,8 +132,10 @@ function buildEntry(filename) {
   const ext = path.extname(filename).toLowerCase();
   const buffer = readFileSync(filePath);
   const { width, height } = imageSize(buffer);
-  const isAnimated = ext === '.gif';
-  const hasAlpha = isAnimated ? false : hasTransparentPixels(buffer, width, height);
+  const isAnimated = ext === ".gif";
+  const hasAlpha = isAnimated
+    ? false
+    : hasTransparentPixels(buffer, width, height);
 
   return {
     file: filename,
@@ -158,9 +166,9 @@ function main() {
     return a.file.localeCompare(b.file);
   });
 
-  const nextContent = JSON.stringify(entries, null, 2) + '\n';
+  const nextContent = JSON.stringify(entries, null, 2) + "\n";
   const prevContent = existsSync(MANIFEST_PATH)
-    ? readFileSync(MANIFEST_PATH, 'utf8')
+    ? readFileSync(MANIFEST_PATH, "utf8")
     : null;
 
   if (prevContent === nextContent) {
@@ -168,7 +176,7 @@ function main() {
     return;
   }
 
-  writeFileSync(MANIFEST_PATH, nextContent, 'utf8');
+  writeFileSync(MANIFEST_PATH, nextContent, "utf8");
   console.log(`manifest.json updated: ${entries.length} works`);
 }
 

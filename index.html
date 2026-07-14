@@ -1,218 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disketaa</title>
-<meta name="description" content="A pixel art portfolio, laid out automatically from whatever lands in /works.">
-<link rel="icon" href="icon.png?">
-<link rel="stylesheet" href="style.css">
-<script id="manifest-data" type="application/json">[
-  {
-    "file": "Bullet-Slot.png",
-    "width": 4,
-    "height": 7,
-    "ratio": 0.571,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Bunny.png",
-    "width": 352,
-    "height": 224,
-    "ratio": 1.571,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Health-Current.png",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Health-Empty.png",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Health-Filled.png",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Horse.png",
-    "width": 512,
-    "height": 128,
-    "ratio": 4,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Icon-Cooldown.png",
-    "width": 5,
-    "height": 5,
-    "ratio": 1,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Icon-Mouse-Left.png",
-    "width": 4,
-    "height": 5,
-    "ratio": 0.8,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Icon-Mouse-Right.png",
-    "width": 4,
-    "height": 5,
-    "ratio": 0.8,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Icon-Range.png",
-    "width": 5,
-    "height": 5,
-    "ratio": 1,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Mockup.png",
-    "width": 2400,
-    "height": 1350,
-    "ratio": 1.778,
-    "hasAlpha": false,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Revolver.png",
-    "width": 16,
-    "height": 16,
-    "ratio": 1,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Skill-Move.png",
-    "width": 16,
-    "height": 16,
-    "ratio": 1,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Skill-Reload.png",
-    "width": 16,
-    "height": 16,
-    "ratio": 1,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Skill-Roll.png",
-    "width": 16,
-    "height": 16,
-    "ratio": 1,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Tooltip-1-Alt.png",
-    "width": 354,
-    "height": 329,
-    "ratio": 1.076,
-    "hasAlpha": false,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Tooltip-1.png",
-    "width": 546,
-    "height": 436,
-    "ratio": 1.252,
-    "hasAlpha": false,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Tooltip-2.png",
-    "width": 434,
-    "height": 322,
-    "ratio": 1.348,
-    "hasAlpha": false,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Tooltip-3.png",
-    "width": 797,
-    "height": 763,
-    "ratio": 1.045,
-    "hasAlpha": false,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  }
-]</script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disketaa</title>
+    <meta
+      name="description"
+      content="A pixel art portfolio, laid out automatically from whatever lands in /works."
+    />
+    <link rel="icon" href="icon.png?" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__brand">
+        <img
+          class="site-logo"
+          src="icon.png"
+          alt="Disketaa"
+          width="32"
+          height="32"
+        />
+        <h1 class="site-title">Disketaa's Art</h1>
+      </div>
+      <p class="site-header__meta" id="work-count">loading works&hellip;</p>
+    </header>
 
-<header class="site-header">
-  <div class="site-header__brand">
-    <img class="site-logo" src="icon.png" alt="Disketaa" width="32" height="32">
-    <h1 class="site-title">Disketaa's Art</h1>
-  </div>
-  <p class="site-header__meta" id="work-count">loading works&hellip;</p>
-</header>
+    <main>
+      <section class="grid" id="grid" aria-live="polite"></section>
 
-<main>
-  <section class="grid" id="grid" aria-live="polite"></section>
+      <div class="empty-state" id="empty-state" hidden>
+        <p class="empty-state__title">Nothing on the wall yet.</p>
+        <p class="empty-state__body">
+          Drop a PNG or GIF into <code>/works</code> and push to
+          <code>main</code>. The layout builds itself.
+        </p>
+      </div>
+    </main>
 
-  <div class="empty-state" id="empty-state" hidden>
-    <p class="empty-state__title">Nothing on the wall yet.</p>
-    <p class="empty-state__body">Drop a PNG or GIF into <code>/works</code> and push to <code>main</code>. The layout builds itself.</p>
-  </div>
-</main>
-
-<div class="lightbox" id="lightbox" hidden>
-  <div class="lightbox__backdrop" data-close></div>
-  <div class="lightbox__panel" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lightbox-close" aria-label="Close">&times;</button>
-    <div class="lightbox__frame">
-      <canvas class="lightbox__image" id="lightbox-image"></canvas>
+    <div class="lightbox" id="lightbox" hidden>
+      <div class="lightbox__backdrop" data-close></div>
+      <div class="lightbox__panel" role="dialog" aria-modal="true">
+        <button class="lightbox__close" id="lightbox-close" aria-label="Close">
+          &times;
+        </button>
+        <div class="lightbox__frame">
+          <canvas class="lightbox__image" id="lightbox-image"></canvas>
+        </div>
+        <div class="lightbox__meta">
+          <p class="lightbox__data" id="lightbox-data"></p>
+        </div>
+      </div>
     </div>
-    <div class="lightbox__meta">
-      <p class="lightbox__data" id="lightbox-data"></p>
-    </div>
-  </div>
-</div>
 
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

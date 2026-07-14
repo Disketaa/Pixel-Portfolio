@@ -1,10 +1,10 @@
-const grid = document.getElementById('grid');
-const emptyState = document.getElementById('empty-state');
-const workCount = document.getElementById('work-count');
-const lightbox = document.getElementById('lightbox');
-const lightboxCanvas = document.getElementById('lightbox-image');
-const lightboxData = document.getElementById('lightbox-data');
-const lightboxClose = document.getElementById('lightbox-close');
+const grid = document.getElementById("grid");
+const emptyState = document.getElementById("empty-state");
+const workCount = document.getElementById("work-count");
+const lightbox = document.getElementById("lightbox");
+const lightboxCanvas = document.getElementById("lightbox-image");
+const lightboxData = document.getElementById("lightbox-data");
+const lightboxClose = document.getElementById("lightbox-close");
 
 let lastFocusedCard = null;
 let currentIndex = -1;
@@ -25,35 +25,35 @@ let dragStartX = 0;
 let dragStartY = 0;
 
 function buildCard(work, index) {
-  const card = document.createElement('article');
-  card.className = 'card';
+  const card = document.createElement("article");
+  card.className = "card";
   card.tabIndex = 0;
-  card.setAttribute('role', 'button');
-  card.setAttribute('aria-label', `Open ${work.file}`);
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", `Open ${work.file}`);
   card.dataset.index = index;
 
   if (work.isAnimated) {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = `works/${work.file}`;
     img.alt = work.file;
-    img.loading = 'lazy';
-    img.decoding = 'async';
+    img.loading = "lazy";
+    img.decoding = "async";
     card.appendChild(img);
-    const badge = document.createElement('span');
-    badge.className = 'card__badge';
-    badge.textContent = 'gif';
+    const badge = document.createElement("span");
+    badge.className = "card__badge";
+    badge.textContent = "gif";
     card.appendChild(badge);
   } else {
-    const canvas = document.createElement('canvas');
-    canvas.className = 'card__canvas';
+    const canvas = document.createElement("canvas");
+    canvas.className = "card__canvas";
     canvas.width = work.width;
     canvas.height = work.height;
-    canvas.setAttribute('role', 'img');
-    canvas.setAttribute('aria-label', work.file);
+    canvas.setAttribute("role", "img");
+    canvas.setAttribute("aria-label", work.file);
     const img = new Image();
     img.src = `works/${work.file}`;
     img.onload = () => {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, 0, 0);
     };
@@ -65,7 +65,7 @@ function buildCard(work, index) {
 
 function drawLightboxImage() {
   if (!loadedLightboxImg) return;
-  const frame = document.querySelector('.lightbox__frame');
+  const frame = document.querySelector(".lightbox__frame");
   const cs = getComputedStyle(frame);
   const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
   const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
@@ -80,11 +80,15 @@ function drawLightboxImage() {
 
   let dw, dh, ox, oy;
   if (imgAspect > conAspect) {
-    dw = cw; dh = cw / imgAspect;
-    ox = 0; oy = (ch - dh) / 2;
+    dw = cw;
+    dh = cw / imgAspect;
+    ox = 0;
+    oy = (ch - dh) / 2;
   } else {
-    dh = ch; dw = ch * imgAspect;
-    ox = (cw - dw) / 2; oy = 0;
+    dh = ch;
+    dw = ch * imgAspect;
+    ox = (cw - dw) / 2;
+    oy = 0;
   }
 
   const zoomedDw = dw * zoomLevel;
@@ -95,7 +99,7 @@ function drawLightboxImage() {
 
   lightboxCanvas.width = cw;
   lightboxCanvas.height = ch;
-  const ctx = lightboxCanvas.getContext('2d');
+  const ctx = lightboxCanvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, cw, ch);
   ctx.drawImage(loadedLightboxImg, drawX, drawY, zoomedDw, zoomedDh);
@@ -127,7 +131,7 @@ function animatePan() {
 }
 
 function setZoom(level, anchorPx, anchorPy) {
-  const frame = document.querySelector('.lightbox__frame');
+  const frame = document.querySelector(".lightbox__frame");
   const cs = getComputedStyle(frame);
   const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
   const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
@@ -141,11 +145,15 @@ function setZoom(level, anchorPx, anchorPy) {
 
   let dw, dh, ox, oy;
   if (imgAspect > conAspect) {
-    dw = cw; dh = cw / imgAspect;
-    ox = 0; oy = (ch - dh) / 2;
+    dw = cw;
+    dh = cw / imgAspect;
+    ox = 0;
+    oy = (ch - dh) / 2;
   } else {
-    dh = ch; dw = ch * imgAspect;
-    ox = (cw - dw) / 2; oy = 0;
+    dh = ch;
+    dw = ch * imgAspect;
+    ox = (cw - dw) / 2;
+    oy = 0;
   }
 
   const oldZoom = zoomLevel;
@@ -201,22 +209,22 @@ function resetZoomImmediate() {
 function openLightbox(work, triggerEl, index) {
   currentIndex = index;
   if (triggerEl) lastFocusedCard = triggerEl;
-  lightboxData.textContent = `${work.width}\u00d7${work.height}px \u00b7 ${work.isAnimated ? 'animated' : 'static'} \u00b7 added ${work.addedAt}`;
+  lightboxData.textContent = `${work.width}\u00d7${work.height}px \u00b7 ${work.isAnimated ? "animated" : "static"} \u00b7 added ${work.addedAt}`;
 
   const img = new Image();
   img.src = `works/${work.file}`;
-img.onload = () => {
-     if (currentIndex !== index) return;
-     loadedLightboxImg = img;
-     resetZoomImmediate();
-     drawLightboxImage();
+  img.onload = () => {
+    if (currentIndex !== index) return;
+    loadedLightboxImg = img;
+    resetZoomImmediate();
+    drawLightboxImage();
     if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
     lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
-    lightboxResizeObserver.observe(document.querySelector('.lightbox__frame'));
+    lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));
   };
 
   lightbox.hidden = false;
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = "hidden";
   lightboxClose.focus();
 }
 
@@ -232,14 +240,14 @@ function handleCardActivation(card) {
   }
 }
 
-grid.addEventListener('click', (event) => {
-  const card = event.target.closest('.card');
+grid.addEventListener("click", (event) => {
+  const card = event.target.closest(".card");
   if (card) handleCardActivation(card);
 });
 
-grid.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    const card = event.target.closest('.card');
+grid.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    const card = event.target.closest(".card");
     if (card) {
       event.preventDefault();
       handleCardActivation(card);
@@ -260,47 +268,51 @@ function closeLightbox() {
   targetPanY = 0;
   isAnimating = false;
   isDragging = false;
-  const ctx = lightboxCanvas.getContext('2d');
-  ctx.clearRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
-  document.body.style.overflow = '';
+  document.body.style.overflow = "";
   if (lastFocusedCard) lastFocusedCard.focus();
 }
 
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.querySelector('.lightbox__backdrop').addEventListener('click', closeLightbox);
-document.addEventListener('keydown', (event) => {
+lightboxClose.addEventListener("click", closeLightbox);
+lightbox
+  .querySelector(".lightbox__backdrop")
+  .addEventListener("click", closeLightbox);
+document.addEventListener("keydown", (event) => {
   if (lightbox.hidden) return;
-  if (event.key === 'Escape') closeLightbox();
-  if (event.key === 'ArrowLeft') navigateLightbox(-1);
-  if (event.key === 'ArrowRight') navigateLightbox(1);
+  if (event.key === "Escape") closeLightbox();
+  if (event.key === "ArrowLeft") navigateLightbox(-1);
+  if (event.key === "ArrowRight") navigateLightbox(1);
 });
 
-const frame = document.querySelector('.lightbox__frame');
+const frame = document.querySelector(".lightbox__frame");
 
-frame.addEventListener('wheel', (event) => {
-  if (!loadedLightboxImg) return;
-  event.preventDefault();
+frame.addEventListener(
+  "wheel",
+  (event) => {
+    if (!loadedLightboxImg) return;
+    event.preventDefault();
 
-  const rect = frame.getBoundingClientRect();
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
+    const rect = frame.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
 
-  const cs = getComputedStyle(frame);
-  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-  const cw = frame.clientWidth - padX;
-  const ch = frame.clientHeight - padY;
+    const cs = getComputedStyle(frame);
+    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    const cw = frame.clientWidth - padX;
+    const ch = frame.clientHeight - padY;
 
-  const normX = Math.max(0, Math.min(1, mouseX / cw));
-  const normY = Math.max(0, Math.min(1, mouseY / ch));
+    const normX = Math.max(0, Math.min(1, mouseX / cw));
+    const normY = Math.max(0, Math.min(1, mouseY / ch));
 
-  const zoomFactor = event.deltaY > 0 ? 0.9 : 1.1;
-  const newTargetZoom = targetZoomLevel * zoomFactor;
+    const zoomFactor = event.deltaY > 0 ? 0.9 : 1.1;
+    const newTargetZoom = targetZoomLevel * zoomFactor;
 
-  setZoom(newTargetZoom, normX, normY);
-}, { passive: false });
+    setZoom(newTargetZoom, normX, normY);
+  },
+  { passive: false },
+);
 
-frame.addEventListener('dblclick', (event) => {
+frame.addEventListener("dblclick", (event) => {
   if (!loadedLightboxImg) return;
 
   if (Math.abs(targetZoomLevel - 1) > 0.001) {
@@ -325,58 +337,66 @@ let initialZoomLevel = null;
 let pinchCenterX = 0;
 let pinchCenterY = 0;
 
-frame.addEventListener('touchstart', (event) => {
-  if (event.touches.length === 2) {
-    event.preventDefault();
-    const touch1 = event.touches[0];
-    const touch2 = event.touches[1];
-    
-    const rect = frame.getBoundingClientRect();
-    const cs = getComputedStyle(frame);
-    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    const cw = frame.clientWidth - padX;
-    const ch = frame.clientHeight - padY;
-    
-    initialPinchDistance = Math.hypot(
-      touch2.clientX - touch1.clientX,
-      touch2.clientY - touch1.clientY
-    );
-    initialZoomLevel = zoomLevel;
-    
-    pinchCenterX = ((touch1.clientX + touch2.clientX) / 2 - rect.left) / cw;
-    pinchCenterY = ((touch1.clientY + touch2.clientY) / 2 - rect.top) / ch;
-    
-    pinchCenterX = Math.max(0, Math.min(1, pinchCenterX));
-    pinchCenterY = Math.max(0, Math.min(1, pinchCenterY));
-  }
-}, { passive: false });
+frame.addEventListener(
+  "touchstart",
+  (event) => {
+    if (event.touches.length === 2) {
+      event.preventDefault();
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
 
-frame.addEventListener('touchmove', (event) => {
-  if (event.touches.length === 2 && initialPinchDistance !== null) {
-    event.preventDefault();
-    const touch1 = event.touches[0];
-    const touch2 = event.touches[1];
-    
-    const currentDistance = Math.hypot(
-      touch2.clientX - touch1.clientX,
-      touch2.clientY - touch1.clientY
-    );
-    
-    const scale = currentDistance / initialPinchDistance;
-    setZoom(initialZoomLevel * scale, pinchCenterX, pinchCenterY);
-  }
-}, { passive: false });
+      const rect = frame.getBoundingClientRect();
+      const cs = getComputedStyle(frame);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      const cw = frame.clientWidth - padX;
+      const ch = frame.clientHeight - padY;
 
-frame.addEventListener('touchend', (event) => {
+      initialPinchDistance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY,
+      );
+      initialZoomLevel = zoomLevel;
+
+      pinchCenterX = ((touch1.clientX + touch2.clientX) / 2 - rect.left) / cw;
+      pinchCenterY = ((touch1.clientY + touch2.clientY) / 2 - rect.top) / ch;
+
+      pinchCenterX = Math.max(0, Math.min(1, pinchCenterX));
+      pinchCenterY = Math.max(0, Math.min(1, pinchCenterY));
+    }
+  },
+  { passive: false },
+);
+
+frame.addEventListener(
+  "touchmove",
+  (event) => {
+    if (event.touches.length === 2 && initialPinchDistance !== null) {
+      event.preventDefault();
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
+
+      const currentDistance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY,
+      );
+
+      const scale = currentDistance / initialPinchDistance;
+      setZoom(initialZoomLevel * scale, pinchCenterX, pinchCenterY);
+    }
+  },
+  { passive: false },
+);
+
+frame.addEventListener("touchend", (event) => {
   if (event.touches.length < 2) {
     initialPinchDistance = null;
     initialZoomLevel = null;
   }
 });
 
-frame.addEventListener('pointerdown', (event) => {
-  if (!loadedLightboxImg || event.pointerType === 'touch') return;
+frame.addEventListener("pointerdown", (event) => {
+  if (!loadedLightboxImg || event.pointerType === "touch") return;
 
   event.preventDefault();
   isDragging = true;
@@ -392,7 +412,7 @@ frame.addEventListener('pointerdown', (event) => {
   }
 });
 
-frame.addEventListener('pointermove', (event) => {
+frame.addEventListener("pointermove", (event) => {
   if (!isDragging) return;
 
   const dx = event.clientX - dragStartX;
@@ -406,19 +426,19 @@ frame.addEventListener('pointermove', (event) => {
   drawLightboxImage();
 });
 
-frame.addEventListener('pointerup', (event) => {
+frame.addEventListener("pointerup", (event) => {
   if (!isDragging) return;
   isDragging = false;
 });
 
-frame.addEventListener('pointerleave', (event) => {
+frame.addEventListener("pointerleave", (event) => {
   if (isDragging) {
     isDragging = false;
   }
 });
 
-document.addEventListener('contextmenu', (event) => {
-  if (event.target.closest('.card') || event.target.closest('.lightbox')) {
+document.addEventListener("contextmenu", (event) => {
+  if (event.target.closest(".card") || event.target.closest(".lightbox")) {
     event.preventDefault();
   }
 });
@@ -428,19 +448,22 @@ const ROW_UNIT = 8;
 
 function layoutCollage() {
   const cs = getComputedStyle(grid);
-  const colWidths = cs.gridTemplateColumns.split(' ').map(parseFloat).filter((n) => !isNaN(n));
+  const colWidths = cs.gridTemplateColumns
+    .split(" ")
+    .map(parseFloat)
+    .filter((n) => !isNaN(n));
   const colWidth = colWidths[0] || 300;
   const gap = parseFloat(cs.columnGap) || 8;
   const pitch = ROW_UNIT + gap;
 
-  grid.querySelectorAll('.card').forEach((card) => {
+  grid.querySelectorAll(".card").forEach((card) => {
     const work = worksData[parseInt(card.dataset.index, 10)];
     if (!work) return;
     const { width: w, height: h } = work;
     let colSpan = Math.round(w / colWidth);
     colSpan = Math.max(1, Math.min(COLS, colSpan));
     const cellWidth = colSpan * colWidth + (colSpan - 1) * gap;
-    const desiredHeight = cellWidth * h / w;
+    const desiredHeight = (cellWidth * h) / w;
     const rowSpan = Math.max(1, Math.round((desiredHeight + gap) / pitch));
     card.style.gridColumn = `span ${colSpan}`;
     card.style.gridRow = `span ${rowSpan}`;
@@ -448,13 +471,15 @@ function layoutCollage() {
 }
 
 function render(works) {
-  const sorted = [...works].sort((a, b) => (b.width * b.height) - (a.width * a.height));
+  const sorted = [...works].sort(
+    (a, b) => b.width * b.height - a.width * b.height,
+  );
   worksData = sorted;
 
   if (!sorted.length) {
     emptyState.hidden = false;
     grid.hidden = true;
-    workCount.textContent = 'no works yet';
+    workCount.textContent = "no works yet";
     return;
   }
 
@@ -464,43 +489,30 @@ function render(works) {
 
   layoutCollage();
 
-  const cards = grid.querySelectorAll('.card');
+  const cards = grid.querySelectorAll(".card");
   cards.forEach((card, i) => {
-    card.style.setProperty('--enter-delay', `${i * 60}ms`);
-    card.classList.add('card-enter');
-
-    const work = worksData[i];
-    const media = card.querySelector('canvas, img');
-    const rect = card.getBoundingClientRect();
-    const mediaRect = media ? media.getBoundingClientRect() : null;
-    console.log(
-      `[${i}] ${work.file}` +
-      ` | size: ${work.width}x${work.height}` +
-      ` | grid: ${card.style.gridColumn} ${card.style.gridRow}` +
-      ` | card box: ${Math.round(rect.width)}x${Math.round(rect.height)}` +
-      ` | media box: ${mediaRect ? Math.round(mediaRect.width) + 'x' + Math.round(mediaRect.height) : 'n/a'}`
-    );
+    card.style.setProperty("--enter-delay", `${i * 60}ms`);
+    card.classList.add("card-enter");
   });
 
-  const label = works.length === 1 ? 'piece' : 'pieces';
+  const label = works.length === 1 ? "piece" : "pieces";
   workCount.textContent = `${works.length} ${label} on the wall`;
 }
 
-function loadManifest() {
-  const inline = document.getElementById('manifest-data');
-  if (inline) {
-    try {
-      render(JSON.parse(inline.textContent));
-    } catch (_) {
-      render([]);
-    }
-  } else {
+async function loadManifest() {
+  try {
+    const res = await fetch("manifest.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const works = await res.json();
+    render(Array.isArray(works) ? works : []);
+  } catch (err) {
+    console.error("Failed to load manifest.json:", err);
     render([]);
   }
 }
 
 loadManifest();
 
-if (typeof ResizeObserver !== 'undefined') {
+if (typeof ResizeObserver !== "undefined") {
   new ResizeObserver(() => layoutCollage()).observe(grid);
 }

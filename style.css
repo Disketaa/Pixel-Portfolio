@@ -3,20 +3,15 @@
 :root {
   --ink: var(--orka-black);
   --panel: var(--american-mahogany);
-  --panel-line: transparent;
   --paper: var(--white-raisin);
   --muted: var(--moroccan-dusk);
   --accent: var(--maple-syrup-brown);
-  --accent-pink: var(--crab-bisque);
-  --font-display: "Tinylorder", monospace;
-  --font-body: "Tinylorder", monospace;
-  --font-mono: "Tinylorder", monospace;
+  --font: "Tinylorder", monospace;
   --font-size-xs: 14px;
   --font-size-sm: 18px;
   --font-size-md: 24px;
   --font-size-lg: 32px;
   --font-size-xl: 40px;
-  --panel-border-width: 0;
   --card-padding: 8px;
   --card-gap: 8px;
   --main-padding-vertical: 6px;
@@ -24,12 +19,10 @@
   --main-padding-bottom: 40px;
   --grid-padding: 28px;
   --grid-mobile-padding: 16px;
-  --zoom-level: 64px;
   --card-background-size: 20px;
   --badge-position: 6px;
   --badge-padding-vertical: 2px;
   --badge-padding-horizontal: 8px;
-
   --lightbox-padding: 20px;
   --lightbox-width: 96vw;
   --lightbox-max-width: 1400px;
@@ -41,7 +34,6 @@
   --lightbox-meta-padding: 16px 28px 20px;
   --lightbox-z-index: 50;
   --lightbox-close-z-index: 2;
-  --site-header-letter-spacing: 0;
   --site-header-padding-top: 32px;
   --site-header-padding-horizontal: 32px;
   --site-header-padding-bottom: 24px;
@@ -87,7 +79,7 @@ body {
 body {
   background: var(--ink);
   color: var(--paper);
-  font-family: var(--font-body);
+  font-family: var(--font);
   min-height: 100vh;
 }
 
@@ -148,16 +140,15 @@ canvas {
 }
 
 .site-title {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: var(--font-size-lg);
   margin: 0;
   color: var(--paper);
-  letter-spacing: var(--site-header-letter-spacing);
   font-weight: normal;
 }
 
 .site-header__meta {
-  font-family: var(--font-mono);
+  font-family: var(--font);
   font-size: var(--font-size-sm);
   color: var(--muted);
   margin: 0;
@@ -317,7 +308,7 @@ main {
   right: var(--badge-position);
   background: var(--accent);
   color: var(--ink);
-  font-family: var(--font-mono);
+  font-family: var(--font);
   font-size: var(--font-size-xs);
   text-transform: uppercase;
   padding: var(--badge-padding-vertical) var(--badge-padding-horizontal);
@@ -341,7 +332,7 @@ button {
 }
 
 .empty-state__title {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: var(--font-size-lg);
   color: var(--muted);
   margin: 0 0 var(--empty-state-title-margin-bottom);
@@ -356,7 +347,7 @@ button {
 }
 
 .empty-state code {
-  font-family: var(--font-mono);
+  font-family: var(--font);
   background: var(--panel);
   padding: var(--code-padding-vertical) var(--code-padding-horizontal);
   color: var(--accent);
@@ -402,7 +393,7 @@ button {
   background: none;
   color: var(--muted);
   border: none;
-  font-family: var(--font-mono);
+  font-family: var(--font);
   font-size: var(--font-size-xl);
   line-height: 1;
   display: flex;
@@ -443,7 +434,7 @@ button {
 }
 
 .lightbox__data {
-  font-family: var(--font-mono);
+  font-family: var(--font);
   font-size: var(--font-size-sm);
   color: var(--muted);
   margin: 0;
