@@ -11,24 +11,20 @@ let lastFocusedCard = null;
 let currentIndex = -1;
 let worksData = [];
 
-function calcIntDims(nativeW, nativeH, maxW, maxH) {
-  if (nativeW < 1 || nativeH < 1) return null;
+function calcIntDims(nativeW, nativeH, maxW, maxH, cover) {
+  if (nativeW < 1 || nativeH < 1) return { w: 1, h: 1 };
+  if (cover) {
+    const s = Math.max(Math.ceil(maxW / nativeW), Math.ceil(maxH / nativeH));
+    return { w: nativeW * s, h: nativeH * s };
+  }
   const up = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
   if (up >= 1) return { w: nativeW * up, h: nativeH * up };
-  const maxOverflow = 1.4;
-  if (nativeW <= maxW * maxOverflow && nativeH <= maxH * maxOverflow) {
-    return { w: nativeW, h: nativeH };
-  }
   for (let div = 2; div <= 100; div++) {
     const w = Math.ceil(nativeW / div);
     const h = Math.ceil(nativeH / div);
-    if (w <= maxW && h <= maxH) {
-      const fill = Math.min(w / maxW, h / maxH);
-      if (fill >= 0.8) return { w, h };
-      break;
-    }
+    if (w <= maxW && h <= maxH) return { w, h };
   }
-  return null;
+  return { w: 1, h: 1 };
 }
 
 function clampSpan(value) {
@@ -57,6 +53,16 @@ function buildCard(work, index) {
   img.alt = work.title;
   img.loading = 'lazy';
   img.decoding = 'async';
+
+  const root = document.documentElement;
+  const zoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom-level')) || 180;
+  const pad = parseFloat(getComputedStyle(root).getPropertyValue('--card-padding')) || 8;
+  const content = zoom - pad * 2;
+  const maxW = content * work.gridSpan.col;
+  const maxH = content * work.gridSpan.row;
+  const dims = calcIntDims(work.width, work.height, maxW, maxH, !work.hasAlpha);
+  img.style.width = `${dims.w}px`;
+  img.style.height = `${dims.h}px`;
 
   frame.appendChild(img);
 
@@ -89,13 +95,8 @@ function openLightbox(work, triggerEl, index) {
   const panelW = Math.min(window.innerWidth * 0.96, parseFloat(getComputedStyle(root).getPropertyValue('--lightbox-max-width')) || 1400);
   const availW = panelW - framePad * 2;
   const dims = calcIntDims(work.width, work.height, availW, availH);
-  if (dims) {
-    lightboxImage.style.width = `${dims.w}px`;
-    lightboxImage.style.height = `${dims.h}px`;
-  } else {
-    lightboxImage.style.width = '';
-    lightboxImage.style.height = '';
-  }
+  lightboxImage.style.width = `${dims.w}px`;
+  lightboxImage.style.height = `${dims.h}px`;
 
   lightbox.hidden = false;
   document.body.style.overflow = 'hidden';

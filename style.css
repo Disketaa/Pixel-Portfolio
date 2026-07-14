@@ -182,7 +182,6 @@ main {
   grid-row: span var(--row-desktop, 1);
   user-select: none;
   -webkit-user-select: none;
-  overflow: hidden;
   cursor: pointer;
   display: flex;
   padding: var(--card-padding);
@@ -232,13 +231,11 @@ main {
   align-items: center;
   justify-content: center;
   min-height: 0;
+  overflow: hidden;
 }
 
 .card__frame img {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .card__badge {
