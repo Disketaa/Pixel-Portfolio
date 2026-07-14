@@ -216,8 +216,8 @@
     "height": 329,
     "ratio": 1.076,
     "gridSpan": {
-      "col": 8,
-      "row": 7
+      "col": 6,
+      "row": 6
     },
     "hasAlpha": false,
     "isAnimated": false,
@@ -230,8 +230,8 @@
     "height": 436,
     "ratio": 1.252,
     "gridSpan": {
-      "col": 10,
-      "row": 8
+      "col": 9,
+      "row": 7
     },
     "hasAlpha": false,
     "isAnimated": false,
@@ -244,8 +244,8 @@
     "height": 322,
     "ratio": 1.348,
     "gridSpan": {
-      "col": 8,
-      "row": 6
+      "col": 7,
+      "row": 5
     },
     "hasAlpha": false,
     "isAnimated": false,
@@ -258,8 +258,8 @@
     "height": 763,
     "ratio": 1.045,
     "gridSpan": {
-      "col": 9,
-      "row": 9
+      "col": 8,
+      "row": 8
     },
     "hasAlpha": false,
     "isAnimated": false,

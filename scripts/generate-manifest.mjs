@@ -19,7 +19,8 @@ function getGridSpan(width, height) {
 
   const targetCells =
     area >= 1000000 ? 144 :
-    area >= 200000 ? 80 :
+    area >= 200000 ? 63 :
+    area >= 100000 ? 36 :
     area >= 50000 ? 54 :
     24;
 
