@@ -76,15 +76,6 @@ function buildCard(work, index) {
   img.loading = 'lazy';
   img.decoding = 'async';
 
-  const root = document.documentElement;
-  const zoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom-level')) || 64;
-  const pad = parseFloat(getComputedStyle(root).getPropertyValue('--card-padding')) || 8;
-  const maxW = zoom * work.gridSpan.col - pad * 2;
-  const maxH = zoom * work.gridSpan.row - pad * 2;
-  const dims = calcIntDims(work.width, work.height, maxW, maxH);
-  img.style.width = `${dims.w}px`;
-  img.style.height = `${dims.h}px`;
-
   frame.appendChild(img);
 
   if (work.isAnimated) {
@@ -100,6 +91,25 @@ function buildCard(work, index) {
 
   card.append(frame, label);
   return card;
+}
+
+function sizeCard(card) {
+  const idx = parseInt(card.dataset.index, 10);
+  const work = worksData[idx];
+  if (!work) return;
+  const frame = card.querySelector('.card__frame');
+  const img = card.querySelector('img');
+  if (!frame || !img) return;
+  const maxW = frame.clientWidth;
+  const maxH = frame.clientHeight;
+  if (maxW < 1 || maxH < 1) return;
+  const dims = calcIntDims(work.width, work.height, maxW, maxH);
+  img.style.width = `${dims.w}px`;
+  img.style.height = `${dims.h}px`;
+}
+
+function sizeAllCards() {
+  document.querySelectorAll('.card').forEach(sizeCard);
 }
 
 function openLightbox(work, triggerEl, index) {
@@ -181,6 +191,7 @@ function render(works) {
   const fragment = document.createDocumentFragment();
   works.forEach((work, index) => fragment.appendChild(buildCard(work, index)));
   grid.appendChild(fragment);
+  sizeAllCards();
 
   const label = works.length === 1 ? 'piece' : 'pieces';
   workCount.textContent = `${works.length} ${label} on the wall`;
@@ -198,5 +209,11 @@ function loadManifest() {
     render([]);
   }
 }
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(sizeAllCards, 120);
+});
 
 loadManifest();
