@@ -9,7 +9,6 @@ const lightboxClose = document.getElementById('lightbox-close');
 
 let lastFocusedCard = null;
 let worksData = [];
-let zoom = 200;
 
 function clampSpan(value) {
   return Math.min(value, 2);
@@ -100,15 +99,6 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
 });
 
-document.addEventListener('wheel', (event) => {
-  if (event.ctrlKey) {
-    event.preventDefault();
-    zoom += event.deltaY * -0.5;
-    zoom = Math.min(Math.max(120, zoom), 600);
-    document.documentElement.style.setProperty('--zoom-level', `${zoom}px`);
-  }
-}, { passive: false });
-
 function render(works) {
   worksData = works;
   if (!works.length) {
@@ -126,6 +116,22 @@ function render(works) {
   workCount.textContent = `${works.length} ${label} on the wall`;
 }
 
-fetch('manifest.json')
-  .then((response) => response.json())
-  .then(render);
+function loadManifest() {
+  fetch('manifest.json')
+    .then((response) => response.json())
+    .then(render)
+    .catch(() => {
+      const inline = document.getElementById('manifest-data');
+      if (inline) {
+        try {
+          render(JSON.parse(inline.textContent));
+        } catch (_) {
+          render([]);
+        }
+      } else {
+        render([]);
+      }
+    });
+}
+
+loadManifest();
