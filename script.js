@@ -156,9 +156,35 @@ document.addEventListener('contextmenu', (event) => {
   }
 });
 
+const COLS = 4;
+const ROW_UNIT = 8;
+
+function layoutCollage() {
+  const cs = getComputedStyle(grid);
+  const colWidths = cs.gridTemplateColumns.split(' ').map(parseFloat).filter((n) => !isNaN(n));
+  const colWidth = colWidths[0] || 300;
+  const gap = parseFloat(cs.columnGap) || 8;
+  const pitch = ROW_UNIT + gap;
+
+  grid.querySelectorAll('.card').forEach((card) => {
+    const work = worksData[parseInt(card.dataset.index, 10)];
+    if (!work) return;
+    const { width: w, height: h } = work;
+    let colSpan = Math.round(w / colWidth);
+    colSpan = Math.max(1, Math.min(COLS, colSpan));
+    const cellWidth = colSpan * colWidth + (colSpan - 1) * gap;
+    const desiredHeight = cellWidth * h / w;
+    const rowSpan = Math.max(1, Math.round((desiredHeight + gap) / pitch));
+    card.style.gridColumn = `span ${colSpan}`;
+    card.style.gridRow = `span ${rowSpan}`;
+  });
+}
+
 function render(works) {
-  worksData = works;
-  if (!works.length) {
+  const sorted = [...works].sort((a, b) => (b.width * b.height) - (a.width * a.height));
+  worksData = sorted;
+
+  if (!sorted.length) {
     emptyState.hidden = false;
     grid.hidden = true;
     workCount.textContent = 'no works yet';
@@ -166,13 +192,27 @@ function render(works) {
   }
 
   const fragment = document.createDocumentFragment();
-  works.forEach((work, index) => fragment.appendChild(buildCard(work, index)));
+  sorted.forEach((work, index) => fragment.appendChild(buildCard(work, index)));
   grid.appendChild(fragment);
+
+  layoutCollage();
 
   const cards = grid.querySelectorAll('.card');
   cards.forEach((card, i) => {
     card.style.setProperty('--enter-delay', `${i * 60}ms`);
     card.classList.add('card-enter');
+
+    const work = worksData[i];
+    const media = card.querySelector('canvas, img');
+    const rect = card.getBoundingClientRect();
+    const mediaRect = media ? media.getBoundingClientRect() : null;
+    console.log(
+      `[${i}] ${work.file}` +
+      ` | size: ${work.width}x${work.height}` +
+      ` | grid: ${card.style.gridColumn} ${card.style.gridRow}` +
+      ` | card box: ${Math.round(rect.width)}x${Math.round(rect.height)}` +
+      ` | media box: ${mediaRect ? Math.round(mediaRect.width) + 'x' + Math.round(mediaRect.height) : 'n/a'}`
+    );
   });
 
   const label = works.length === 1 ? 'piece' : 'pieces';
@@ -193,3 +233,7 @@ function loadManifest() {
 }
 
 loadManifest();
+
+if (typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(() => layoutCollage()).observe(grid);
+}
