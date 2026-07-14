@@ -8,17 +8,20 @@ const lightboxData = document.getElementById('lightbox-data');
 const lightboxClose = document.getElementById('lightbox-close');
 
 let lastFocusedCard = null;
+let worksData = [];
+let zoom = 200;
 
 function clampSpan(value) {
   return Math.min(value, 2);
 }
 
-function buildCard(work) {
+function buildCard(work, index) {
   const card = document.createElement('article');
   card.className = 'card';
   card.tabIndex = 0;
   card.setAttribute('role', 'button');
   card.setAttribute('aria-label', `Open ${work.title}`);
+  card.dataset.index = index;
 
   card.style.setProperty('--col-desktop', work.gridSpan.col);
   card.style.setProperty('--row-desktop', work.gridSpan.row);
@@ -33,6 +36,7 @@ function buildCard(work) {
   img.src = `works/${work.file}`;
   img.alt = work.title;
   img.loading = 'lazy';
+  img.decoding = 'async';
   frame.appendChild(img);
 
   if (work.isAnimated) {
@@ -47,16 +51,6 @@ function buildCard(work) {
   label.textContent = work.title;
 
   card.append(frame, label);
-
-  const open = () => openLightbox(work, card);
-  card.addEventListener('click', open);
-  card.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      open();
-    }
-  });
-
   return card;
 }
 
@@ -71,6 +65,28 @@ function openLightbox(work, triggerEl) {
   lightboxClose.focus();
 }
 
+function handleCardActivation(card) {
+  const index = card.dataset.index;
+  if (index !== undefined && worksData[index]) {
+    openLightbox(worksData[index], card);
+  }
+}
+
+grid.addEventListener('click', (event) => {
+  const card = event.target.closest('.card');
+  if (card) handleCardActivation(card);
+});
+
+grid.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    const card = event.target.closest('.card');
+    if (card) {
+      event.preventDefault();
+      handleCardActivation(card);
+    }
+  }
+});
+
 function closeLightbox() {
   lightbox.hidden = true;
   lightboxImage.src = '';
@@ -84,7 +100,17 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
 });
 
+document.addEventListener('wheel', (event) => {
+  if (event.ctrlKey) {
+    event.preventDefault();
+    zoom += event.deltaY * -0.5;
+    zoom = Math.min(Math.max(120, zoom), 600);
+    document.documentElement.style.setProperty('--zoom-level', `${zoom}px`);
+  }
+}, { passive: false });
+
 function render(works) {
+  worksData = works;
   if (!works.length) {
     emptyState.hidden = false;
     grid.hidden = true;
@@ -93,7 +119,7 @@ function render(works) {
   }
 
   const fragment = document.createDocumentFragment();
-  works.forEach((work) => fragment.appendChild(buildCard(work)));
+  works.forEach((work, index) => fragment.appendChild(buildCard(work, index)));
   grid.appendChild(fragment);
 
   const label = works.length === 1 ? 'piece' : 'pieces';
@@ -102,4 +128,4 @@ function render(works) {
 
 fetch('manifest.json')
   .then((response) => response.json())
-  .then(render)
+  .then(render);
