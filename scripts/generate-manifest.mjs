@@ -11,52 +11,23 @@ const WORKS_DIR = path.join(ROOT, 'works');
 const MANIFEST_PATH = path.join(ROOT, 'manifest.json');
 const ALLOWED_EXT = new Set(['.png', '.gif']);
 
-function getGridSpan(width, height) {
-  const area = width * height;
-  const ratio = width / height;
+function buildEntry(filename) {
+  const filePath = path.join(WORKS_DIR, filename);
+  const ext = path.extname(filename).toLowerCase();
+  const buffer = readFileSync(filePath);
+  const { width, height } = imageSize(buffer);
+  const isAnimated = ext === '.gif';
+  const hasAlpha = isAnimated ? false : hasTransparentPixels(buffer, width, height);
 
-  if (area < 1000) return { col: 1, row: 1 };
-
-  const targetCells =
-    area >= 1000000 ? 144 :
-    area >= 500000 ? 40 :
-    area >= 200000 ? 63 :
-    area >= 100000 ? 30 :
-    area >= 50000 ? 54 :
-    24;
-
-  const ZOOM = 64, PAD = 8;
-  let cols = Math.max(1, Math.round(Math.sqrt(targetCells * ratio)));
-  let rows = Math.max(1, Math.round(Math.sqrt(targetCells / ratio)));
-
-  let bestCol = cols, bestRow = rows;
-  let bestScore = Infinity;
-
-  for (let c = Math.max(1, cols - 3); c <= cols + 3; c++) {
-    for (let r = Math.max(1, rows - 3); r <= rows + 3; r++) {
-      const cells = c * r;
-      const ratioDiff = Math.abs(c / r - ratio);
-      const cellDiff = Math.abs(cells - targetCells) / targetCells;
-      const coversAt1 = (c * ZOOM - PAD * 2) <= width && (r * ZOOM - PAD * 2) <= height;
-      const score = ratioDiff + cellDiff * 0.5 - (coversAt1 ? 0.15 : 0);
-      if (score < bestScore) {
-        bestScore = score;
-        bestCol = c;
-        bestRow = r;
-      }
-    }
-  }
-
-  return { col: bestCol, row: bestRow };
-}
-
-function toTitleCase(filename) {
-  const base = filename.replace(/\.[^.]+$/, '');
-  return base
-    .split(/[-_\s]+/)
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  return {
+    file: filename,
+    width,
+    height,
+    ratio: Number((width / height).toFixed(3)),
+    hasAlpha,
+    isAnimated,
+    addedAt: getGitAddedDate(filePath),
+  };
 }
 
 function getGitAddedDate(filePath) {
@@ -155,8 +126,6 @@ function buildEntry(filename) {
   const ext = path.extname(filename).toLowerCase();
   const buffer = readFileSync(filePath);
   const { width, height } = imageSize(buffer);
-  const ratio = width / height;
-  const gridSpan = getGridSpan(width, height);
   const isAnimated = ext === '.gif';
   const hasAlpha = isAnimated ? false : hasTransparentPixels(buffer, width, height);
 
@@ -165,8 +134,7 @@ function buildEntry(filename) {
     title: toTitleCase(filename),
     width,
     height,
-    ratio: Number(ratio.toFixed(3)),
-    gridSpan,
+    ratio: Number((width / height).toFixed(3)),
     hasAlpha,
     isAnimated,
     addedAt: getGitAddedDate(filePath),

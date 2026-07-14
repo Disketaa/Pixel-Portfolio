@@ -5,10 +5,6 @@
     "width": 4,
     "height": 7,
     "ratio": 0.571,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -19,10 +15,6 @@
     "width": 352,
     "height": 224,
     "ratio": 1.571,
-    "gridSpan": {
-      "col": 9,
-      "row": 6
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -33,10 +25,6 @@
     "width": 11,
     "height": 5,
     "ratio": 2.2,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -47,10 +35,6 @@
     "width": 11,
     "height": 5,
     "ratio": 2.2,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -61,10 +45,6 @@
     "width": 11,
     "height": 5,
     "ratio": 2.2,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -75,10 +55,6 @@
     "width": 512,
     "height": 128,
     "ratio": 4,
-    "gridSpan": {
-      "col": 16,
-      "row": 4
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -89,10 +65,6 @@
     "width": 5,
     "height": 5,
     "ratio": 1,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -103,10 +75,6 @@
     "width": 4,
     "height": 5,
     "ratio": 0.8,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -117,10 +85,6 @@
     "width": 4,
     "height": 5,
     "ratio": 0.8,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -131,10 +95,6 @@
     "width": 5,
     "height": 5,
     "ratio": 1,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -145,10 +105,6 @@
     "width": 2400,
     "height": 1350,
     "ratio": 1.778,
-    "gridSpan": {
-      "col": 16,
-      "row": 9
-    },
     "hasAlpha": false,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -159,10 +115,6 @@
     "width": 16,
     "height": 16,
     "ratio": 1,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -173,10 +125,6 @@
     "width": 16,
     "height": 16,
     "ratio": 1,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -187,10 +135,6 @@
     "width": 16,
     "height": 16,
     "ratio": 1,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -201,10 +145,6 @@
     "width": 16,
     "height": 16,
     "ratio": 1,
-    "gridSpan": {
-      "col": 1,
-      "row": 1
-    },
     "hasAlpha": true,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -215,10 +155,6 @@
     "width": 354,
     "height": 329,
     "ratio": 1.076,
-    "gridSpan": {
-      "col": 5,
-      "row": 5
-    },
     "hasAlpha": false,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -229,10 +165,6 @@
     "width": 546,
     "height": 436,
     "ratio": 1.252,
-    "gridSpan": {
-      "col": 8,
-      "row": 7
-    },
     "hasAlpha": false,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -243,10 +175,6 @@
     "width": 434,
     "height": 322,
     "ratio": 1.348,
-    "gridSpan": {
-      "col": 7,
-      "row": 5
-    },
     "hasAlpha": false,
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -257,10 +185,6 @@
     "width": 797,
     "height": 763,
     "ratio": 1.045,
-    "gridSpan": {
-      "col": 6,
-      "row": 6
-    },
     "hasAlpha": false,
     "isAnimated": false,
     "addedAt": "2026-07-14"
