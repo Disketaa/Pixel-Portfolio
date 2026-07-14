@@ -15,20 +15,20 @@ function getGridSpan(width, height) {
   const ratio = width / height;
 
   if (ratio > 2.5) {
-    if (area >= 400000) return { col: 4, row: 2 };
-    return { col: 3, row: 1 };
+    if (area >= 200000) return { col: 4, row: 2 };
+    return { col: 4, row: 1 };
   }
-  if (ratio > 1.3) {
+  if (ratio > 1.2) {
     if (area >= 400000) return { col: 4, row: 2 };
     if (area >= 100000) return { col: 3, row: 2 };
     return { col: 2, row: 1 };
   }
 
   if (ratio < 0.4) {
-    if (area >= 400000) return { col: 2, row: 4 };
+    if (area >= 200000) return { col: 2, row: 4 };
     return { col: 1, row: 3 };
   }
-  if (ratio < 0.7) {
+  if (ratio < 0.85) {
     if (area >= 400000) return { col: 2, row: 4 };
     if (area >= 100000) return { col: 2, row: 3 };
     return { col: 1, row: 2 };

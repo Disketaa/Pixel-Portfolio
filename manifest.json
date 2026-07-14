@@ -71,7 +71,7 @@
     "height": 128,
     "ratio": 4,
     "gridSpan": {
-      "col": 3,
+      "col": 4,
       "row": 1
     },
     "isAnimated": false,
@@ -98,7 +98,7 @@
     "ratio": 0.8,
     "gridSpan": {
       "col": 1,
-      "row": 1
+      "row": 2
     },
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -111,7 +111,7 @@
     "ratio": 0.8,
     "gridSpan": {
       "col": 1,
-      "row": 1
+      "row": 2
     },
     "isAnimated": false,
     "addedAt": "2026-07-14"
@@ -214,7 +214,7 @@
     "height": 436,
     "ratio": 1.252,
     "gridSpan": {
-      "col": 2,
+      "col": 3,
       "row": 2
     },
     "isAnimated": false,
