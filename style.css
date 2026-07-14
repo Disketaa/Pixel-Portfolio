@@ -35,22 +35,34 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   min-height: 100vh;
-  -webkit-font-smoothing: none;
 }
 
-img {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+.site-title,
+.site-header__meta,
+.empty-state__title,
+.empty-state__body,
+.lightbox__title,
+.lightbox__data,
+.lightbox__close {
+  filter: url(#crispify);
 }
 
-button {
-  font-family: inherit;
+.site-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  margin: 0;
+  color: var(--paper);
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+.site-header__meta {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  color: var(--muted);
+  margin: 0;
 }
 
 .site-header {
@@ -74,20 +86,19 @@ button {
   height: 32px;
 }
 
-.site-title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  margin: 0;
-  color: var(--paper);
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.site-header__meta {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--muted);
-  margin: 0;
+img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+button {
+  font-family: inherit;
 }
 
 main {
@@ -197,11 +208,13 @@ main {
   background: var(--accent-pink);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 20px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 2px 6px;
+  padding: 4px 12px;
 }
 
 .card__label {
@@ -211,15 +224,16 @@ main {
   bottom: 0;
   background: linear-gradient(to top, rgba(12, 12, 17, 0.92), transparent);
   color: var(--paper);
-  font-size: 12px;
-  padding: 16px 10px 6px;
-  transform: translateY(100%);
+  font-size: 24px;
+  transform: scale(0.5) translateY(200%);
+  transform-origin: 0 100%;
+  padding: 32px 20px 12px;
   transition: transform 0.18s ease;
 }
 
 .card:hover .card__label,
 .card:focus-visible .card__label {
-  transform: translateY(0);
+  transform: scale(0.5) translateY(0);
 }
 
 .empty-state {
@@ -231,17 +245,21 @@ main {
 
 .empty-state__title {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 26px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
   color: var(--paper);
-  margin: 0 0 14px;
-  line-height: 1.8;
+  margin: 0 0 28px;
+  line-height: 3.6;
 }
 
 .empty-state__body {
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 28px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
   margin: 0;
+  line-height: 3.4;
 }
 
 .empty-state code {
@@ -294,7 +312,9 @@ main {
   background: var(--ink);
   color: var(--paper);
   border: 1px solid var(--panel-line);
-  font-size: 20px;
+  font-size: 40px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
   line-height: 1;
   cursor: pointer;
 }
@@ -326,15 +346,19 @@ main {
 }
 
 .lightbox__title {
-  font-size: 16px;
+  font-size: 32px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
   font-weight: 600;
-  margin: 0 0 4px;
+  margin: 0 0 8px;
   color: var(--paper);
 }
 
 .lightbox__data {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 24px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
   color: var(--muted);
   margin: 0;
 }

@@ -6,9 +6,16 @@
 <title>Disketaa</title>
 <meta name="description" content="A pixel art portfolio, laid out automatically from whatever lands in /works.">
 <link rel="icon" href="icon.png">
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute;left:-100000px;top:auto;width:1px;height:1px;overflow:hidden">
+  <filter id="crispify">
+    <feComponentTransfer>
+      <feFuncA type="discrete" tableValues="0 1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
 
 <header class="site-header">
   <div class="site-header__brand">
