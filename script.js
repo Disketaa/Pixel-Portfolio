@@ -14,28 +14,39 @@ let worksData = [];
 function calcIntDims(nativeW, nativeH, maxW, maxH) {
   if (nativeW < 1 || nativeH < 1) return { w: 1, h: 1 };
 
+  const area = nativeW * nativeH;
+  const cropCap = area < 1000 ? 0.10 : area < 50000 ? 0.15 : 0.25;
+
   const fit = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
   const fill = Math.max(Math.ceil(maxW / nativeW), Math.ceil(maxH / nativeH));
 
   if (fill <= fit) return { w: nativeW * fill, h: nativeH * fill };
 
-  const fw = nativeW * fill;
-  const fh = nativeH * fill;
-  const overflow = (fw * fh) / (maxW * maxH);
-  const cropW = Math.max(0, fw - maxW) / fw;
-  const cropH = Math.max(0, fh - maxH) / fh;
-
-  if (overflow > 2.0 || cropW > 0.25 || cropH > 0.25) {
-    if (fit >= 1) return { w: nativeW * fit, h: nativeH * fit };
-    for (let div = 2; div <= 100; div++) {
-      const w = Math.ceil(nativeW / div);
-      const h = Math.ceil(nativeH / div);
-      if (w <= maxW && h <= maxH) return { w, h };
+  if (fit >= 1) {
+    for (let s = fill; s >= fit; s--) {
+      const w = nativeW * s;
+      const h = nativeH * s;
+      const cw = Math.max(0, w - maxW) / w;
+      const ch = Math.max(0, h - maxH) / h;
+      if (cw <= cropCap && ch <= cropCap) return { w, h };
     }
-    return { w: 1, h: 1 };
+    return { w: nativeW * fit, h: nativeH * fit };
   }
 
-  return { w: fw, h: fh };
+  for (let div = 1; div <= 100; div++) {
+    const w = Math.ceil(nativeW / div);
+    const h = Math.ceil(nativeH / div);
+    const cw = Math.max(0, w - maxW) / w;
+    const ch = Math.max(0, h - maxH) / h;
+    if (cw <= cropCap && ch <= cropCap) return { w, h };
+  }
+
+  for (let div = 2; div <= 100; div++) {
+    const w = Math.ceil(nativeW / div);
+    const h = Math.ceil(nativeH / div);
+    if (w <= maxW && h <= maxH) return { w, h };
+  }
+  return { w: 1, h: 1 };
 }
 
 function clampSpan(value) {
