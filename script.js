@@ -11,19 +11,24 @@ let lastFocusedCard = null;
 let currentIndex = -1;
 let worksData = [];
 
-function calcIntDims(nativeW, nativeH, maxW, maxH, threshold) {
-  if (nativeW < 1 || nativeH < 1) return { w: 1, h: 1 };
+function calcIntDims(nativeW, nativeH, maxW, maxH) {
+  if (nativeW < 1 || nativeH < 1) return null;
   const up = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
   if (up >= 1) return { w: nativeW * up, h: nativeH * up };
-  if (threshold && nativeW <= maxW * threshold && nativeH <= maxH * threshold) {
+  const maxOverflow = 1.4;
+  if (nativeW <= maxW * maxOverflow && nativeH <= maxH * maxOverflow) {
     return { w: nativeW, h: nativeH };
   }
   for (let div = 2; div <= 100; div++) {
     const w = Math.ceil(nativeW / div);
     const h = Math.ceil(nativeH / div);
-    if (w <= maxW && h <= maxH) return { w, h };
+    if (w <= maxW && h <= maxH) {
+      const fill = Math.min(w / maxW, h / maxH);
+      if (fill >= 0.8) return { w, h };
+      break;
+    }
   }
-  return { w: 1, h: 1 };
+  return null;
 }
 
 function clampSpan(value) {
@@ -59,9 +64,11 @@ function buildCard(work, index) {
   const content = zoom - pad * 2;
   const maxW = content * work.gridSpan.col;
   const maxH = content * work.gridSpan.row;
-  const scale = calcIntDims(work.width, work.height, maxW, maxH, 1.3);
-  img.style.width = `${scale.w}px`;
-  img.style.height = `${scale.h}px`;
+  const dims = calcIntDims(work.width, work.height, maxW, maxH);
+  if (dims) {
+    img.style.width = `${dims.w}px`;
+    img.style.height = `${dims.h}px`;
+  }
 
   frame.appendChild(img);
 
@@ -93,9 +100,14 @@ function openLightbox(work, triggerEl, index) {
   const availH = window.innerHeight * 0.72 - framePad * 2;
   const panelW = Math.min(window.innerWidth * 0.96, parseFloat(getComputedStyle(root).getPropertyValue('--lightbox-max-width')) || 1400);
   const availW = panelW - framePad * 2;
-  const scale = calcIntDims(work.width, work.height, availW, availH);
-  lightboxImage.style.width = `${scale.w}px`;
-  lightboxImage.style.height = `${scale.h}px`;
+  const dims = calcIntDims(work.width, work.height, availW, availH);
+  if (dims) {
+    lightboxImage.style.width = `${dims.w}px`;
+    lightboxImage.style.height = `${dims.h}px`;
+  } else {
+    lightboxImage.style.width = '';
+    lightboxImage.style.height = '';
+  }
 
   lightbox.hidden = false;
   document.body.style.overflow = 'hidden';
