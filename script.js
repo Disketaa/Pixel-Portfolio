@@ -25,8 +25,6 @@ function calcIntDims(nativeW, nativeH, maxW, maxH, threshold) {
   }
   return { w: 1, h: 1 };
 }
-  return { w: 1, h: 1 };
-}
 
 function clampSpan(value) {
   return Math.min(value, 2);
