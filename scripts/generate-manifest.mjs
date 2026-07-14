@@ -15,32 +15,30 @@ function getGridSpan(width, height) {
   const area = width * height;
   const ratio = width / height;
 
-  if (ratio > 2.5) {
-    if (area >= 50000) return { col: 4, row: 2 };
-    return { col: 4, row: 1 };
-  }
-  if (ratio > 1.2) {
-    if (area >= 1000000) return { col: 4, row: 4 };
-    if (area >= 400000) return { col: 4, row: 2 };
-    if (area >= 50000) return { col: 3, row: 2 };
-    return { col: 2, row: 1 };
+  if (area < 1000) return { col: 1, row: 1 };
+
+  const minCells = area >= 1000000 ? 12 : area >= 200000 ? 6 : area >= 50000 ? 4 : 1;
+  const maxCells = area >= 1000000 ? 28 : area >= 200000 ? 12 : area >= 50000 ? 8 : 4;
+
+  let bestCol = 1, bestRow = 1;
+  let bestDiff = Infinity;
+
+  for (let rows = 1; rows <= maxCells; rows++) {
+    const maxCols = Math.floor(maxCells / rows);
+    for (let cols = 1; cols <= maxCols; cols++) {
+      const cells = cols * rows;
+      if (cells < minCells) continue;
+      const spanRatio = cols / rows;
+      const diff = Math.abs(spanRatio - ratio);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestCol = cols;
+        bestRow = rows;
+      }
+    }
   }
 
-  if (ratio < 0.4) {
-    if (area >= 1000000) return { col: 4, row: 4 };
-    if (area >= 50000) return { col: 2, row: 4 };
-    return { col: 1, row: 3 };
-  }
-  if (ratio < 0.85) {
-    if (area >= 1000000) return { col: 4, row: 4 };
-    if (area >= 400000) return { col: 2, row: 4 };
-    if (area >= 50000) return { col: 2, row: 3 };
-    return { col: 1, row: 2 };
-  }
-
-  if (area >= 1000000) return { col: 4, row: 4 };
-  if (area >= 50000) return { col: 2, row: 2 };
-  return { col: 1, row: 1 };
+  return { col: bestCol, row: bestRow };
 }
 
 function toTitleCase(filename) {
