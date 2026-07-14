@@ -217,7 +217,7 @@
     "ratio": 1.076,
     "gridSpan": {
       "col": 6,
-      "row": 6
+      "row": 5
     },
     "hasAlpha": false,
     "isAnimated": false,
@@ -258,8 +258,8 @@
     "height": 763,
     "ratio": 1.045,
     "gridSpan": {
-      "col": 8,
-      "row": 8
+      "col": 6,
+      "row": 6
     },
     "hasAlpha": false,
     "isAnimated": false,
