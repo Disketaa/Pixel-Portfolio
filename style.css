@@ -366,9 +366,8 @@ button {
 }
 
 .lightbox__frame {
-  flex: 1;
+  height: 72vh;
   min-height: var(--lightbox-frame-min-height);
-  max-height: 72vh;
   display: flex;
   align-items: center;
   justify-content: center;
