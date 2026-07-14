@@ -11,20 +11,31 @@ let lastFocusedCard = null;
 let currentIndex = -1;
 let worksData = [];
 
-function calcIntDims(nativeW, nativeH, maxW, maxH, cover) {
+function calcIntDims(nativeW, nativeH, maxW, maxH) {
   if (nativeW < 1 || nativeH < 1) return { w: 1, h: 1 };
-  if (cover) {
-    const s = Math.max(Math.ceil(maxW / nativeW), Math.ceil(maxH / nativeH));
-    return { w: nativeW * s, h: nativeH * s };
+
+  const fit = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
+  const fill = Math.max(Math.ceil(maxW / nativeW), Math.ceil(maxH / nativeH));
+
+  if (fill <= fit) return { w: nativeW * fill, h: nativeH * fill };
+
+  const fw = nativeW * fill;
+  const fh = nativeH * fill;
+  const overflow = (fw * fh) / (maxW * maxH);
+  const cropW = Math.max(0, fw - maxW) / fw;
+  const cropH = Math.max(0, fh - maxH) / fh;
+
+  if (overflow > 2.0 || cropW > 0.25 || cropH > 0.25) {
+    if (fit >= 1) return { w: nativeW * fit, h: nativeH * fit };
+    for (let div = 2; div <= 100; div++) {
+      const w = Math.ceil(nativeW / div);
+      const h = Math.ceil(nativeH / div);
+      if (w <= maxW && h <= maxH) return { w, h };
+    }
+    return { w: 1, h: 1 };
   }
-  const up = Math.min(Math.floor(maxW / nativeW), Math.floor(maxH / nativeH));
-  if (up >= 1) return { w: nativeW * up, h: nativeH * up };
-  for (let div = 2; div <= 100; div++) {
-    const w = Math.ceil(nativeW / div);
-    const h = Math.ceil(nativeH / div);
-    if (w <= maxW && h <= maxH) return { w, h };
-  }
-  return { w: 1, h: 1 };
+
+  return { w: fw, h: fh };
 }
 
 function clampSpan(value) {
@@ -55,12 +66,11 @@ function buildCard(work, index) {
   img.decoding = 'async';
 
   const root = document.documentElement;
-  const zoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom-level')) || 180;
+  const zoom = parseFloat(getComputedStyle(root).getPropertyValue('--zoom-level')) || 64;
   const pad = parseFloat(getComputedStyle(root).getPropertyValue('--card-padding')) || 8;
-  const content = zoom - pad * 2;
-  const maxW = content * work.gridSpan.col;
-  const maxH = content * work.gridSpan.row;
-  const dims = calcIntDims(work.width, work.height, maxW, maxH, !work.hasAlpha);
+  const maxW = zoom * work.gridSpan.col - pad * 2;
+  const maxH = zoom * work.gridSpan.row - pad * 2;
+  const dims = calcIntDims(work.width, work.height, maxW, maxH);
   img.style.width = `${dims.w}px`;
   img.style.height = `${dims.h}px`;
 
