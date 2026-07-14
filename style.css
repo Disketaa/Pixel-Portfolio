@@ -25,9 +25,6 @@
   --main-padding-bottom: 56px;
   --grid-padding: 28px;
   --grid-mobile-padding: 20px;
-  --grid-auto-rows-desktop: 12vw;
-  --grid-auto-rows-tablet: 16vw;
-  --grid-auto-rows-mobile: 60vw;
   --grid-columns-desktop: 1;
   --grid-columns-tablet: 1;
   --grid-columns-mobile: 1;
@@ -140,6 +137,7 @@ main {
 .grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns-desktop), 1fr);
+  grid-auto-rows: auto;
   gap: var(--card-gap);
   padding: var(--grid-padding);
   margin: 0 auto;
@@ -169,6 +167,11 @@ main {
   border: var(--panel-border-width) solid var(--panel-line);
   overflow: hidden;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--card-padding);
+  aspect-ratio: var(--aspect-ratio, 1);
 }
 
 @media (max-width: 640px) {
@@ -209,19 +212,17 @@ main {
 }
 
 .card__frame {
-  position: absolute;
-  inset: 0;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--card-padding);
+  min-height: 0;
 }
 
 .card__frame img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   transition: transform var(--card-transition-transform-duration) ease;
 }
