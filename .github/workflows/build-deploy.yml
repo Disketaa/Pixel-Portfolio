@@ -11,6 +11,9 @@ on:
       - 'script.js'
       - 'package.json'
       - '.github/workflows/build-deploy.yml'
+      - 'manifest.json'
+      - 'Tinylorder.ttf'
+      - 'icon.png'
   workflow_dispatch: {}
 
 permissions:
