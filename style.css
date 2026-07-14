@@ -7,13 +7,21 @@
   --muted: #86848f;
   --accent: #ffd23f;
   --accent-pink: #ff5fa8;
-  --font-display: 'Press Start 2P', monospace;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Tinylorder', monospace;
+  --font-body: 'Tinylorder', monospace;
+  --font-mono: 'Tinylorder', monospace;
+}
+
+@font-face {
+  font-family: 'Tinylorder';
+  src: url('Tinylorder.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
   box-sizing: border-box;
+  -webkit-font-smoothing: auto;
 }
 
 html, body {
@@ -25,7 +33,9 @@ body {
   background: var(--ink);
   color: var(--paper);
   font-family: var(--font-body);
+  font-size: 16px;
   min-height: 100vh;
+  -webkit-font-smoothing: none;
 }
 
 img {
