@@ -9,7 +9,7 @@ const ROOT = path.resolve(__dirname, '..');
 const WORKS_DIR = path.join(ROOT, 'works');
 const MANIFEST_PATH = path.join(ROOT, 'manifest.json');
 const ALLOWED_EXT = new Set(['.png', '.gif']);
-const HERO_AREA_THRESHOLD = 1_000_000;
+const HERO_AREA_THRESHOLD = 100_000;
 const HERO_RATIO_MIN = 0.75;
 const HERO_RATIO_MAX = 1.35;
 
@@ -18,7 +18,7 @@ function getGridSpan(width, height, ratio) {
   const isBigEnough = area >= 4096;
 
   if (ratio >= 2.4 && isBigEnough) return { col: 3, row: 1 };
-  if (ratio >= 1.6 && isBigEnough) return { col: 2, row: 1 };
+  if (ratio >= 1.5 && isBigEnough) return { col: 2, row: 1 };
   if (ratio <= 0.6 && isBigEnough) return { col: 1, row: 2 };
   return { col: 1, row: 1 };
 }
