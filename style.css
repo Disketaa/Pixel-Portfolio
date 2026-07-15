@@ -120,38 +120,8 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    120deg,
-    var(--ink) 0%,
-    var(--panel) 50%,
-    var(--ink) 100%
-  );
-  background-size: 200% 200%;
-  opacity: 0.55;
+  background: var(--ink);
   pointer-events: none;
-  will-change: transform;
-  transform: translateZ(0);
-  animation: bg-drift 60s ease-in-out infinite alternate;
-  animation-play-state: running;
-}
-
-html.is-scrolling #bg,
-html.is-scrolling body::after,
-html.is-scrolling .card::after {
-  animation-play-state: paused !important;
-}
-
-html.is-scrolling #bg {
-  opacity: 0;
-}
-
-@keyframes bg-drift {
-  from {
-    background-position: 0% 50%;
-  }
-  to {
-    background-position: 100% 50%;
-  }
 }
 
 body::after {
@@ -165,12 +135,6 @@ body::after {
   opacity: 0.06;
   will-change: transform;
   transform: translateZ(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #bg {
-    animation: none;
-  }
 }
 
 img,
