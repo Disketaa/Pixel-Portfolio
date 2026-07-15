@@ -353,8 +353,8 @@ body {
 }
 
 .header-tags__arrow {
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--muted);
+  color: var(--paper);
   border-radius: 2px;
   transition: opacity var(--nav-transition);
 }
@@ -362,6 +362,7 @@ body {
 .header-tags__arrow img {
   width: 11px;
   height: 11px;
+  mix-blend-mode: difference;
 }
 
 .header-tag {
