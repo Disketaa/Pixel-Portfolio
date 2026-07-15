@@ -578,6 +578,13 @@ function renderFallback(works, fragment, globalFlat) {
   fragment.appendChild(rowDiv);
 }
 
+function slug(name) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function render(works) {
   if (!works.length) {
     emptyState.hidden = false;
@@ -617,13 +624,6 @@ function render(works) {
 
   if (rootWorks.length) {
     renderGroup(rootWorks);
-  }
-
-  function slug(name) {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
   }
 
   function makeHeading(tag, className, text, icon, id) {
@@ -856,12 +856,20 @@ function onScrollFrame() {
       dbgInterFrames++;
       dbgMaxFrame = Math.max(dbgMaxFrame, inter);
       if (inter > 20) {
+        const anims = document.getAnimations ? document.getAnimations() : [];
+        const runningAnims = anims
+          .filter((a) => a.playState === "running")
+          .map((a) => a.animationName || a.constructor.name)
+          .slice(0, 5)
+          .join(",");
         console.warn(
           `[header] slow frame: inter-frame ${inter.toFixed(
             1,
           )}ms (read ${readMs.toFixed(2)}ms, write ${writeMs.toFixed(
             2,
-          )}ms) — ${
+          )}ms, animations running: ${
+            runningAnims || "none"
+          }) — ${
             readMs > writeMs
               ? "read phase dominates (possible forced reflow)"
               : "in-rAF work small but gap large (paint/compositing bottleneck?)"
