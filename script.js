@@ -922,6 +922,36 @@ if (HEADER_DEBUG) {
     } catch (e) {
       console.warn("[header] event observer unavailable:", e.message);
     }
+    try {
+      const paintObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          console.log(
+            `[header] paint ${entry.name} @ ${entry.startTime.toFixed(
+              0,
+            )}ms (duration ${entry.duration.toFixed(2)}ms)`,
+          );
+        }
+      });
+      paintObserver.observe({ entryTypes: ["paint"] });
+    } catch (e) {
+      console.warn("[header] paint observer unavailable:", e.message);
+    }
+    try {
+      const layoutObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.duration > 0.5) {
+            console.warn(
+              `[header] layout shift ${entry.value.toFixed(
+                4,
+              )} @ ${entry.startTime.toFixed(0)}ms`,
+            );
+          }
+        }
+      });
+      layoutObserver.observe({ entryTypes: ["layout-shift"] });
+    } catch (e) {
+      console.warn("[header] layout-shift observer unavailable:", e.message);
+    }
   }
 }
 
