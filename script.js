@@ -44,13 +44,16 @@ function buildCard(work, index) {
   card.dataset.index = index;
   card.style.setProperty("--glow-src", `url("works/${work.file}")`);
 
+  const container = document.createElement("div");
+  container.className = "card__img-container";
+
   if (work.isAnimated) {
     const img = document.createElement("img");
     img.src = `works/${work.file}`;
     img.alt = work.title;
     img.loading = "lazy";
     img.decoding = "async";
-    card.appendChild(img);
+    container.appendChild(img);
   } else {
     const canvas = document.createElement("canvas");
     canvas.className = "card__canvas";
@@ -65,9 +68,15 @@ function buildCard(work, index) {
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, 0, 0);
     };
-    card.appendChild(canvas);
+    container.appendChild(canvas);
   }
 
+  const tooltip = document.createElement("span");
+  tooltip.className = "card__tooltip";
+  tooltip.textContent = work.title;
+  container.appendChild(tooltip);
+
+  card.appendChild(container);
   return card;
 }
 
