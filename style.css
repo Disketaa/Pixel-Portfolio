@@ -45,9 +45,9 @@
   --header-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 60%, transparent);
   --scroll-padding-top: 140px;
   --brand-title-size: calc(var(--u) * 5);
-  --brand-title-name-color: var(--paper);
+  --brand-title-name-color: var(--pyrite);
   --brand-title-suffix-color: var(--muted);
-  --brand-title-rest-color: var(--paper);
+  --brand-title-rest-color: var(--pyrite);
   --nav-gap: calc(var(--u) * 2);
   --nav-font-size: calc(var(--u) * 3);
   --nav-padding-y: var(--u);
