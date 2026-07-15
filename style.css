@@ -141,6 +141,10 @@ html.is-scrolling .card::after {
   animation-play-state: paused !important;
 }
 
+html.is-scrolling #bg {
+  opacity: 0;
+}
+
 @keyframes bg-drift {
   from {
     background-position: 0% 50%;
@@ -209,8 +213,10 @@ canvas {
   --small-h: 64px;
   --title-h: 56px;
   --header-row-gap: var(--subtitle-gap);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: var(--header-z-index);
   display: flex;
   align-items: center;
@@ -219,10 +225,14 @@ canvas {
   gap: var(--site-header-gap-vertical) var(--site-header-gap-horizontal);
   padding: 0 var(--site-header-padding-horizontal);
   height: calc(var(--full-h) - var(--p) * (var(--full-h) - var(--small-h)));
-  contain: layout style;
+  contain: layout style paint;
   background: var(--header-bg);
   box-shadow: var(--header-shadow);
   animation: header-in var(--header-enter-duration) ease both;
+}
+
+body {
+  padding-top: var(--full-h);
 }
 
 .header-inner {
