@@ -325,7 +325,7 @@
         "Sokol/Entities/Idle & Attack, Enemies Animation.gif",
         "Sokol/Entities/Hit & Death, Enemies Animation.gif"
       ],
-      "icon": null
+      "icon": "assets/icons/frog.gif"
     },
     "Sokol/Interface": {
       "cols": [
@@ -338,7 +338,7 @@
         "Sokol/Interface/Pick Skills Screen, Mockup.png",
         "Sokol/Interface/Pick Skills Tooltip, Mockup.png"
       ],
-      "icon": null
+      "icon": "assets/icons/button.gif"
     },
     "Sokol/Skills": {
       "cols": [
@@ -352,7 +352,7 @@
         "Sokol/Skills/Shoot, Skill.png",
         "Sokol/Skills/Attack, Skill.png"
       ],
-      "icon": null
+      "icon": "assets/icons/skill.gif"
     },
     "Sokol/Buildings": {
       "cols": [
@@ -363,7 +363,7 @@
         "Sokol/Buildings/Disks, Building.gif",
         "Sokol/Buildings/Bear Trap, Building.gif"
       ],
-      "icon": null
+      "icon": "assets/icons/bear_trap.gif"
     }
   }
 }

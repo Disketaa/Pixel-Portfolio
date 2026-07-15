@@ -16,6 +16,7 @@
       ]
     },
     "Entities": {
+      "icon": "frog",
       "images": [
         [
           "Idle & Attack, Character Animation",
@@ -28,12 +29,14 @@
       ]
     },
     "Interface": {
+      "icon": "button",
       "images": [
         ["Pick Bullets Screen, Mockup", "Pick Bullets Tooltip, Mockup"],
         ["Pick Skills Screen, Mockup", "Pick Skills Tooltip, Mockup"]
       ]
     },
     "Skills": {
+      "icon": "skill",
       "images": [
         [
           "Move, Skill",
@@ -46,6 +49,7 @@
       ]
     },
     "Buildings": {
+      "icon": "bear_trap",
       "images": [["Anvil, Building", "Disks, Building", "Bear Trap, Building"]]
     }
   }
