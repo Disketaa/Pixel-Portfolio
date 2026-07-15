@@ -1,0 +1,16 @@
+:root,
+:root[data-theme="coffee"] {
+  --ink: var(--orka-black);
+  --panel: var(--american-mahogany);
+  --paper: var(--white-raisin);
+  --muted: var(--moroccan-dusk);
+  --accent: var(--maple-syrup-brown);
+}
+
+:root[data-theme="snowy-blue"] {
+  --ink: var(--navy-blazer);
+  --panel: var(--slate-court);
+  --paper: var(--hawaiian-sky);
+  --muted: var(--beguiling-blue);
+  --accent: var(--skies-of-cyberspace);
+}
