@@ -218,10 +218,7 @@ canvas {
 }
 
 .site-header.is-scrolled .site-title {
-  opacity: 0;
-  transform: translateY(-8px);
-  position: absolute;
-  pointer-events: none;
+  display: none;
 }
 
 .site-header.is-scrolled .site-subtitle {
@@ -230,11 +227,9 @@ canvas {
 
 @keyframes header-in {
   from {
-    opacity: 0;
     transform: translateY(-100%);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -276,8 +271,6 @@ canvas {
   margin: 0;
   font-weight: normal;
   line-height: 1;
-  transition: opacity var(--header-collapse-duration) ease,
-    transform var(--header-collapse-duration) ease;
 }
 
 .site-title__link {
