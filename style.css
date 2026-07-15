@@ -136,8 +136,9 @@ body {
 }
 
 html.is-scrolling #bg,
-html.is-scrolling body::after {
-  animation-play-state: paused;
+html.is-scrolling body::after,
+html.is-scrolling .card::after {
+  animation-play-state: paused !important;
 }
 
 @keyframes bg-drift {
