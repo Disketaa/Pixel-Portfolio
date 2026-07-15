@@ -889,18 +889,61 @@ if (HEADER_DEBUG) {
         for (const entry of list.getEntries()) {
           const attr = entry.attribution || [];
           const summary = attr
-            .map((a) =>
-              [
-                a.name || a.containerType || "task",
-                a.containerId ? `#${a.containerId}` : "",
-                a.containerSrc ? a.containerSrc : "",
-              ].join(""),
+            .map(
+              (a) =>
+                `[${a.containerType || "task"}${
+                  a.containerId ? "#" + a.containerId : ""
+                }${a.containerSrc ? " " + a.containerSrc : ""}${
+                  a.containerName ? " name=" + a.containerName : ""
+                }]`,
             )
+            .join(" ");
+          const stack = new Error().stack || "";
+          const stackTop = stack
+            .split("\n")
+            .slice(1, 6)
+            .map((l) => l.trim())
+            .join(" | ");
+          const inFlight = performance
+            .getEntriesByType("resource")
+            .filter(
+              (r) =>
+                r.responseEnd === 0 &&
+                r.duration < entry.startTime &&
+                r.startTime < entry.startTime,
+            )
+            .map((r) => `${r.initiatorType}:${r.name.split("/").pop()}`)
+            .slice(0, 5)
             .join(", ");
+          const cards = Array.from(document.querySelectorAll(".card")).slice(
+            0,
+            5,
+          );
+          const cardState = cards
+            .map((c) => {
+              const img = c.querySelector("img");
+              const cv = c.querySelector("canvas");
+              const rect = c.getBoundingClientRect();
+              const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+              return `${c.dataset.title || "?"}${
+                img
+                  ? ` img=${img.complete ? "ok" : "loading"}/${
+                      img.naturalWidth || 0
+                    }x${img.naturalHeight || 0}`
+                  : cv
+                    ? ` canvas=${cv.width}x${cv.height}`
+                    : ""
+              }${inView ? " IN-VIEW" : ""}`;
+            })
+            .join("\n  ");
           console.warn(
             `[header] LONG TASK ${entry.duration.toFixed(
               1,
-            )}ms${summary ? " — " + summary : ""}`,
+            )}ms @ ${entry.startTime.toFixed(0)}ms${
+              summary ? "\n  attrib: " + summary : "\n  attrib: <empty>"
+            }\n  stack: ${stackTop || "<none>"}\n  in-flight resources: ${
+              inFlight || "<none>"
+            }\n  cards: \n  ${cardState || "<none>"}`,
           );
         }
       });
