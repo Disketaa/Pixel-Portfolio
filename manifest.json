@@ -251,8 +251,9 @@
     },
     "Sokol/Entities": {
       "cols": [
-        3,
-        3
+        4,
+        1,
+        1
       ],
       "order": [
         "Sokol/Entities/1.gif",

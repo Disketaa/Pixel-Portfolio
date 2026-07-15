@@ -75,8 +75,12 @@ body {
   padding: 0;
 }
 
-body {
+html {
   background: var(--ink);
+}
+
+body {
+  background: transparent;
   color: var(--paper);
   font-family: var(--font);
   min-height: 100vh;
@@ -84,6 +88,49 @@ body {
   -moz-osx-font-smoothing: unset;
   font-smooth: never;
   text-rendering: optimizeSpeed;
+}
+
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    var(--orka-black) 0%,
+    var(--american-mahogany) 50%,
+    var(--orka-black) 100%
+  );
+  background-size: 200% 200%;
+  opacity: 0.55;
+  pointer-events: none;
+  animation: bg-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes bg-drift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #bg {
+    animation: none;
+  }
 }
 
 img,
