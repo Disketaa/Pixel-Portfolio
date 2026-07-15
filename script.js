@@ -209,15 +209,21 @@ function resetZoomImmediate() {
 function openLightbox(work, triggerEl, index) {
   currentIndex = index;
   if (triggerEl) lastFocusedCard = triggerEl;
-  lightboxData.textContent = `${work.width}\u00d7${work.height}px \u00b7 ${work.isAnimated ? "animated" : "static"} \u00b7 added ${work.addedAt}`;
 
   const img = new Image();
   img.src = `works/${work.file}`;
   img.onload = () => {
     if (currentIndex !== index) return;
     loadedLightboxImg = img;
-    resetZoomImmediate();
-    drawLightboxImage();
+    zoomLevel = 1.05;
+    targetZoomLevel = 1;
+    panX = 0;
+    panY = 0;
+    targetPanX = 0;
+    targetPanY = 0;
+    isAnimating = true;
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    animatePan();
     if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
     lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
     lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));

@@ -28,7 +28,6 @@
   --lightbox-max-width: 1400px;
   --lightbox-max-height: 94vh;
   --lightbox-close-position: 16px;
-  --lightbox-close-size: 40px;
   --lightbox-frame-min-height: 300px;
   --lightbox-frame-padding: 24px;
   --lightbox-meta-padding: 16px 28px 20px;
@@ -388,22 +387,27 @@ button {
   top: var(--lightbox-close-position);
   right: var(--lightbox-close-position);
   z-index: var(--lightbox-close-z-index);
-  width: var(--lightbox-close-size);
-  height: var(--lightbox-close-size);
-  background: none;
-  color: var(--muted);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: var(--one-dozen);
   border: none;
-  font-family: var(--font);
-  font-size: var(--font-size-xl);
-  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.12s ease;
+  cursor: pointer;
+  transition: opacity 0.12s ease;
+}
+
+.lightbox__close img {
+  width: 10px;
+  height: 10px;
+  image-rendering: pixelated;
+  display: block;
 }
 
 .lightbox__close:hover {
-  color: var(--accent);
+  opacity: 0.7;
 }
 
 .lightbox__frame {
@@ -429,8 +433,7 @@ button {
 }
 
 .lightbox__meta {
-  padding: var(--lightbox-meta-padding);
-  background: var(--ink);
+  display: none;
 }
 
 .lightbox__data {
