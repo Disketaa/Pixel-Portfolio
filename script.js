@@ -736,14 +736,24 @@ function renderHeaderTags(orderedSections) {
       const link = document.createElement("a");
       link.className = "header-tag";
       link.href = `#section-${slug(sub)}`;
-      link.textContent = sub;
       link.dataset.target = `section-${slug(sub)}`;
+
+      const fill = document.createElement("span");
+      fill.className = "header-tag__fill";
+      const label = document.createElement("span");
+      label.className = "header-tag__label";
+      label.textContent = sub;
+      link.appendChild(fill);
+      link.appendChild(label);
+
       frag.appendChild(link);
     }
   }
 
   tags.appendChild(frag);
   setupScrollSpy(tags);
+  cacheTagSections();
+  updateTagProgress();
 }
 
 function renderNav(orderedSections) {
@@ -828,6 +838,57 @@ function updateHeader() {
   headerEl.style.setProperty("--p", p);
 }
 
+let tagSections = [];
+let tagMaxScroll = 0;
+
+function cacheTagSections() {
+  tagSections = [];
+  const tags = document.querySelectorAll(".header-tag");
+  if (!tags.length) return;
+  const headings = Array.from(
+    document.querySelectorAll(".section-heading[id]"),
+  );
+  const docTopOf = (el) =>
+    el.getBoundingClientRect().top + window.scrollY;
+  tagMaxScroll = Math.max(
+    0,
+    document.documentElement.scrollHeight - window.innerHeight,
+  );
+  for (const link of tags) {
+    const el = document.getElementById(link.dataset.target);
+    if (!el) continue;
+    const top = docTopOf(el);
+    let nextTop = null;
+    for (const h of headings) {
+      if (h === el) continue;
+      const ht = docTopOf(h);
+      if (ht > top && (nextTop === null || ht < nextTop)) nextTop = ht;
+    }
+    const bottom =
+      nextTop !== null ? nextTop : document.documentElement.scrollHeight;
+    tagSections.push({ link, top, bottom });
+  }
+}
+
+function updateTagProgress() {
+  if (!tagSections.length) return;
+  const scrollY = window.scrollY;
+  const offset = 100;
+  for (const s of tagSections) {
+    const startStd = s.top - offset;
+    const denom = Math.min(s.bottom - s.top, tagMaxScroll - startStd);
+    let progress = 0;
+    if (denom > 0) {
+      progress = clamp((scrollY - startStd) / denom, 0, 1);
+    }
+    s.link.style.setProperty("--progress", progress.toFixed(4));
+  }
+}
+
+function clamp(v, min, max) {
+  return v < min ? min : v > max ? max : v;
+}
+
 let scrollTicking = false;
 let scrollIdleTimer = null;
 function onScrollFrame() {
@@ -847,6 +908,7 @@ function onScrollFrame() {
   }
   const w0 = performance.now();
   updateHeader();
+  updateTagProgress();
   writeMs = performance.now() - w0;
 
   if (HEADER_DEBUG) {
@@ -1030,6 +1092,8 @@ updateHeader();
 window.addEventListener("resize", () => {
   measureHeader();
   updateHeader();
+  cacheTagSections();
+  updateTagProgress();
 });
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {

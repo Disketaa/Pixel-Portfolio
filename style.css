@@ -358,29 +358,47 @@ body {
 }
 
 .header-tag {
+  position: relative;
   display: inline-flex;
   align-items: center;
   font-family: var(--font);
   font-size: var(--font-size-xs);
   line-height: 1;
   color: var(--paper);
-  background: var(--muted);
   text-decoration: none;
   padding: var(--nav-padding-y) var(--nav-padding-x);
   cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
   transition:
     color var(--nav-transition),
-    background-color var(--nav-transition);
+    background-color var(--nav-transition),
+    border-color var(--nav-transition);
+}
+
+.header-tag__fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(var(--progress, 0) * 100%);
+  background: var(--muted);
+  z-index: -1;
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
+.header-tag__label {
+  position: relative;
+  z-index: 1;
+  color: var(--paper);
+  mix-blend-mode: difference;
 }
 
 .header-tag:hover,
 .header-tag:focus-visible {
-  background: color-mix(in srgb, var(--accent) 80%, var(--paper));
+  border-color: var(--accent);
   outline: none;
-}
-
-.header-tag.is-active {
-  background: color-mix(in srgb, var(--accent) 80%, var(--paper));
 }
 
 @keyframes header-in {
