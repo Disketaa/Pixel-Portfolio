@@ -1,6 +1,7 @@
 _site/
 .DS_Store
 /.*
+!.github/
 eslint.config.js
 node_modules/
 package-lock.json
