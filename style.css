@@ -503,14 +503,14 @@ button {
     padding: var(--grid-mobile-padding);
   }
   .lightbox {
-    padding: 0;
+    padding: var(--lightbox-padding);
   }
   .lightbox__panel {
     width: 100%;
     max-height: 100vh;
   }
   .lightbox__frame {
-    padding: 12px;
+    padding: var(--lightbox-frame-padding);
     min-height: 200px;
   }
   .lightbox__meta {
