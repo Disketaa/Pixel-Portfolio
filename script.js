@@ -873,13 +873,14 @@ function cacheTagSections() {
 function updateTagProgress() {
   if (!tagSections.length) return;
   const scrollY = window.scrollY;
-  const offset = 100;
+  const vh = window.innerHeight;
   for (const s of tagSections) {
-    const startStd = s.top - offset;
-    const denom = Math.min(s.bottom - s.top, tagMaxScroll - startStd);
+    const startY = s.top - vh;
+    const endY = Math.min(s.bottom, tagMaxScroll);
+    const denom = endY - startY;
     let progress = 0;
     if (denom > 0) {
-      progress = clamp((scrollY - startStd) / denom, 0, 1);
+      progress = clamp((scrollY - startY) / denom, 0, 1);
     }
     s.link.style.setProperty("--progress", progress.toFixed(4));
   }
