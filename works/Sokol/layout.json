@@ -1,5 +1,8 @@
 {
   "layouts": {
+    ".": {
+      "images": [["Menu"]]
+    },
     "Effects": {
       "images": [
         [

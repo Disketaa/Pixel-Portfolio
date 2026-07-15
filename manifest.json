@@ -123,8 +123,8 @@
     {
       "file": "Sokol/Interface/Mockup-1.png",
       "title": "Mockup 1",
-      "width": 640,
-      "height": 360,
+      "width": 2560,
+      "height": 1440,
       "ratio": 1.778,
       "hasAlpha": false,
       "isAnimated": false,
@@ -135,8 +135,8 @@
     {
       "file": "Sokol/Interface/Mockup-2.png",
       "title": "Mockup 2",
-      "width": 640,
-      "height": 360,
+      "width": 2560,
+      "height": 1440,
       "ratio": 1.778,
       "hasAlpha": false,
       "isAnimated": false,
@@ -147,8 +147,8 @@
     {
       "file": "Sokol/Interface/Mockup-3.png",
       "title": "Mockup 3",
-      "width": 640,
-      "height": 360,
+      "width": 2560,
+      "height": 1440,
       "ratio": 1.778,
       "hasAlpha": false,
       "isAnimated": false,
@@ -159,14 +159,26 @@
     {
       "file": "Sokol/Interface/Mockup-4.png",
       "title": "Mockup 4",
-      "width": 640,
-      "height": 360,
+      "width": 2560,
+      "height": 1440,
       "ratio": 1.778,
       "hasAlpha": false,
       "isAnimated": false,
       "addedAt": "2026-07-15",
       "folder": "Sokol",
       "subfolder": "Interface"
+    },
+    {
+      "file": "Sokol/Menu.gif",
+      "title": "Menu",
+      "width": 958,
+      "height": 539,
+      "ratio": 1.777,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": null
     },
     {
       "file": "Sokol/Skills/Skills.png",
@@ -218,6 +230,14 @@
     }
   ],
   "layouts": {
+    "Sokol": {
+      "cols": [
+        1
+      ],
+      "order": [
+        "Sokol/Menu.gif"
+      ]
+    },
     "Sokol/Effects": {
       "cols": [
         4

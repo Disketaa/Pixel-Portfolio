@@ -215,7 +215,8 @@ function parseJsonLayout(content, folderPath, folderName) {
       continue;
     }
 
-    const subDirPath = path.join(folderPath, subKey);
+    const isRoot = subKey === ".";
+    const subDirPath = isRoot ? folderPath : path.join(folderPath, subKey);
 
     const nameMap = {};
     try {
@@ -254,20 +255,24 @@ function parseJsonLayout(content, folderPath, folderName) {
         const fileName = nameMap[name] || nameMap[name.toLowerCase()] || null;
         if (!fileName) {
           console.error(
-            `  ${path.join(folderPath, "layout.json")}: "${subKey}" — "${name}" not found in ${subKey}/`,
+            `  ${path.join(folderPath, "layout.json")}: "${subKey}" — "${name}" not found`,
           );
           hasError = true;
           rowOk = false;
           break;
         }
-        order.push(`${folderName}/${subKey}/${fileName}`);
+        if (isRoot) {
+          order.push(`${folderName}/${fileName}`);
+        } else {
+          order.push(`${folderName}/${subKey}/${fileName}`);
+        }
       }
       if (!rowOk) break;
     }
 
     if (!rowOk) continue;
 
-    const key = `${folderName}/${subKey}`;
+    const key = isRoot ? folderName : `${folderName}/${subKey}`;
     result[key] = { cols, order };
     console.log(
       `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
