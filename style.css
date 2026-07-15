@@ -353,7 +353,6 @@ body {
 }
 
 .header-tags__arrow {
-  background: var(--muted);
   color: var(--paper);
   border-radius: 2px;
   transition: opacity var(--nav-transition);
@@ -823,7 +822,7 @@ button {
   height: 22px;
   padding: 0;
   border: none;
-  background: transparent;
+  background: var(--muted);
   cursor: pointer;
   transition: opacity 0.12s ease;
 }
