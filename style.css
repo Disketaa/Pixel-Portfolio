@@ -283,20 +283,6 @@ main {
   opacity: 5%;
 }
 
-.card-enter {
-  animation: card-frame-enter 0.5s ease forwards;
-  animation-delay: var(--enter-delay, 0ms);
-}
-
-@keyframes card-frame-enter {
-  from {
-    opacity: 0.25;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .card::after {
   content: "";
   position: absolute;
@@ -362,13 +348,10 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transform: translateY(16px);
 }
 
-.card-enter canvas,
-.card-enter img {
-  animation: card-enter 0.25s ease forwards;
+.card-enter {
+  animation: card-enter 0.5s ease both;
   animation-delay: var(--enter-delay, 0ms);
 }
 
@@ -386,15 +369,9 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .card {
     opacity: 1;
-  }
-  .card canvas,
-  .card img {
-    opacity: 1;
     transform: translateY(0);
   }
-  .card-enter,
-  .card-enter canvas,
-  .card-enter img {
+  .card-enter {
     animation: none;
   }
 }
