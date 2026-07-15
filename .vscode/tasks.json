@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate Manifest and Start Dev Server",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "npm run generate-manifest; $portInUse = $null -ne (Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue); if (-not $portInUse) { npx --yes serve . -l 8000 } else { Write-Host '---SERVER ALREADY RUNNING---'; Write-Host 'localhost:8000'; Start-Sleep -Seconds 2147483 }"
+      ],
+      "isBackground": true,
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^(.*)$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Serving!|---SERVER ALREADY RUNNING---",
+          "endsPattern": "localhost:8000"
+        }
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      }
+    }
+  ]
+}
