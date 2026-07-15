@@ -619,9 +619,17 @@ function render(works) {
     renderGroup(rootWorks);
   }
 
-  function makeHeading(tag, className, text, icon) {
+  function slug(name) {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function makeHeading(tag, className, text, icon, id) {
     const el = document.createElement(tag);
     el.className = className;
+    if (id) el.id = id;
     const box = document.createElement("span");
     box.className = "section-heading__box";
     if (icon) {
@@ -675,6 +683,7 @@ function render(works) {
           "section-heading",
           toDisplayName(folder),
           folderLayout && folderLayout.icon,
+          `section-${slug(folder)}`,
         ),
       );
       lastFolder = folder;
@@ -687,6 +696,7 @@ function render(works) {
           "section-heading section-heading--sub",
           toDisplayName(sub),
           subLayout && subLayout.icon,
+          `section-${slug(sub)}`,
         ),
       );
     }
@@ -700,6 +710,83 @@ function render(works) {
   const animated = grid.querySelectorAll(".section-heading, .card");
   animated.forEach((el, i) => {
     el.style.setProperty("--enter-delay", `${i * 60}ms`);
+  });
+
+  renderNav(orderedSections);
+}
+
+function renderNav(orderedSections) {
+  const nav = document.getElementById("site-nav");
+  if (!nav) return;
+  nav.innerHTML = "";
+  const frag = document.createDocumentFragment();
+  const seenFolders = new Set();
+
+  for (const { folder, sub } of orderedSections) {
+    if (folder && !seenFolders.has(folder)) {
+      seenFolders.add(folder);
+      const pageLink = document.createElement("a");
+      pageLink.className = "site-nav__link site-nav__link--page";
+      pageLink.href = `#section-${slug(folder)}`;
+      pageLink.textContent = folder.toUpperCase();
+      pageLink.dataset.target = `section-${slug(folder)}`;
+      frag.appendChild(pageLink);
+    }
+    if (sub) {
+      const link = document.createElement("a");
+      link.className = "site-nav__link";
+      link.href = `#section-${slug(sub)}`;
+      link.textContent = sub;
+      link.dataset.target = `section-${slug(sub)}`;
+      frag.appendChild(link);
+    }
+  }
+
+  nav.appendChild(frag);
+  setupScrollSpy(nav);
+}
+
+function setupScrollSpy(nav) {
+  const links = Array.from(nav.querySelectorAll(".site-nav__link"));
+  if (!links.length) return;
+  const headings = Array.from(
+    document.querySelectorAll(".section-heading[id]"),
+  );
+  if (!headings.length) return;
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const offset = 90;
+    let activeId = headings[0].id;
+    for (const h of headings) {
+      if (h.getBoundingClientRect().top - offset <= 0) activeId = h.id;
+      else break;
+    }
+    for (const link of links) {
+      link.classList.toggle("is-active", link.dataset.target === activeId);
+    }
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
+  update();
+}
+
+const homeLink = document.querySelector(".site-header__home");
+if (homeLink) {
+  homeLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    history.replaceState(null, "", location.pathname + location.search);
   });
 }
 

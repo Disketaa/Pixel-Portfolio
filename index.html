@@ -13,17 +13,25 @@
   </head>
   <body>
     <div id="bg" aria-hidden="true"></div>
-    <header class="site-header">
+    <header class="site-header" id="top">
       <div class="site-header__brand">
-        <img
-          class="site-logo"
-          src="assets/icon.png"
-          alt="Disketaa"
-          width="32"
-          height="32"
-        />
-        <h1 class="site-title">Disketaa's Art</h1>
+        <a class="site-header__home" href="#top" aria-label="Disketaa — home">
+          <img
+            class="site-logo"
+            src="assets/icon.png"
+            alt=""
+            width="32"
+            height="32"
+          />
+          <h1 class="site-title">
+            <span class="site-title__name"
+              >Disketaa<span class="site-title__suffix">'s</span></span
+            >
+            <span class="site-title__rest">Art</span>
+          </h1>
+        </a>
       </div>
+      <nav class="site-nav" id="site-nav" aria-label="Portfolio sections"></nav>
     </header>
 
     <main>
