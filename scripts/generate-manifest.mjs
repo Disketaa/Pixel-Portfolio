@@ -127,9 +127,35 @@ function hasTransparentPixels(buffer, width, height) {
   return false;
 }
 
-function buildEntry(filename) {
-  const filePath = path.join(WORKS_DIR, filename);
-  const ext = path.extname(filename).toLowerCase();
+function walkDir(dir, baseDir) {
+  const results = [];
+  const items = readdirSync(dir, { withFileTypes: true });
+  for (const item of items) {
+    const fullPath = path.join(dir, item.name);
+    const relPath = baseDir ? `${baseDir}/${item.name}` : item.name;
+    if (item.isDirectory()) {
+      results.push(...walkDir(fullPath, relPath));
+    } else if (
+      item.isFile() &&
+      ALLOWED_EXT.has(path.extname(item.name).toLowerCase())
+    ) {
+      results.push(relPath);
+    }
+  }
+  return results;
+}
+
+function toDisplayName(name) {
+  return name
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function buildEntry(relPath) {
+  const filePath = path.join(WORKS_DIR, relPath);
+  const ext = path.extname(relPath).toLowerCase();
   const buffer = readFileSync(filePath);
   const { width, height } = imageSize(buffer);
   const isAnimated = ext === ".gif";
@@ -137,15 +163,27 @@ function buildEntry(filename) {
     ? false
     : hasTransparentPixels(buffer, width, height);
 
+  const parts = relPath.split(/[/\\]/);
+  let folder = null;
+  let subfolder = null;
+  if (parts.length > 1) {
+    folder = toDisplayName(parts[0]);
+    if (parts.length > 2) {
+      subfolder = toDisplayName(parts[1]);
+    }
+  }
+
   return {
-    file: filename,
-    title: toTitleCase(filename),
+    file: relPath,
+    title: toTitleCase(relPath),
     width,
     height,
     ratio: Number((width / height).toFixed(3)),
     hasAlpha,
     isAnimated,
     addedAt: getGitAddedDate(filePath),
+    folder,
+    subfolder,
   };
 }
 
@@ -155,9 +193,7 @@ function main() {
     process.exit(1);
   }
 
-  const files = readdirSync(WORKS_DIR)
-    .filter((name) => ALLOWED_EXT.has(path.extname(name).toLowerCase()))
-    .sort();
+  const files = walkDir(WORKS_DIR, "").sort();
 
   const entries = files.map(buildEntry);
 

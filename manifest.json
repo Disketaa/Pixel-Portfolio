@@ -1,43 +1,27 @@
 [
   {
-    "file": "Bullet-Slot.png",
+    "file": "test/Bullet-Slot.png",
     "title": "Bullet Slot",
     "width": 4,
     "height": 7,
     "ratio": 0.571,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-15",
+    "folder": "Test",
+    "subfolder": null
   },
   {
-    "file": "Bunny.png",
+    "file": "test/Bunny.png",
     "title": "Bunny",
     "width": 352,
     "height": 224,
     "ratio": 1.571,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Health-Current.png",
-    "title": "Health Current",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
-  },
-  {
-    "file": "Health-Empty.png",
-    "title": "Health Empty",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-15",
+    "folder": "Test",
+    "subfolder": null
   },
   {
     "file": "Health-Filled.png",
@@ -47,7 +31,9 @@
     "ratio": 2.2,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Horse.png",
@@ -57,7 +43,9 @@
     "ratio": 4,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Icon-Cooldown.png",
@@ -67,7 +55,9 @@
     "ratio": 1,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Icon-Mouse-Left.png",
@@ -77,7 +67,9 @@
     "ratio": 0.8,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Icon-Mouse-Right.png",
@@ -87,7 +79,9 @@
     "ratio": 0.8,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Icon-Range.png",
@@ -97,7 +91,9 @@
     "ratio": 1,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Mockup.png",
@@ -107,7 +103,9 @@
     "ratio": 1.778,
     "hasAlpha": false,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Revolver.png",
@@ -117,7 +115,9 @@
     "ratio": 1,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Skill-Move.png",
@@ -127,7 +127,9 @@
     "ratio": 1,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Skill-Reload.png",
@@ -137,7 +139,9 @@
     "ratio": 1,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Skill-Roll.png",
@@ -147,7 +151,9 @@
     "ratio": 1,
     "hasAlpha": true,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Tooltip-1-Alt.png",
@@ -157,7 +163,9 @@
     "ratio": 1.076,
     "hasAlpha": false,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Tooltip-1.png",
@@ -167,7 +175,9 @@
     "ratio": 1.252,
     "hasAlpha": false,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Tooltip-2.png",
@@ -177,7 +187,9 @@
     "ratio": 1.348,
     "hasAlpha": false,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
   },
   {
     "file": "Tooltip-3.png",
@@ -187,6 +199,32 @@
     "ratio": 1.045,
     "hasAlpha": false,
     "isAnimated": false,
-    "addedAt": "2026-07-14"
+    "addedAt": "2026-07-14",
+    "folder": null,
+    "subfolder": null
+  },
+  {
+    "file": "test/Health-Current.png",
+    "title": "Health Current",
+    "width": 11,
+    "height": 5,
+    "ratio": 2.2,
+    "hasAlpha": true,
+    "isAnimated": false,
+    "addedAt": "2026-05-05",
+    "folder": "Test",
+    "subfolder": null
+  },
+  {
+    "file": "test/Health-Empty.png",
+    "title": "Health Empty",
+    "width": 11,
+    "height": 5,
+    "ratio": 2.2,
+    "hasAlpha": true,
+    "isAnimated": false,
+    "addedAt": "2026-05-05",
+    "folder": "Test",
+    "subfolder": null
   }
 ]

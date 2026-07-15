@@ -29,13 +29,13 @@ function buildCard(work, index) {
   card.className = "card";
   card.tabIndex = 0;
   card.setAttribute("role", "button");
-  card.setAttribute("aria-label", `Open ${work.file}`);
+  card.setAttribute("aria-label", `Open ${work.title}`);
   card.dataset.index = index;
 
   if (work.isAnimated) {
     const img = document.createElement("img");
     img.src = `works/${work.file}`;
-    img.alt = work.file;
+    img.alt = work.title;
     img.loading = "lazy";
     img.decoding = "async";
     card.appendChild(img);
@@ -49,7 +49,7 @@ function buildCard(work, index) {
     canvas.width = work.width;
     canvas.height = work.height;
     canvas.setAttribute("role", "img");
-    canvas.setAttribute("aria-label", work.file);
+    canvas.setAttribute("aria-label", work.title);
     const img = new Image();
     img.src = `works/${work.file}`;
     img.onload = () => {
@@ -61,6 +61,14 @@ function buildCard(work, index) {
   }
 
   return card;
+}
+
+function toDisplayName(name) {
+  return name
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function drawLightboxImage() {
@@ -477,20 +485,69 @@ function layoutCollage() {
 }
 
 function render(works) {
-  const sorted = [...works].sort(
-    (a, b) => b.width * b.height - a.width * b.height,
-  );
-  worksData = sorted;
-
-  if (!sorted.length) {
+  if (!works.length) {
     emptyState.hidden = false;
     grid.hidden = true;
     workCount.textContent = "no works yet";
     return;
   }
 
+  const rootWorks = [];
+  const folderMap = {};
+
+  for (const work of works) {
+    if (!work.folder) {
+      rootWorks.push(work);
+    } else {
+      if (!folderMap[work.folder]) folderMap[work.folder] = {};
+      const subKey = work.subfolder || "";
+      if (!folderMap[work.folder][subKey]) {
+        folderMap[work.folder][subKey] = [];
+      }
+      folderMap[work.folder][subKey].push(work);
+    }
+  }
+
+  const sortBySize = (a, b) => b.width * b.height - a.width * b.height;
+  const flatData = [];
+
   const fragment = document.createDocumentFragment();
-  sorted.forEach((work, index) => fragment.appendChild(buildCard(work, index)));
+
+  let idx = 0;
+  function addCards(cards) {
+    cards.sort(sortBySize);
+    for (const work of cards) {
+      flatData.push(work);
+      fragment.appendChild(buildCard(work, idx++));
+    }
+  }
+
+  if (rootWorks.length) {
+    addCards(rootWorks);
+  }
+
+  const folderNames = Object.keys(folderMap).sort();
+  for (const folderName of folderNames) {
+    const subs = folderMap[folderName];
+
+    const h2 = document.createElement("h2");
+    h2.className = "section-heading";
+    h2.textContent = toDisplayName(folderName);
+    fragment.appendChild(h2);
+
+    const subNames = Object.keys(subs).sort();
+    for (const subName of subNames) {
+      if (subName) {
+        const h3 = document.createElement("h3");
+        h3.className = "section-heading section-heading--sub";
+        h3.textContent = toDisplayName(subName);
+        fragment.appendChild(h3);
+      }
+      addCards(subs[subName]);
+    }
+  }
+
+  worksData = flatData;
   grid.appendChild(fragment);
 
   layoutCollage();
