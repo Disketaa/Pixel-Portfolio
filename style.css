@@ -193,13 +193,6 @@ canvas {
   font-weight: normal;
 }
 
-.site-header__meta {
-  font-family: var(--font);
-  font-size: var(--font-size-sm);
-  color: var(--muted);
-  margin: 0;
-}
-
 main {
   padding: var(--main-padding-vertical) var(--main-padding-horizontal)
     var(--main-padding-bottom);
@@ -558,9 +551,6 @@ button {
   }
   .site-title {
     font-size: var(--font-size-md);
-  }
-  .site-header__meta {
-    font-size: var(--font-size-xs);
   }
   main {
     padding-left: 12px;

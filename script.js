@@ -1,6 +1,5 @@
 const grid = document.getElementById("grid");
 const emptyState = document.getElementById("empty-state");
-const workCount = document.getElementById("work-count");
 const lightbox = document.getElementById("lightbox");
 const lightboxCanvas = document.getElementById("lightbox-image");
 const lightboxGifImg = document.getElementById("lightbox-image-gif");
@@ -567,7 +566,6 @@ function render(works) {
   if (!works.length) {
     emptyState.hidden = false;
     grid.hidden = true;
-    workCount.textContent = "no works yet";
     return;
   }
 
@@ -634,9 +632,6 @@ function render(works) {
     card.style.setProperty("--enter-delay", `${i * 60}ms`);
     card.classList.add("card-enter");
   });
-
-  const label = works.length === 1 ? "piece" : "pieces";
-  workCount.textContent = `${works.length} ${label} on the wall`;
 }
 
 async function loadManifest() {
