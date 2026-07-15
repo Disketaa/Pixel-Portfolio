@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "file": "Sokol/Entities/1.gif",
+    "title": "1",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": "Entities"
+  },
+  {
+    "file": "Sokol/Entities/2.gif",
+    "title": "2",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": "Entities"
+  },
+  {
+    "file": "Sokol/Entities/3.gif",
+    "title": "3",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": "Entities"
+  },
+  {
+    "file": "Sokol/Entities/4.gif",
+    "title": "4",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": "Entities"
+  },
+  {
+    "file": "Sokol/Entities/5.gif",
+    "title": "5",
+    "width": 512,
+    "height": 128,
+    "ratio": 4,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": "Entities"
+  },
+  {
+    "file": "Sokol/Entities/6.gif",
+    "title": "6",
+    "width": 512,
+    "height": 128,
+    "ratio": 4,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": "Entities"
+  },
+  {
+    "file": "Sokol/Menu.gif",
+    "title": "Menu",
+    "width": 958,
+    "height": 539,
+    "ratio": 1.777,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Sokol",
+    "subfolder": null
+  }
+]
