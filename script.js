@@ -712,6 +712,11 @@ function render(works) {
     el.style.setProperty("--enter-delay", `${i * 60}ms`);
   });
 
+  const subtitle = document.getElementById("site-subtitle");
+  if (subtitle && orderedSections.length) {
+    subtitle.textContent = orderedSections[0].folder;
+  }
+
   renderNav(orderedSections);
 }
 

@@ -48,6 +48,9 @@
   --brand-title-name-color: var(--pyrite);
   --brand-title-suffix-color: var(--muted);
   --brand-title-rest-color: var(--pyrite);
+  --subtitle-font-size: calc(var(--u) * 2);
+  --subtitle-color: var(--muted);
+  --subtitle-gap: 4px;
   --nav-gap: calc(var(--u) * 2);
   --nav-font-size: calc(var(--u) * 3);
   --nav-padding-y: var(--u);
@@ -226,6 +229,20 @@ canvas {
   gap: var(--site-header-brand-gap);
   text-decoration: none;
   color: inherit;
+}
+
+.site-header__titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: var(--subtitle-gap);
+}
+
+.site-subtitle {
+  font-family: var(--font);
+  font-size: var(--subtitle-font-size);
+  color: var(--subtitle-color);
+  line-height: 1;
 }
 
 .site-logo {
