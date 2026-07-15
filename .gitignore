@@ -1,9 +1,9 @@
 _site/
 .DS_Store
 /.*
+!.editorconfig
+!.gitattributes
 !.github/
-eslint.config.js
+!.vscode/
 node_modules/
-package-lock.json
-package.json
 README.md
