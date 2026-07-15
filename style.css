@@ -63,7 +63,6 @@
   --nav-hover-bg: color-mix(in srgb, var(--accent) 25%, transparent);
   --nav-transition: 0.18s ease;
   --header-enter-duration: 0.9s;
-  --header-collapse-duration: 0.25s;
   --site-header-padding-top-scrolled: 12px;
   --site-header-padding-bottom-scrolled: 12px;
   --empty-state-max-width: 640px;
@@ -209,7 +208,6 @@ canvas {
   background: var(--header-bg);
   box-shadow: var(--header-shadow);
   animation: header-in var(--header-enter-duration) ease both;
-  transition: padding var(--header-collapse-duration) ease;
 }
 
 .site-header.is-scrolled {
