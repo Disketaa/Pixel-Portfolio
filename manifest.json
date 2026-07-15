@@ -1,260 +1,8 @@
 {
   "entries": [
     {
-      "file": "Sokol/Effects/CompressedTube.gif",
-      "title": "CompressedTube",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Effects/Ice-Cube-Animation.gif",
-      "title": "Ice Cube Animation",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Effects/Radioactive-Mushroom.gif",
-      "title": "Radioactive Mushroom",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Effects/Smoke.gif",
-      "title": "Smoke",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Entities/1.gif",
-      "title": "1",
-      "width": 48,
-      "height": 48,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Entities"
-    },
-    {
-      "file": "Sokol/Entities/2.gif",
-      "title": "2",
-      "width": 48,
-      "height": 48,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Entities"
-    },
-    {
-      "file": "Sokol/Entities/3.gif",
-      "title": "3",
-      "width": 48,
-      "height": 48,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Entities"
-    },
-    {
-      "file": "Sokol/Entities/4.gif",
-      "title": "4",
-      "width": 48,
-      "height": 48,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Entities"
-    },
-    {
-      "file": "Sokol/Entities/5.gif",
-      "title": "5",
-      "width": 512,
-      "height": 128,
-      "ratio": 4,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Entities"
-    },
-    {
-      "file": "Sokol/Entities/6.gif",
-      "title": "6",
-      "width": 512,
-      "height": 128,
-      "ratio": 4,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Entities"
-    },
-    {
-      "file": "Sokol/Interface/Mockup-1.png",
-      "title": "Mockup 1",
-      "width": 2560,
-      "height": 1440,
-      "ratio": 1.778,
-      "hasAlpha": false,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Interface"
-    },
-    {
-      "file": "Sokol/Interface/Mockup-2.png",
-      "title": "Mockup 2",
-      "width": 2560,
-      "height": 1440,
-      "ratio": 1.778,
-      "hasAlpha": false,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Interface"
-    },
-    {
-      "file": "Sokol/Interface/Mockup-3.png",
-      "title": "Mockup 3",
-      "width": 2560,
-      "height": 1440,
-      "ratio": 1.778,
-      "hasAlpha": false,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Interface"
-    },
-    {
-      "file": "Sokol/Interface/Mockup-4.png",
-      "title": "Mockup 4",
-      "width": 2560,
-      "height": 1440,
-      "ratio": 1.778,
-      "hasAlpha": false,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Interface"
-    },
-    {
-      "file": "Sokol/Menu.gif",
-      "title": "Menu",
-      "width": 958,
-      "height": 539,
-      "ratio": 1.777,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": null
-    },
-    {
-      "file": "Sokol/Skills/1.png",
-      "title": "1",
-      "width": 16,
-      "height": 16,
-      "ratio": 1,
-      "hasAlpha": true,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Skills/2.png",
-      "title": "2",
-      "width": 16,
-      "height": 16,
-      "ratio": 1,
-      "hasAlpha": true,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Skills/3.png",
-      "title": "3",
-      "width": 16,
-      "height": 16,
-      "ratio": 1,
-      "hasAlpha": true,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Skills/4.png",
-      "title": "4",
-      "width": 16,
-      "height": 16,
-      "ratio": 1,
-      "hasAlpha": true,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Skills/5.png",
-      "title": "5",
-      "width": 16,
-      "height": 16,
-      "ratio": 1,
-      "hasAlpha": true,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Skills/6.png",
-      "title": "6",
-      "width": 16,
-      "height": 16,
-      "ratio": 1,
-      "hasAlpha": true,
-      "isAnimated": false,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Tiles/Anvil.gif",
-      "title": "Anvil",
+      "file": "Sokol/Buildings/Anvil, Building.gif",
+      "title": "Anvil, Building",
       "width": 128,
       "height": 128,
       "ratio": 1,
@@ -262,23 +10,11 @@
       "isAnimated": true,
       "addedAt": "2026-07-15",
       "folder": "Sokol",
-      "subfolder": "Tiles"
+      "subfolder": "Buildings"
     },
     {
-      "file": "Sokol/Tiles/Disks.gif",
-      "title": "Disks",
-      "width": 128,
-      "height": 128,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-07-15",
-      "folder": "Sokol",
-      "subfolder": "Tiles"
-    },
-    {
-      "file": "Sokol/Tiles/Trap.gif",
-      "title": "Trap",
+      "file": "Sokol/Buildings/Bear Trap, Building.gif",
+      "title": "Bear Trap, Building",
       "width": 64,
       "height": 64,
       "ratio": 1,
@@ -286,7 +22,271 @@
       "isAnimated": true,
       "addedAt": "2026-07-15",
       "folder": "Sokol",
-      "subfolder": "Tiles"
+      "subfolder": "Buildings"
+    },
+    {
+      "file": "Sokol/Buildings/Disks, Building.gif",
+      "title": "Disks, Building",
+      "width": 128,
+      "height": 128,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Buildings"
+    },
+    {
+      "file": "Sokol/Entities/Hit & Death, Character Animation.gif",
+      "title": "Hit & Death, Character Animation",
+      "width": 48,
+      "height": 48,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Entities"
+    },
+    {
+      "file": "Sokol/Entities/Hit & Death, Enemies Animation.gif",
+      "title": "Hit & Death, Enemies Animation",
+      "width": 512,
+      "height": 128,
+      "ratio": 4,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Entities"
+    },
+    {
+      "file": "Sokol/Entities/Idle & Attack, Character Animation.gif",
+      "title": "Idle & Attack, Character Animation",
+      "width": 48,
+      "height": 48,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Entities"
+    },
+    {
+      "file": "Sokol/Entities/Idle & Attack, Enemies Animation.gif",
+      "title": "Idle & Attack, Enemies Animation",
+      "width": 512,
+      "height": 128,
+      "ratio": 4,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Entities"
+    },
+    {
+      "file": "Sokol/Entities/Reload & Shoot, Character Animation.gif",
+      "title": "Reload & Shoot, Character Animation",
+      "width": 48,
+      "height": 48,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Entities"
+    },
+    {
+      "file": "Sokol/Entities/Teleport, Character Animation.gif",
+      "title": "Teleport, Character Animation",
+      "width": 48,
+      "height": 48,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Entities"
+    },
+    {
+      "file": "Sokol/Interface/Pick Bullets Screen, Mockup.png",
+      "title": "Pick Bullets Screen, Mockup",
+      "width": 2560,
+      "height": 1440,
+      "ratio": 1.778,
+      "hasAlpha": false,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Interface"
+    },
+    {
+      "file": "Sokol/Interface/Pick Bullets Tooltip, Mockup.png",
+      "title": "Pick Bullets Tooltip, Mockup",
+      "width": 2560,
+      "height": 1440,
+      "ratio": 1.778,
+      "hasAlpha": false,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Interface"
+    },
+    {
+      "file": "Sokol/Interface/Pick Skills Screen, Mockup.png",
+      "title": "Pick Skills Screen, Mockup",
+      "width": 2560,
+      "height": 1440,
+      "ratio": 1.778,
+      "hasAlpha": false,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Interface"
+    },
+    {
+      "file": "Sokol/Interface/Pick Skills Tooltip, Mockup.png",
+      "title": "Pick Skills Tooltip, Mockup",
+      "width": 2560,
+      "height": 1440,
+      "ratio": 1.778,
+      "hasAlpha": false,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Interface"
+    },
+    {
+      "file": "Sokol/Skills/Attack, Skill.png",
+      "title": "Attack, Skill",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/Move, Skill.png",
+      "title": "Move, Skill",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/Reload, Skill.png",
+      "title": "Reload, Skill",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/Roll, Skill.png",
+      "title": "Roll, Skill",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/Shoot, Skill.png",
+      "title": "Shoot, Skill",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/Teleport, Skill.png",
+      "title": "Teleport, Skill",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Effects/Compressed Tube, Effect Mockup.gif",
+      "title": "Compressed Tube, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-05-19",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Effects/Ice Cube, Effect Mockup.gif",
+      "title": "Ice Cube, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-05-19",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Effects/Radioactive-Mushroom, Effect Mockup.gif",
+      "title": "Radioactive Mushroom, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-05-19",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Effects/Smoke, Effect Mockup.gif",
+      "title": "Smoke, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-05-19",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Menu, Mockup.gif",
+      "title": "Menu, Mockup",
+      "width": 958,
+      "height": 539,
+      "ratio": 1.777,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-05-09",
+      "folder": "Sokol",
+      "subfolder": null
     }
   ],
   "layouts": {
@@ -295,19 +295,21 @@
         1
       ],
       "order": [
-        "Sokol/Menu.gif"
-      ]
+        "Sokol/Menu, Mockup.gif"
+      ],
+      "icon": null
     },
     "Sokol/Effects": {
       "cols": [
         4
       ],
       "order": [
-        "Sokol/Effects/CompressedTube.gif",
-        "Sokol/Effects/Ice-Cube-Animation.gif",
-        "Sokol/Effects/Radioactive-Mushroom.gif",
-        "Sokol/Effects/Smoke.gif"
-      ]
+        "Sokol/Effects/Ice Cube, Effect Mockup.gif",
+        "Sokol/Effects/Compressed Tube, Effect Mockup.gif",
+        "Sokol/Effects/Radioactive-Mushroom, Effect Mockup.gif",
+        "Sokol/Effects/Smoke, Effect Mockup.gif"
+      ],
+      "icon": "assets/icons/ice_cube.gif"
     },
     "Sokol/Entities": {
       "cols": [
@@ -316,13 +318,14 @@
         1
       ],
       "order": [
-        "Sokol/Entities/1.gif",
-        "Sokol/Entities/2.gif",
-        "Sokol/Entities/3.gif",
-        "Sokol/Entities/4.gif",
-        "Sokol/Entities/5.gif",
-        "Sokol/Entities/6.gif"
-      ]
+        "Sokol/Entities/Idle & Attack, Character Animation.gif",
+        "Sokol/Entities/Reload & Shoot, Character Animation.gif",
+        "Sokol/Entities/Teleport, Character Animation.gif",
+        "Sokol/Entities/Hit & Death, Character Animation.gif",
+        "Sokol/Entities/Idle & Attack, Enemies Animation.gif",
+        "Sokol/Entities/Hit & Death, Enemies Animation.gif"
+      ],
+      "icon": null
     },
     "Sokol/Interface": {
       "cols": [
@@ -330,34 +333,37 @@
         2
       ],
       "order": [
-        "Sokol/Interface/Mockup-1.png",
-        "Sokol/Interface/Mockup-2.png",
-        "Sokol/Interface/Mockup-3.png",
-        "Sokol/Interface/Mockup-4.png"
-      ]
+        "Sokol/Interface/Pick Bullets Screen, Mockup.png",
+        "Sokol/Interface/Pick Bullets Tooltip, Mockup.png",
+        "Sokol/Interface/Pick Skills Screen, Mockup.png",
+        "Sokol/Interface/Pick Skills Tooltip, Mockup.png"
+      ],
+      "icon": null
     },
     "Sokol/Skills": {
       "cols": [
         6
       ],
       "order": [
-        "Sokol/Skills/1.png",
-        "Sokol/Skills/2.png",
-        "Sokol/Skills/3.png",
-        "Sokol/Skills/4.png",
-        "Sokol/Skills/5.png",
-        "Sokol/Skills/6.png"
-      ]
+        "Sokol/Skills/Move, Skill.png",
+        "Sokol/Skills/Roll, Skill.png",
+        "Sokol/Skills/Teleport, Skill.png",
+        "Sokol/Skills/Reload, Skill.png",
+        "Sokol/Skills/Shoot, Skill.png",
+        "Sokol/Skills/Attack, Skill.png"
+      ],
+      "icon": null
     },
-    "Sokol/Tiles": {
+    "Sokol/Buildings": {
       "cols": [
         3
       ],
       "order": [
-        "Sokol/Tiles/Anvil.gif",
-        "Sokol/Tiles/Disks.gif",
-        "Sokol/Tiles/Trap.gif"
-      ]
+        "Sokol/Buildings/Anvil, Building.gif",
+        "Sokol/Buildings/Disks, Building.gif",
+        "Sokol/Buildings/Bear Trap, Building.gif"
+      ],
+      "icon": null
     }
   }
 }

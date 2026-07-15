@@ -73,7 +73,14 @@ function buildCard(work, index) {
 
   const tooltip = document.createElement("span");
   tooltip.className = "card__tooltip";
-  tooltip.textContent = work.title;
+  if (work.title.includes(",")) {
+    const parts = work.title.split(",");
+    const first = parts[0].trim();
+    const second = parts.slice(1).join(",").trim();
+    tooltip.innerHTML = `<span class="card__tooltip-primary">${first}</span><span class="card__tooltip-secondary">${second}</span>`;
+  } else {
+    tooltip.innerHTML = `<span class="card__tooltip-primary">${work.title}</span>`;
+  }
   container.appendChild(tooltip);
 
   card.appendChild(container);
@@ -612,22 +619,51 @@ function render(works) {
     renderGroup(rootWorks);
   }
 
+  function makeHeading(tag, className, text, icon) {
+    const el = document.createElement(tag);
+    el.className = className;
+    if (icon) {
+      const img = document.createElement("img");
+      img.className = "section-heading__icon";
+      img.src = icon;
+      img.alt = "";
+      img.loading = "lazy";
+      img.draggable = false;
+      el.appendChild(img);
+    }
+    const span = document.createElement("span");
+    span.className = "section-heading__text";
+    span.textContent = text;
+    el.appendChild(span);
+    return el;
+  }
+
   const folderNames = Object.keys(folderMap).sort();
   for (const folderName of folderNames) {
     const subs = folderMap[folderName];
 
-    const h2 = document.createElement("h2");
-    h2.className = "section-heading";
-    h2.textContent = toDisplayName(folderName);
-    fragment.appendChild(h2);
+    const folderLayout = layoutsData[folderName];
+    fragment.appendChild(
+      makeHeading(
+        "h2",
+        "section-heading",
+        toDisplayName(folderName),
+        folderLayout && folderLayout.icon,
+      ),
+    );
 
     const subNames = Object.keys(subs).sort();
     for (const subName of subNames) {
       if (subName) {
-        const h3 = document.createElement("h3");
-        h3.className = "section-heading section-heading--sub";
-        h3.textContent = toDisplayName(subName);
-        fragment.appendChild(h3);
+        const subLayout = layoutsData[`${folderName}/${subName}`];
+        fragment.appendChild(
+          makeHeading(
+            "h3",
+            "section-heading section-heading--sub",
+            toDisplayName(subName),
+            subLayout && subLayout.icon,
+          ),
+        );
       }
       renderGroup(subs[subName]);
     }

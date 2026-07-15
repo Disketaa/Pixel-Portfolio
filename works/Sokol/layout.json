@@ -2,32 +2,51 @@
   "theme": "snowy-blue",
   "layouts": {
     ".": {
-      "images": [["Menu"]]
+      "images": [["Menu, Mockup"]]
     },
     "Effects": {
+      "icon": "ice_cube",
       "images": [
         [
-          "CompressedTube",
-          "Ice-Cube-Animation",
-          "Radioactive-Mushroom",
-          "Smoke"
+          "Ice Cube, Effect Mockup",
+          "Compressed Tube, Effect Mockup",
+          "Radioactive-Mushroom, Effect Mockup",
+          "Smoke, Effect Mockup"
         ]
       ]
     },
     "Entities": {
-      "images": [["1", "2", "3", "4"], ["5"], ["6"]]
+      "images": [
+        [
+          "Idle & Attack, Character Animation",
+          "Reload & Shoot, Character Animation",
+          "Teleport, Character Animation",
+          "Hit & Death, Character Animation"
+        ],
+        ["Idle & Attack, Enemies Animation"],
+        ["Hit & Death, Enemies Animation"]
+      ]
     },
     "Interface": {
       "images": [
-        ["Mockup-1", "Mockup-2"],
-        ["Mockup-3", "Mockup-4"]
+        ["Pick Bullets Screen, Mockup", "Pick Bullets Tooltip, Mockup"],
+        ["Pick Skills Screen, Mockup", "Pick Skills Tooltip, Mockup"]
       ]
     },
     "Skills": {
-      "images": [["1", "2", "3", "4", "5", "6"]]
+      "images": [
+        [
+          "Move, Skill",
+          "Roll, Skill",
+          "Teleport, Skill",
+          "Reload, Skill",
+          "Shoot, Skill",
+          "Attack, Skill"
+        ]
+      ]
     },
-    "Tiles": {
-      "images": [["Anvil", "Disks", "Trap"]]
+    "Buildings": {
+      "images": [["Anvil, Building", "Disks, Building", "Bear Trap, Building"]]
     }
   }
 }

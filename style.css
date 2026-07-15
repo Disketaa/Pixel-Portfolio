@@ -253,6 +253,21 @@ main {
   margin-top: 12px;
 }
 
+.section-heading__icon {
+  flex: 0 0 auto;
+  height: 1em;
+  width: auto;
+  margin-right: 10px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.section-heading__text {
+  display: inline-block;
+}
+
 .card {
   position: relative;
   overflow: hidden;
@@ -385,14 +400,15 @@ main {
   position: absolute;
   bottom: 4px;
   left: 4px;
-  display: flex;
-  align-items: center;
-  padding: 2px 6px;
-  background: var(--back-in-black);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  background: transparent;
   font-family: var(--font);
   font-size: 14px;
-  line-height: 1.15;
   color: var(--floral-scent);
+  line-height: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -403,15 +419,20 @@ main {
   transition: opacity 0.2s ease;
 }
 
-.card:hover .card__tooltip,
-.card:focus-visible .card__tooltip {
-  opacity: 1;
+.card__tooltip-primary,
+.card__tooltip-secondary {
+  display: inline-block;
+  background: var(--back-in-black);
+  padding: 2px 6px;
+}
+
+.card__tooltip-secondary {
+  color: var(--muted);
 }
 
 .card:hover .card__tooltip,
 .card:focus-visible .card__tooltip {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .card__badge {

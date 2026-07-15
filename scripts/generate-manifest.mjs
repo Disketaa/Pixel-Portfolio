@@ -15,7 +15,22 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const WORKS_DIR = path.join(ROOT, "works");
 const MANIFEST_PATH = path.join(ROOT, "manifest.json");
+const ICONS_DIR = path.join(ROOT, "assets", "icons");
 const ALLOWED_EXT = new Set([".png", ".gif"]);
+
+function resolveIcon(name) {
+  if (typeof name !== "string" || !name.trim()) return null;
+  const base = name.trim();
+  try {
+    const files = readdirSync(ICONS_DIR);
+    const match = files.find(
+      (f) => path.basename(f, path.extname(f)).toLowerCase() === base.toLowerCase(),
+    );
+    if (match) return `assets/icons/${match}`;
+  } catch {}
+  console.error(`  icon "${base}" not found in assets/icons/`);
+  return null;
+}
 
 function toTitleCase(filename) {
   return path
@@ -273,7 +288,8 @@ function parseJsonLayout(content, folderPath, folderName) {
     if (!rowOk) continue;
 
     const key = isRoot ? folderName : `${folderName}/${subKey}`;
-    result[key] = { cols, order };
+    const icon = resolveIcon(layout.icon);
+    result[key] = { cols, order, icon };
     console.log(
       `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
     );
