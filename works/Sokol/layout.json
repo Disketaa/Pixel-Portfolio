@@ -1,0 +1,32 @@
+{
+  "layouts": {
+    "Effects": {
+      "images": [
+        [
+          "CompressedTube",
+          "Ice-Cube-Animation",
+          "Radioactive-Mushroom",
+          "Smoke"
+        ]
+      ]
+    },
+    "Entities": {
+      "images": [
+        ["1", "2", "3"],
+        ["4", "5", "6"]
+      ]
+    },
+    "Interface": {
+      "images": [
+        ["Mockup-1", "Mockup-2"],
+        ["Mockup-3", "Mockup-4"]
+      ]
+    },
+    "Skills": {
+      "images": [["Skills"]]
+    },
+    "Tiles": {
+      "images": [["Anvil", "Disks", "Trap"]]
+    }
+  }
+}

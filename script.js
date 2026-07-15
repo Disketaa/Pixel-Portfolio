@@ -10,6 +10,7 @@ const lightboxClose = document.getElementById("lightbox-close");
 let lastFocusedCard = null;
 let currentIndex = -1;
 let worksData = [];
+let layoutsData = {};
 let loadedLightboxImg = null;
 let lightboxResizeObserver = null;
 
@@ -24,6 +25,16 @@ let animationFrameId = null;
 let isDragging = false;
 let dragStartX = 0;
 let dragStartY = 0;
+
+function createRow() {
+  const row = document.createElement("div");
+  row.style.cssText = `
+    display: flex;
+    gap: var(--card-gap, 8px);
+    grid-column: 1 / -1;
+  `;
+  return row;
+}
 
 function buildCard(work, index) {
   const card = document.createElement("article");
@@ -190,8 +201,6 @@ function setZoom(level, anchorPx, anchorPy) {
   targetPanX = newImgX - ox;
   targetPanY = newImgY - oy;
 
-
-
   if (!isAnimating) {
     isAnimating = true;
     animatePan();
@@ -242,7 +251,9 @@ function openLightbox(work, triggerEl, index) {
       animatePan();
       if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
       lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
-      lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));
+      lightboxResizeObserver.observe(
+        document.querySelector(".lightbox__frame"),
+      );
     };
   } else {
     lightboxGifImg.src = "";
@@ -265,7 +276,9 @@ function openLightbox(work, triggerEl, index) {
       animatePan();
       if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
       lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
-      lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));
+      lightboxResizeObserver.observe(
+        document.querySelector(".lightbox__frame"),
+      );
     };
   }
 
@@ -499,31 +512,54 @@ document.addEventListener("contextmenu", (event) => {
   }
 });
 
-const COLS = 4;
-const ROW_UNIT = 8;
+function getLayoutKey(work) {
+  const parts = work.file.split("/");
+  if (parts.length <= 1) return "";
+  return parts.slice(0, -1).join("/");
+}
 
-function layoutCollage() {
-  const cs = getComputedStyle(grid);
-  const colWidths = cs.gridTemplateColumns
-    .split(" ")
-    .map(parseFloat)
-    .filter((n) => !isNaN(n));
-  const colWidth = colWidths[0] || 300;
-  const gap = parseFloat(cs.columnGap) || 8;
-  const pitch = ROW_UNIT + gap;
+function renderLayout(works, layout, fragment, globalFlat) {
+  const byFile = {};
+  for (const w of works) byFile[w.file] = w;
 
-  grid.querySelectorAll(".card").forEach((card) => {
-    const work = worksData[parseInt(card.dataset.index, 10)];
-    if (!work) return;
-    const { width: w, height: h } = work;
-    let colSpan = Math.round(w / colWidth);
-    colSpan = Math.max(1, Math.min(COLS, colSpan));
-    const cellWidth = colSpan * colWidth + (colSpan - 1) * gap;
-    const desiredHeight = (cellWidth * h) / w;
-    const rowSpan = Math.max(1, Math.round((desiredHeight + gap) / pitch));
-    card.style.gridColumn = `span ${colSpan}`;
-    card.style.gridRow = `span ${rowSpan}`;
-  });
+  const ordered = [];
+  for (const filePath of layout.order) {
+    const w = byFile[filePath];
+    if (w) ordered.push(w);
+  }
+
+  let slotIdx = 0;
+
+  for (let row = 0; row < layout.cols.length; row++) {
+    const rowColCount = layout.cols[row];
+    const rowDiv = createRow(rowColCount);
+
+    for (let col = 0; col < rowColCount; col++) {
+      const work = ordered[slotIdx];
+      if (work) {
+        const card = buildCard(work, globalFlat.length);
+        card.style.flex = "1";
+        card.style.aspectRatio = `${work.width} / ${work.height}`;
+        globalFlat.push(work);
+        rowDiv.appendChild(card);
+      }
+      slotIdx++;
+    }
+    fragment.appendChild(rowDiv);
+  }
+}
+
+function renderFallback(works, fragment, globalFlat) {
+  if (!works.length) return;
+  const rowDiv = createRow(works.length);
+  for (const work of works) {
+    const card = buildCard(work, globalFlat.length);
+    card.style.flex = "1";
+    card.style.aspectRatio = `${work.width} / ${work.height}`;
+    globalFlat.push(work);
+    rowDiv.appendChild(card);
+  }
+  fragment.appendChild(rowDiv);
 }
 
 function render(works) {
@@ -550,22 +586,22 @@ function render(works) {
     }
   }
 
-  const sortBySize = (a, b) => b.width * b.height - a.width * b.height;
   const flatData = [];
-
   const fragment = document.createDocumentFragment();
 
-  let idx = 0;
-  function addCards(cards) {
-    cards.sort(sortBySize);
-    for (const work of cards) {
-      flatData.push(work);
-      fragment.appendChild(buildCard(work, idx++));
+  function renderGroup(groupWorks) {
+    if (!groupWorks.length) return;
+    const key = getLayoutKey(groupWorks[0]);
+    const layout = layoutsData[key];
+    if (layout) {
+      renderLayout(groupWorks, layout, fragment, flatData);
+    } else {
+      renderFallback(groupWorks, fragment, flatData);
     }
   }
 
   if (rootWorks.length) {
-    addCards(rootWorks);
+    renderGroup(rootWorks);
   }
 
   const folderNames = Object.keys(folderMap).sort();
@@ -585,14 +621,12 @@ function render(works) {
         h3.textContent = toDisplayName(subName);
         fragment.appendChild(h3);
       }
-      addCards(subs[subName]);
+      renderGroup(subs[subName]);
     }
   }
 
   worksData = flatData;
   grid.appendChild(fragment);
-
-  layoutCollage();
 
   const cards = grid.querySelectorAll(".card");
   cards.forEach((card, i) => {
@@ -608,8 +642,10 @@ async function loadManifest() {
   try {
     const res = await fetch("manifest.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const works = await res.json();
-    render(Array.isArray(works) ? works : []);
+    const data = await res.json();
+    const entries = Array.isArray(data) ? data : data.entries || [];
+    layoutsData = data.layouts || {};
+    render(entries);
   } catch (err) {
     console.error("Failed to load manifest.json:", err);
     render([]);
@@ -617,7 +653,3 @@ async function loadManifest() {
 }
 
 loadManifest();
-
-if (typeof ResizeObserver !== "undefined") {
-  new ResizeObserver(() => layoutCollage()).observe(grid);
-}

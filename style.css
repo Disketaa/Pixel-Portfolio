@@ -161,8 +161,7 @@ main {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 8px;
-  grid-auto-flow: row;
+  grid-auto-rows: auto;
   gap: var(--card-gap);
   padding: var(--grid-padding);
   margin: 0 auto;
@@ -171,13 +170,12 @@ main {
 
 .section-heading {
   grid-column: 1 / -1;
-  grid-row: span 5;
   font-family: var(--font);
   font-weight: normal;
-  margin: 0;
+  margin: 16px 0 0;
   color: var(--paper);
   font-size: var(--font-size-lg);
-  padding: 0 0 2px 0;
+  padding: 0 0 10px 0;
   line-height: 1;
   display: flex;
   align-items: flex-end;
@@ -192,10 +190,10 @@ main {
 }
 
 .section-heading--sub {
-  grid-row: span 4;
   font-size: var(--font-size-md);
   color: var(--muted);
-  padding: 0 0 2px 0;
+  margin: 8px 0 0;
+  padding: 0 0 8px 0;
   line-height: 1;
   display: flex;
   align-items: flex-end;

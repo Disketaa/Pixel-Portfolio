@@ -6,7 +6,7 @@
     <title>Disketaa</title>
     <meta
       name="description"
-      content="A pixel art portfolio, laid out automatically from whatever lands in /works."
+      content="A pixel art portfolio. Drop PNG/GIF into works/ and define grid layouts with layout.txt."
     />
     <link rel="icon" href="assets/icon.png?" />
     <link rel="stylesheet" href="style.css" />
@@ -32,8 +32,8 @@
       <div class="empty-state" id="empty-state" hidden>
         <p class="empty-state__title">Nothing on the wall yet.</p>
         <p class="empty-state__body">
-          Drop a PNG or GIF into <code>/works</code> and push to
-          <code>main</code>. The layout builds itself.
+          Drop PNG/GIF into <code>works/</code>, add <code>layout.txt</code> per
+          folder to define the grid, then push to <code>main</code>.
         </p>
       </div>
     </main>
@@ -46,7 +46,7 @@
         </button>
         <div class="lightbox__frame">
           <canvas class="lightbox__image" id="lightbox-image"></canvas>
-          <img class="lightbox__image" id="lightbox-image-gif" alt="" hidden>
+          <img class="lightbox__image" id="lightbox-image-gif" alt="" hidden />
         </div>
         <div class="lightbox__meta">
           <p class="lightbox__data" id="lightbox-data"></p>

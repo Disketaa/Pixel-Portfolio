@@ -187,6 +187,113 @@ function buildEntry(relPath) {
   };
 }
 
+function parseJsonLayout(content, folderPath, folderName) {
+  let json;
+  try {
+    json = JSON.parse(content);
+  } catch {
+    console.error(`  ${path.join(folderPath, "layout.json")}: invalid JSON`);
+    return null;
+  }
+
+  if (!json.layouts || typeof json.layouts !== "object") {
+    console.error(
+      `  ${path.join(folderPath, "layout.json")}: missing "layouts" object`,
+    );
+    return null;
+  }
+
+  const result = {};
+  let hasError = false;
+
+  for (const [subKey, layout] of Object.entries(json.layouts)) {
+    if (!layout.images || !Array.isArray(layout.images)) {
+      console.error(
+        `  ${path.join(folderPath, "layout.json")}: "${subKey}" has no "images" array`,
+      );
+      hasError = true;
+      continue;
+    }
+
+    const subDirPath = path.join(folderPath, subKey);
+
+    const nameMap = {};
+    try {
+      const items = readdirSync(subDirPath, { withFileTypes: true });
+      for (const entry of items) {
+        if (!entry.isFile()) continue;
+        const ext = path.extname(entry.name).toLowerCase();
+        if (!ALLOWED_EXT.has(ext)) continue;
+        const base = path.basename(entry.name, ext);
+        nameMap[base] = entry.name;
+        nameMap[base.toLowerCase()] = entry.name;
+      }
+    } catch {
+      console.error(
+        `  ${path.join(folderPath, "layout.json")}: subfolder "${subKey}" not found`,
+      );
+      hasError = true;
+      continue;
+    }
+
+    const cols = [];
+    const order = [];
+    let rowOk = true;
+
+    for (const row of layout.images) {
+      if (!Array.isArray(row)) {
+        console.error(
+          `  ${path.join(folderPath, "layout.json")}: "${subKey}" row is not an array`,
+        );
+        hasError = true;
+        rowOk = false;
+        break;
+      }
+      cols.push(row.length);
+      for (const name of row) {
+        const fileName = nameMap[name] || nameMap[name.toLowerCase()] || null;
+        if (!fileName) {
+          console.error(
+            `  ${path.join(folderPath, "layout.json")}: "${subKey}" — "${name}" not found in ${subKey}/`,
+          );
+          hasError = true;
+          rowOk = false;
+          break;
+        }
+        order.push(`${folderName}/${subKey}/${fileName}`);
+      }
+      if (!rowOk) break;
+    }
+
+    if (!rowOk) continue;
+
+    const key = `${folderName}/${subKey}`;
+    result[key] = { cols, order };
+    console.log(
+      `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
+    );
+  }
+
+  if (hasError && Object.keys(result).length === 0) return null;
+  return Object.keys(result).length ? result : null;
+}
+
+function scanJsonLayouts() {
+  const result = {};
+  const items = readdirSync(WORKS_DIR, { withFileTypes: true });
+  for (const item of items) {
+    if (!item.isDirectory()) continue;
+    const folderPath = path.join(WORKS_DIR, item.name);
+    const jsonFile = path.join(folderPath, "layout.json");
+    if (existsSync(jsonFile)) {
+      const content = readFileSync(jsonFile, "utf8");
+      const parsed = parseJsonLayout(content, folderPath, item.name);
+      if (parsed) Object.assign(result, parsed);
+    }
+  }
+  return result;
+}
+
 function main() {
   if (!existsSync(WORKS_DIR)) {
     console.error(`No works directory found at ${WORKS_DIR}`);
@@ -202,18 +309,54 @@ function main() {
     return a.file.localeCompare(b.file);
   });
 
-  const nextContent = JSON.stringify(entries, null, 2) + "\n";
+  console.log(`Scanning for layout.json files...`);
+  const layouts = scanJsonLayouts();
+
+  const layoutFiles = new Set();
+  for (const order of Object.values(layouts)) {
+    for (const f of order.order) layoutFiles.add(f);
+  }
+
+  const folderHasLayout = new Set(
+    readdirSync(WORKS_DIR, { withFileTypes: true })
+      .filter(
+        (d) =>
+          d.isDirectory() &&
+          existsSync(path.join(WORKS_DIR, d.name, "layout.json")),
+      )
+      .map((d) => d.name),
+  );
+
+  const filtered = entries.filter((e) => {
+    if (!e.folder) return true;
+    if (!folderHasLayout.has(e.folder)) return true;
+    return layoutFiles.has(e.file);
+  });
+
+  if (filtered.length !== entries.length) {
+    const removed = entries.length - filtered.length;
+    console.log(`  filtered out ${removed} file(s) not in any layout`);
+  }
+
+  const manifest = { entries: filtered, layouts };
+  const nextContent = JSON.stringify(manifest, null, 2) + "\n";
   const prevContent = existsSync(MANIFEST_PATH)
     ? readFileSync(MANIFEST_PATH, "utf8")
     : null;
 
   if (prevContent === nextContent) {
-    console.log(`manifest.json unchanged (${entries.length} works)`);
+    const count = Object.keys(layouts).length;
+    console.log(
+      `manifest.json unchanged (${filtered.length} works, ${count} layouts)`,
+    );
     return;
   }
 
   writeFileSync(MANIFEST_PATH, nextContent, "utf8");
-  console.log(`manifest.json updated: ${entries.length} works`);
+  const count = Object.keys(layouts).length;
+  console.log(
+    `manifest.json updated: ${filtered.length} works, ${count} layouts`,
+  );
 }
 
 main();
