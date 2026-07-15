@@ -353,8 +353,6 @@ body {
 }
 
 .header-tags__arrow {
-  width: 28px;
-  height: 28px;
   transition: opacity var(--nav-transition);
 }
 
@@ -817,8 +815,8 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: none;
   background: var(--muted);
