@@ -799,6 +799,31 @@ homeLinks.forEach((link) => {
   });
 });
 
+const headerEl = document.querySelector(".site-header");
+if (headerEl) {
+  let headerTicking = false;
+  let headerCollapsed = false;
+  function updateHeaderState() {
+    headerTicking = false;
+    const next = window.scrollY > 40;
+    if (next !== headerCollapsed) {
+      headerCollapsed = next;
+      headerEl.classList.toggle("is-scrolled", headerCollapsed);
+    }
+  }
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!headerTicking) {
+        headerTicking = true;
+        requestAnimationFrame(updateHeaderState);
+      }
+    },
+    { passive: true },
+  );
+  updateHeaderState();
+}
+
 async function loadManifest() {
   try {
     const res = await fetch("manifest.json");

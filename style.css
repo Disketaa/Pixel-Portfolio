@@ -63,6 +63,9 @@
   --nav-hover-bg: color-mix(in srgb, var(--accent) 25%, transparent);
   --nav-transition: 0.18s ease;
   --header-enter-duration: 0.9s;
+  --header-collapse-duration: 0.25s;
+  --site-header-padding-top-scrolled: 12px;
+  --site-header-padding-bottom-scrolled: 12px;
   --empty-state-max-width: 640px;
   --empty-state-margin: 80px;
   --empty-state-padding-horizontal: 28px;
@@ -206,6 +209,23 @@ canvas {
   background: var(--header-bg);
   box-shadow: var(--header-shadow);
   animation: header-in var(--header-enter-duration) ease both;
+  transition: padding var(--header-collapse-duration) ease;
+}
+
+.site-header.is-scrolled {
+  padding-top: var(--site-header-padding-top-scrolled);
+  padding-bottom: var(--site-header-padding-bottom-scrolled);
+}
+
+.site-header.is-scrolled .site-title {
+  opacity: 0;
+  transform: translateY(-8px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.site-header.is-scrolled .site-subtitle {
+  grid-row: 1;
 }
 
 @keyframes header-in {
@@ -256,6 +276,8 @@ canvas {
   margin: 0;
   font-weight: normal;
   line-height: 1;
+  transition: opacity var(--header-collapse-duration) ease,
+    transform var(--header-collapse-duration) ease;
 }
 
 .site-title__link {
