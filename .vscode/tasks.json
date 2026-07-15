@@ -8,7 +8,7 @@
       "args": [
         "-NoProfile",
         "-Command",
-        "npm run generate-manifest; $portInUse = $null -ne (Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue); if (-not $portInUse) { npx --yes serve . -l 8000 } else { Write-Host '---SERVER ALREADY RUNNING---'; Write-Host 'localhost:8000'; Start-Sleep -Seconds 2147483 }"
+        "npm run generate-manifest; $portInUse = $null -ne (Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue); if (-not $portInUse) { npx --yes serve . -l 8000 } else { Write-Host '---SERVER ALREADY RUNNING---'; Write-Host 'localhost:8000' }"
       ],
       "isBackground": true,
       "options": {
