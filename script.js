@@ -714,7 +714,9 @@ function render(works) {
 
   const subtitle = document.getElementById("site-subtitle");
   if (subtitle && orderedSections.length) {
-    subtitle.textContent = orderedSections[0].folder;
+    const folder = orderedSections[0].folder;
+    subtitle.textContent = folder;
+    subtitle.href = `#section-${slug(folder)}`;
   }
 
   renderNav(orderedSections);
@@ -786,14 +788,16 @@ function setupScrollSpy(nav) {
   update();
 }
 
-const homeLink = document.querySelector(".site-header__home");
-if (homeLink) {
-  homeLink.addEventListener("click", (event) => {
+const homeLinks = document.querySelectorAll(
+  ".site-header__home, .site-title__link",
+);
+homeLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
     history.replaceState(null, "", location.pathname + location.search);
   });
-}
+});
 
 async function loadManifest() {
   try {
