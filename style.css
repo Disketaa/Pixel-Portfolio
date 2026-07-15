@@ -217,10 +217,39 @@ main {
   margin: var(--section-gap) 0 0;
   color: var(--paper);
   font-size: var(--font-size-lg);
-  padding: 0 0 10px 0;
   line-height: 1;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-heading--sub {
+  font-size: var(--font-size-md);
+  margin: var(--section-gap-sub) 0 0;
+  line-height: 1;
+}
+
+.section-heading + .section-heading--sub {
+  margin-top: 12px;
+}
+
+.section-heading__box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background-color: var(--accent);
+  color: var(--ink);
+}
+
+.section-heading--sub .section-heading__box {
+  background-color: var(--muted);
+  color: var(--paper);
+}
+
+.section-heading__underline {
+  flex: 1 1 auto;
+  height: 2px;
   background-image: repeating-linear-gradient(
     90deg,
     var(--accent) 0 2px,
@@ -228,36 +257,21 @@ main {
   );
   background-size: 100% 2px;
   background-repeat: repeat-x;
-  background-position: bottom;
+  background-position: left center;
 }
 
-.section-heading--sub {
-  font-size: var(--font-size-md);
-  color: var(--muted);
-  margin: var(--section-gap-sub) 0 0;
-  padding: 0 0 8px 0;
-  line-height: 1;
-  display: flex;
-  align-items: flex-end;
+.section-heading--sub .section-heading__underline {
   background-image: repeating-linear-gradient(
     90deg,
     var(--muted) 0 2px,
     transparent 2px 6px
   );
-  background-size: 100% 2px;
-  background-repeat: repeat-x;
-  background-position: bottom;
-}
-
-.section-heading + .section-heading--sub {
-  margin-top: 12px;
 }
 
 .section-heading__icon {
   flex: 0 0 auto;
   height: 1em;
   width: auto;
-  margin-right: 10px;
   image-rendering: pixelated;
   pointer-events: none;
   user-select: none;

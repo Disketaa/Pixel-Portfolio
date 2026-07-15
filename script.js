@@ -622,6 +622,8 @@ function render(works) {
   function makeHeading(tag, className, text, icon) {
     const el = document.createElement(tag);
     el.className = className;
+    const box = document.createElement("span");
+    box.className = "section-heading__box";
     if (icon) {
       const img = document.createElement("img");
       img.className = "section-heading__icon";
@@ -629,12 +631,16 @@ function render(works) {
       img.alt = "";
       img.loading = "lazy";
       img.draggable = false;
-      el.appendChild(img);
+      box.appendChild(img);
     }
     const span = document.createElement("span");
     span.className = "section-heading__text";
     span.textContent = text;
-    el.appendChild(span);
+    box.appendChild(span);
+    el.appendChild(box);
+    const underline = document.createElement("span");
+    underline.className = "section-heading__underline";
+    el.appendChild(underline);
     return el;
   }
 
