@@ -353,15 +353,12 @@ body {
 }
 
 .header-tags__arrow {
-  color: var(--paper);
-  border-radius: 2px;
   transition: opacity var(--nav-transition);
 }
 
 .header-tags__arrow img {
   width: 11px;
   height: 11px;
-  mix-blend-mode: difference;
 }
 
 .header-tag {
