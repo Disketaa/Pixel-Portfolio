@@ -43,6 +43,7 @@ function buildCard(work, index) {
   card.setAttribute("role", "button");
   card.setAttribute("aria-label", `Open ${work.title}`);
   card.dataset.index = index;
+  card.style.setProperty("--glow-src", `url("works/${work.file}")`);
 
   if (work.isAnimated) {
     const img = document.createElement("img");

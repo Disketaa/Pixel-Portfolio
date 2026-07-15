@@ -260,7 +260,7 @@ main {
 
 .card {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   user-select: none;
   -webkit-user-select: none;
   padding: var(--card-padding);
@@ -272,6 +272,19 @@ main {
   background-size: var(--card-background-size) var(--card-background-size);
   line-height: 0;
   opacity: 0.25;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--glow-src, none);
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) saturate(5) brightness(2);
+  opacity: 20%;
 }
 
 .card-enter {
