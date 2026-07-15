@@ -825,11 +825,17 @@ function updateHeader() {
 }
 
 let scrollTicking = false;
+let scrollIdleTimer = null;
 function onScrollFrame() {
   scrollTicking = false;
   const ts = performance.now();
   let readMs = 0;
   let writeMs = 0;
+  document.documentElement.classList.add("is-scrolling");
+  if (scrollIdleTimer) clearTimeout(scrollIdleTimer);
+  scrollIdleTimer = setTimeout(() => {
+    document.documentElement.classList.remove("is-scrolling");
+  }, 150);
   if (typeof scrollSpyUpdate === "function") {
     const r0 = performance.now();
     scrollSpyUpdate();

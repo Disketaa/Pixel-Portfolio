@@ -129,7 +129,15 @@ body {
   background-size: 200% 200%;
   opacity: 0.55;
   pointer-events: none;
-  animation: bg-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: bg-drift 60s ease-in-out infinite alternate;
+  animation-play-state: running;
+}
+
+html.is-scrolling #bg,
+html.is-scrolling body::after {
+  animation-play-state: paused;
 }
 
 @keyframes bg-drift {
