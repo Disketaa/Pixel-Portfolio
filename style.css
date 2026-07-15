@@ -234,7 +234,6 @@ canvas {
 .title-row {
   padding-top: var(--site-header-padding-top);
   opacity: calc(1 - var(--p));
-  will-change: opacity;
 }
 
 .brand-row {
@@ -488,6 +487,12 @@ main {
   background-size: cover;
   background-position: center;
   filter: blur(10px) saturate(15) brightness(2);
+  opacity: 0;
+  transition: opacity var(--badge-transition-opacity-duration) ease;
+}
+
+.card:hover::before,
+.card:focus-visible::before {
   opacity: 5%;
 }
 
