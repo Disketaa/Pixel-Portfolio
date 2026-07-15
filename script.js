@@ -453,6 +453,7 @@ frame.addEventListener("pointerdown", (event) => {
 
   event.preventDefault();
   isDragging = true;
+  frame.classList.add("lightbox__frame--grabbing");
   dragStartX = event.clientX;
   dragStartY = event.clientY;
 
@@ -482,11 +483,13 @@ frame.addEventListener("pointermove", (event) => {
 frame.addEventListener("pointerup", (event) => {
   if (!isDragging) return;
   isDragging = false;
+  frame.classList.remove("lightbox__frame--grabbing");
 });
 
 frame.addEventListener("pointerleave", (event) => {
   if (isDragging) {
     isDragging = false;
+    frame.classList.remove("lightbox__frame--grabbing");
   }
 });
 

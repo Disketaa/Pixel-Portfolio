@@ -464,6 +464,11 @@ button {
   );
   background-size: var(--card-background-size) var(--card-background-size);
   overflow: hidden;
+  cursor: grab;
+}
+
+.lightbox__frame--grabbing {
+  cursor: grabbing;
 }
 
 .lightbox__image {
