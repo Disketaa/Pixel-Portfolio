@@ -3,6 +3,7 @@ const emptyState = document.getElementById("empty-state");
 const workCount = document.getElementById("work-count");
 const lightbox = document.getElementById("lightbox");
 const lightboxCanvas = document.getElementById("lightbox-image");
+const lightboxGifImg = document.getElementById("lightbox-image-gif");
 const lightboxData = document.getElementById("lightbox-data");
 const lightboxClose = document.getElementById("lightbox-close");
 
@@ -39,10 +40,6 @@ function buildCard(work, index) {
     img.loading = "lazy";
     img.decoding = "async";
     card.appendChild(img);
-    const badge = document.createElement("span");
-    badge.className = "card__badge";
-    badge.textContent = "gif";
-    card.appendChild(badge);
   } else {
     const canvas = document.createElement("canvas");
     canvas.className = "card__canvas";
@@ -101,9 +98,16 @@ function drawLightboxImage() {
 
   const zoomedDw = dw * zoomLevel;
   const zoomedDh = dh * zoomLevel;
-
   const drawX = ox + panX;
   const drawY = oy + panY;
+
+  if (lightboxCanvas.hidden) {
+    lightboxGifImg.style.width = `${dw}px`;
+    lightboxGifImg.style.height = `${dh}px`;
+    lightboxGifImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
+    lightboxGifImg.style.transformOrigin = "0 0";
+    return;
+  }
 
   lightboxCanvas.width = cw;
   lightboxCanvas.height = ch;
@@ -186,6 +190,8 @@ function setZoom(level, anchorPx, anchorPy) {
   targetPanX = newImgX - ox;
   targetPanY = newImgY - oy;
 
+
+
   if (!isAnimating) {
     isAnimating = true;
     animatePan();
@@ -218,24 +224,50 @@ function openLightbox(work, triggerEl, index) {
   currentIndex = index;
   if (triggerEl) lastFocusedCard = triggerEl;
 
-  const img = new Image();
-  img.src = `works/${work.file}`;
-  img.onload = () => {
-    if (currentIndex !== index) return;
-    loadedLightboxImg = img;
-    zoomLevel = 1.05;
-    targetZoomLevel = 1;
-    panX = 0;
-    panY = 0;
-    targetPanX = 0;
-    targetPanY = 0;
-    isAnimating = true;
-    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    animatePan();
-    if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
-    lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
-    lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));
-  };
+  if (work.isAnimated) {
+    lightboxCanvas.hidden = true;
+    lightboxGifImg.hidden = false;
+    lightboxGifImg.src = `works/${work.file}`;
+    lightboxGifImg.onload = () => {
+      if (currentIndex !== index) return;
+      loadedLightboxImg = lightboxGifImg;
+      zoomLevel = 1.05;
+      targetZoomLevel = 1;
+      panX = 0;
+      panY = 0;
+      targetPanX = 0;
+      targetPanY = 0;
+      isAnimating = true;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animatePan();
+      if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
+      lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
+      lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));
+    };
+  } else {
+    lightboxGifImg.src = "";
+    lightboxGifImg.onload = null;
+    lightboxGifImg.hidden = true;
+    lightboxCanvas.hidden = false;
+    const img = new Image();
+    img.src = `works/${work.file}`;
+    img.onload = () => {
+      if (currentIndex !== index) return;
+      loadedLightboxImg = img;
+      zoomLevel = 1.05;
+      targetZoomLevel = 1;
+      panX = 0;
+      panY = 0;
+      targetPanX = 0;
+      targetPanY = 0;
+      isAnimating = true;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animatePan();
+      if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
+      lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
+      lightboxResizeObserver.observe(document.querySelector(".lightbox__frame"));
+    };
+  }
 
   lightbox.hidden = false;
   document.body.style.overflow = "hidden";
@@ -274,6 +306,13 @@ function closeLightbox() {
   if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   loadedLightboxImg = null;
+  lightboxGifImg.onload = null;
+  lightboxGifImg.src = "";
+  lightboxGifImg.style.width = "";
+  lightboxGifImg.style.height = "";
+  lightboxGifImg.style.transform = "";
+  lightboxGifImg.hidden = true;
+  lightboxCanvas.hidden = false;
   zoomLevel = 1;
   targetZoomLevel = 1;
   panX = 0;

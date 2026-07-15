@@ -1,27 +1,75 @@
 [
   {
-    "file": "test/Bullet-Slot.png",
-    "title": "Bullet Slot",
-    "width": 4,
-    "height": 7,
-    "ratio": 0.571,
-    "hasAlpha": true,
-    "isAnimated": false,
+    "file": "Revolver/Character/Attack.gif",
+    "title": "Attack",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
     "addedAt": "2026-07-15",
-    "folder": "Test",
-    "subfolder": null
+    "folder": "Revolver",
+    "subfolder": "Character"
   },
   {
-    "file": "test/Bunny.png",
-    "title": "Bunny",
-    "width": 352,
-    "height": 224,
-    "ratio": 1.571,
-    "hasAlpha": true,
-    "isAnimated": false,
+    "file": "Revolver/Character/Death.gif",
+    "title": "Death",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
     "addedAt": "2026-07-15",
-    "folder": "Test",
-    "subfolder": null
+    "folder": "Revolver",
+    "subfolder": "Character"
+  },
+  {
+    "file": "Revolver/Character/Hit.gif",
+    "title": "Hit",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Revolver",
+    "subfolder": "Character"
+  },
+  {
+    "file": "Revolver/Character/Idle.gif",
+    "title": "Idle",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Revolver",
+    "subfolder": "Character"
+  },
+  {
+    "file": "Revolver/Character/Roll.gif",
+    "title": "Roll",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Revolver",
+    "subfolder": "Character"
+  },
+  {
+    "file": "Revolver/Character/Run.gif",
+    "title": "Run",
+    "width": 48,
+    "height": 48,
+    "ratio": 1,
+    "hasAlpha": false,
+    "isAnimated": true,
+    "addedAt": "2026-07-15",
+    "folder": "Revolver",
+    "subfolder": "Character"
   },
   {
     "file": "Health-Filled.png",
@@ -156,6 +204,54 @@
     "subfolder": null
   },
   {
+    "file": "test/Bullet-Slot.png",
+    "title": "Bullet Slot",
+    "width": 4,
+    "height": 7,
+    "ratio": 0.571,
+    "hasAlpha": true,
+    "isAnimated": false,
+    "addedAt": "2026-07-14",
+    "folder": "Test",
+    "subfolder": null
+  },
+  {
+    "file": "test/Bunny.png",
+    "title": "Bunny",
+    "width": 352,
+    "height": 224,
+    "ratio": 1.571,
+    "hasAlpha": true,
+    "isAnimated": false,
+    "addedAt": "2026-07-14",
+    "folder": "Test",
+    "subfolder": null
+  },
+  {
+    "file": "test/Health-Current.png",
+    "title": "Health Current",
+    "width": 11,
+    "height": 5,
+    "ratio": 2.2,
+    "hasAlpha": true,
+    "isAnimated": false,
+    "addedAt": "2026-07-14",
+    "folder": "Test",
+    "subfolder": null
+  },
+  {
+    "file": "test/Health-Empty.png",
+    "title": "Health Empty",
+    "width": 11,
+    "height": 5,
+    "ratio": 2.2,
+    "hasAlpha": true,
+    "isAnimated": false,
+    "addedAt": "2026-07-14",
+    "folder": "Test",
+    "subfolder": null
+  },
+  {
     "file": "Tooltip-1-Alt.png",
     "title": "Tooltip 1 Alt",
     "width": 354,
@@ -201,30 +297,6 @@
     "isAnimated": false,
     "addedAt": "2026-07-14",
     "folder": null,
-    "subfolder": null
-  },
-  {
-    "file": "test/Health-Current.png",
-    "title": "Health Current",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-05-05",
-    "folder": "Test",
-    "subfolder": null
-  },
-  {
-    "file": "test/Health-Empty.png",
-    "title": "Health Empty",
-    "width": 11,
-    "height": 5,
-    "ratio": 2.2,
-    "hasAlpha": true,
-    "isAnimated": false,
-    "addedAt": "2026-05-05",
-    "folder": "Test",
     "subfolder": null
   }
 ]
