@@ -761,9 +761,7 @@ function setupScrollSpy(nav) {
   );
   if (!headings.length) return;
 
-  let ticking = false;
-  function update() {
-    ticking = false;
+  scrollSpyUpdate = function update() {
     const offset = 90;
     let activeId = headings[0].id;
     for (const h of headings) {
@@ -773,19 +771,8 @@ function setupScrollSpy(nav) {
     for (const link of links) {
       link.classList.toggle("is-active", link.dataset.target === activeId);
     }
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    },
-    { passive: true },
-  );
-  update();
+  };
+  scrollSpyUpdate();
 }
 
 const homeLinks = document.querySelectorAll(
@@ -805,6 +792,7 @@ const headerEl = document.querySelector(".site-header");
 const titleRow = document.querySelector(".title-row");
 const brandRow = document.querySelector(".brand-row");
 const headerInner = document.querySelector(".header-inner");
+let scrollSpyUpdate = null;
 
 function measureHeader() {
   if (!headerEl || !titleRow || !brandRow || !headerInner) return;
@@ -816,20 +804,25 @@ function measureHeader() {
   headerEl.style.setProperty("--full-h", `${titleH + brandH + gap}px`);
 }
 
-let headerTicking = false;
 function updateHeader() {
-  headerTicking = false;
   if (!headerEl) return;
   const p = Math.min(window.scrollY / HEADER_SCROLL_RANGE, 1);
   headerEl.style.setProperty("--p", p);
 }
 
+let scrollTicking = false;
+function onScrollFrame() {
+  scrollTicking = false;
+  if (typeof scrollSpyUpdate === "function") scrollSpyUpdate();
+  updateHeader();
+}
+
 window.addEventListener(
   "scroll",
   () => {
-    if (!headerTicking) {
-      headerTicking = true;
-      requestAnimationFrame(updateHeader);
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(onScrollFrame);
     }
   },
   { passive: true },
