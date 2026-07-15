@@ -794,8 +794,22 @@ const brandRow = document.querySelector(".brand-row");
 const headerInner = document.querySelector(".header-inner");
 let scrollSpyUpdate = null;
 
+const HEADER_DEBUG =
+  new URLSearchParams(location.search).has("debug") ||
+  (typeof localStorage !== "undefined" &&
+    localStorage.getItem("header-debug") === "1");
+
+let dbgFrames = 0;
+let dbgReadTotal = 0;
+let dbgWriteTotal = 0;
+let dbgInterTotal = 0;
+let dbgInterFrames = 0;
+let dbgMaxFrame = 0;
+let dbgPrevTs = 0;
+
 function measureHeader() {
   if (!headerEl || !titleRow || !brandRow || !headerInner) return;
+  if (HEADER_DEBUG) console.log("[header] measureHeader() — forces layout");
   const titleH = titleRow.offsetHeight;
   const brandH = brandRow.offsetHeight;
   const gap = parseFloat(getComputedStyle(headerInner).rowGap) || 0;
@@ -813,8 +827,62 @@ function updateHeader() {
 let scrollTicking = false;
 function onScrollFrame() {
   scrollTicking = false;
-  if (typeof scrollSpyUpdate === "function") scrollSpyUpdate();
+  const ts = performance.now();
+  let readMs = 0;
+  let writeMs = 0;
+  if (typeof scrollSpyUpdate === "function") {
+    const r0 = performance.now();
+    scrollSpyUpdate();
+    readMs = performance.now() - r0;
+  }
+  const w0 = performance.now();
   updateHeader();
+  writeMs = performance.now() - w0;
+
+  if (HEADER_DEBUG) {
+    const inter = dbgPrevTs ? ts - dbgPrevTs : 0;
+    dbgPrevTs = ts;
+    dbgFrames++;
+    dbgReadTotal += readMs;
+    dbgWriteTotal += writeMs;
+    if (inter > 0 && inter <= 200) {
+      dbgInterTotal += inter;
+      dbgInterFrames++;
+      dbgMaxFrame = Math.max(dbgMaxFrame, inter);
+      if (inter > 20) {
+        console.warn(
+          `[header] slow frame: inter-frame ${inter.toFixed(
+            1,
+          )}ms (read ${readMs.toFixed(2)}ms, write ${writeMs.toFixed(
+            2,
+          )}ms) — ${
+            readMs > writeMs
+              ? "read phase dominates (possible forced reflow)"
+              : "in-rAF work small but gap large (paint/compositing bottleneck?)"
+          }`,
+        );
+      }
+    }
+    if (dbgFrames % 60 === 0 && dbgInterFrames) {
+      console.log(
+        `[header] ${dbgFrames} frames — avg read ${(
+          dbgReadTotal / dbgFrames
+        ).toFixed(3)}ms, avg write ${(dbgWriteTotal / dbgFrames).toFixed(
+          3,
+        )}ms, avg inter-frame ${(dbgInterTotal / dbgInterFrames).toFixed(
+          1,
+        )}ms (${(1000 / (dbgInterTotal / dbgInterFrames)).toFixed(0)}fps), max inter-frame ${dbgMaxFrame.toFixed(
+          1,
+        )}ms`,
+      );
+    }
+  }
+}
+
+if (HEADER_DEBUG) {
+  console.log(
+    "[header] debug on — scroll slowly with ?debug (or localStorage.header-debug=1) to profile; slow-frame threshold 20ms",
+  );
 }
 
 window.addEventListener(
