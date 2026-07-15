@@ -343,12 +343,13 @@ main {
   object-fit: cover;
 }
 
-.card-enter {
-  animation: card-enter 0.5s ease both;
+.section-heading,
+.card {
+  animation: enter 0.5s ease both;
   animation-delay: var(--enter-delay, 0ms);
 }
 
-@keyframes card-enter {
+@keyframes enter {
   from {
     opacity: 0;
     transform: translateY(16px);
@@ -360,11 +361,10 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .section-heading,
   .card {
     opacity: 1;
     transform: translateY(0);
-  }
-  .card-enter {
     animation: none;
   }
 }

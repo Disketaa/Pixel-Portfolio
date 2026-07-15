@@ -627,10 +627,9 @@ function render(works) {
   worksData = flatData;
   grid.appendChild(fragment);
 
-  const cards = grid.querySelectorAll(".card");
-  cards.forEach((card, i) => {
-    card.style.setProperty("--enter-delay", `${i * 60}ms`);
-    card.classList.add("card-enter");
+  const animated = grid.querySelectorAll(".section-heading, .card");
+  animated.forEach((el, i) => {
+    el.style.setProperty("--enter-delay", `${i * 60}ms`);
   });
 }
 
