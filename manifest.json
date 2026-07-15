@@ -37,6 +37,54 @@
       "subfolder": "Buildings"
     },
     {
+      "file": "Sokol/Effects/Compressed Tube, Effect Mockup.gif",
+      "title": "Compressed Tube, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Effects/Ice Cube, Effect Mockup.gif",
+      "title": "Ice Cube, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Effects/Radioactive-Mushroom, Effect Mockup.gif",
+      "title": "Radioactive Mushroom, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
+      "file": "Sokol/Effects/Smoke, Effect Mockup.gif",
+      "title": "Smoke, Effect Mockup",
+      "width": 512,
+      "height": 512,
+      "ratio": 1,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Effects"
+    },
+    {
       "file": "Sokol/Entities/Hit & Death, Character Animation.gif",
       "title": "Hit & Death, Character Animation",
       "width": 48,
@@ -157,6 +205,18 @@
       "subfolder": "Interface"
     },
     {
+      "file": "Sokol/Menu, Mockup.gif",
+      "title": "Menu, Mockup",
+      "width": 958,
+      "height": 539,
+      "ratio": 1.777,
+      "hasAlpha": false,
+      "isAnimated": true,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": null
+    },
+    {
       "file": "Sokol/Skills/Attack, Skill.png",
       "title": "Attack, Skill",
       "width": 16,
@@ -227,66 +287,6 @@
       "addedAt": "2026-07-15",
       "folder": "Sokol",
       "subfolder": "Skills"
-    },
-    {
-      "file": "Sokol/Effects/Compressed Tube, Effect Mockup.gif",
-      "title": "Compressed Tube, Effect Mockup",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-05-19",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Effects/Ice Cube, Effect Mockup.gif",
-      "title": "Ice Cube, Effect Mockup",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-05-19",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Effects/Radioactive-Mushroom, Effect Mockup.gif",
-      "title": "Radioactive Mushroom, Effect Mockup",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-05-19",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Effects/Smoke, Effect Mockup.gif",
-      "title": "Smoke, Effect Mockup",
-      "width": 512,
-      "height": 512,
-      "ratio": 1,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-05-19",
-      "folder": "Sokol",
-      "subfolder": "Effects"
-    },
-    {
-      "file": "Sokol/Menu, Mockup.gif",
-      "title": "Menu, Mockup",
-      "width": 958,
-      "height": 539,
-      "ratio": 1.777,
-      "hasAlpha": false,
-      "isAnimated": true,
-      "addedAt": "2026-05-09",
-      "folder": "Sokol",
-      "subfolder": null
     }
   ],
   "layouts": {

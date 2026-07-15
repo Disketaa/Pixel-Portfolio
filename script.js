@@ -638,35 +638,54 @@ function render(works) {
     return el;
   }
 
-  const folderNames = Object.keys(folderMap).sort();
-  for (const folderName of folderNames) {
+  const orderedSections = [];
+  const seen = new Set();
+  for (const key of Object.keys(layoutsData)) {
+    const parts = key.split("/");
+    const folder = parts[0];
+    const sub = parts.length > 1 ? parts.slice(1).join("/") : "";
+    const id = `${folder}::${sub}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    orderedSections.push({ folder, sub });
+  }
+  for (const folderName of Object.keys(folderMap).sort()) {
     const subs = folderMap[folderName];
-
-    const folderLayout = layoutsData[folderName];
-    fragment.appendChild(
-      makeHeading(
-        "h2",
-        "section-heading",
-        toDisplayName(folderName),
-        folderLayout && folderLayout.icon,
-      ),
-    );
-
-    const subNames = Object.keys(subs).sort();
-    for (const subName of subNames) {
-      if (subName) {
-        const subLayout = layoutsData[`${folderName}/${subName}`];
-        fragment.appendChild(
-          makeHeading(
-            "h3",
-            "section-heading section-heading--sub",
-            toDisplayName(subName),
-            subLayout && subLayout.icon,
-          ),
-        );
-      }
-      renderGroup(subs[subName]);
+    for (const subName of Object.keys(subs).sort()) {
+      const id = `${folderName}::${subName}`;
+      if (seen.has(id)) continue;
+      seen.add(id);
+      orderedSections.push({ folder: folderName, sub: subName });
     }
+  }
+
+  let lastFolder = null;
+  for (const { folder, sub } of orderedSections) {
+    if (folder !== lastFolder) {
+      const folderLayout = layoutsData[folder];
+      fragment.appendChild(
+        makeHeading(
+          "h2",
+          "section-heading",
+          toDisplayName(folder),
+          folderLayout && folderLayout.icon,
+        ),
+      );
+      lastFolder = folder;
+    }
+    if (sub) {
+      const subLayout = layoutsData[`${folder}/${sub}`];
+      fragment.appendChild(
+        makeHeading(
+          "h3",
+          "section-heading section-heading--sub",
+          toDisplayName(sub),
+          subLayout && subLayout.icon,
+        ),
+      );
+    }
+    const group = folderMap[folder] && folderMap[folder][sub];
+    if (group) renderGroup(group);
   }
 
   worksData = flatData;
