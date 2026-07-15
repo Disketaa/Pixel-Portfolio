@@ -8,10 +8,10 @@
   --accent: var(--maple-syrup-brown);
   --font: "tinylorder", monospace;
   --font-size-xs: 14px;
-  --font-size-sm: 18px;
-  --font-size-md: 24px;
-  --font-size-lg: 32px;
-  --font-size-xl: 40px;
+  --font-size-sm: 21px;
+  --font-size-md: 28px;
+  --font-size-lg: 35px;
+  --font-size-xl: 42px;
   --card-padding: 8px;
   --card-gap: 8px;
   --main-padding-vertical: 6px;
@@ -80,6 +80,10 @@ body {
   color: var(--paper);
   font-family: var(--font);
   min-height: 100vh;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
 }
 
 img,
