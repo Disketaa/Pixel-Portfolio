@@ -883,6 +883,46 @@ if (HEADER_DEBUG) {
   console.log(
     "[header] debug on — scroll slowly with ?debug (or localStorage.header-debug=1) to profile; slow-frame threshold 20ms",
   );
+  if ("PerformanceObserver" in window) {
+    try {
+      const longTaskObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          const attr = entry.attribution || [];
+          const summary = attr
+            .map((a) =>
+              [
+                a.name || a.containerType || "task",
+                a.containerId ? `#${a.containerId}` : "",
+                a.containerSrc ? a.containerSrc : "",
+              ].join(""),
+            )
+            .join(", ");
+          console.warn(
+            `[header] LONG TASK ${entry.duration.toFixed(
+              1,
+            )}ms${summary ? " — " + summary : ""}`,
+          );
+        }
+      });
+      longTaskObserver.observe({ entryTypes: ["longtask"] });
+    } catch (e) {
+      console.warn("[header] longtask observer unavailable:", e.message);
+    }
+    try {
+      const inpObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          console.warn(
+            `[header] INP event ${entry.duration.toFixed(1)}ms — ${
+              entry.name
+            } (start ${entry.startTime.toFixed(0)})`,
+          );
+        }
+      });
+      inpObserver.observe({ entryTypes: ["event"] });
+    } catch (e) {
+      console.warn("[header] event observer unavailable:", e.message);
+    }
+  }
 }
 
 window.addEventListener(
