@@ -30,24 +30,31 @@
             />
           </a>
           <h1 class="site-title">
-            <a class="site-title__link" href="#top"
+            <span class="site-title__link"
               ><span class="site-title__name"
-                >Disketaa<span class="site-title__suffix">'s Art</span></span>
+                >Disketaa<span class="site-title__suffix">'s Art</span></span
+            ></span>
           </h1>
         </div>
         <div class="brand-group">
           <div class="brand-row">
-            <a
-              class="site-subtitle"
-              id="site-subtitle"
-              href="#section-sokol"
-            ></a>
+            <span class="site-subtitle" id="site-subtitle"></span>
           </div>
-          <nav
-            class="header-tags"
-            id="header-tags"
-            aria-label="Subsections"
-          ></nav>
+          <div class="header-tags-row">
+            <button
+              class="icon-btn header-tags__arrow"
+              id="header-tags-arrow"
+              type="button"
+              aria-label="Back to top"
+            >
+              <img src="assets/arrow.svg" alt="" width="11" height="11" />
+            </button>
+            <nav
+              class="header-tags"
+              id="header-tags"
+              aria-label="Subsections"
+            ></nav>
+          </div>
         </div>
       </div>
       <nav class="site-nav" id="site-nav" aria-label="Portfolio sections"></nav>
@@ -68,8 +75,8 @@
     <div class="lightbox" id="lightbox" hidden>
       <div class="lightbox__backdrop" data-close></div>
       <div class="lightbox__panel" role="dialog" aria-modal="true">
-        <button class="lightbox__close" id="lightbox-close" aria-label="Close">
-          <img src="assets/close.svg" alt="" width="11" height="11" />
+        <button class="icon-btn lightbox__close" id="lightbox-close" aria-label="Close">
+          <img src="assets/close.svg" alt="" width="11" height="11">
         </button>
         <div class="lightbox__frame">
           <canvas class="lightbox__image" id="lightbox-image"></canvas>

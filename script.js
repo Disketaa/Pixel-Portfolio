@@ -716,7 +716,6 @@ function render(works) {
   if (subtitle && orderedSections.length) {
     const folder = orderedSections[0].folder;
     subtitle.textContent = folder;
-    subtitle.href = `#section-${slug(folder)}`;
   }
 
   renderHeaderTags(orderedSections);
@@ -787,9 +786,7 @@ function setupScrollSpy(nav) {
   scrollSpyUpdate();
 }
 
-const homeLinks = document.querySelectorAll(
-  ".site-header__home, .site-title__link",
-);
+const homeLinks = document.querySelectorAll(".site-header__home");
 homeLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
@@ -797,6 +794,13 @@ homeLinks.forEach((link) => {
     history.replaceState(null, "", location.pathname + location.search);
   });
 });
+
+const headerTagsArrow = document.getElementById("header-tags-arrow");
+if (headerTagsArrow) {
+  headerTagsArrow.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 const HEADER_SCROLL_RANGE = 140;
 
