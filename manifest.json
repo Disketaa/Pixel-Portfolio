@@ -181,11 +181,71 @@
       "subfolder": null
     },
     {
-      "file": "Sokol/Skills/Skills.png",
-      "title": "Skills",
-      "width": 110,
-      "height": 32,
-      "ratio": 3.438,
+      "file": "Sokol/Skills/1.png",
+      "title": "1",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/2.png",
+      "title": "2",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/3.png",
+      "title": "3",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/4.png",
+      "title": "4",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/5.png",
+      "title": "5",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
+      "hasAlpha": true,
+      "isAnimated": false,
+      "addedAt": "2026-07-15",
+      "folder": "Sokol",
+      "subfolder": "Skills"
+    },
+    {
+      "file": "Sokol/Skills/6.png",
+      "title": "6",
+      "width": 16,
+      "height": 16,
+      "ratio": 1,
       "hasAlpha": true,
       "isAnimated": false,
       "addedAt": "2026-07-15",
@@ -278,10 +338,15 @@
     },
     "Sokol/Skills": {
       "cols": [
-        1
+        6
       ],
       "order": [
-        "Sokol/Skills/Skills.png"
+        "Sokol/Skills/1.png",
+        "Sokol/Skills/2.png",
+        "Sokol/Skills/3.png",
+        "Sokol/Skills/4.png",
+        "Sokol/Skills/5.png",
+        "Sokol/Skills/6.png"
       ]
     },
     "Sokol/Tiles": {

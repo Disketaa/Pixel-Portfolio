@@ -15,6 +15,8 @@
   --main-padding-bottom: 40px;
   --grid-padding: 28px;
   --grid-mobile-padding: 16px;
+  --section-gap: 32px;
+  --section-gap-sub: 64px;
   --card-background-size: 20px;
   --badge-position: 6px;
   --badge-padding-vertical: 2px;
@@ -212,7 +214,7 @@ main {
   grid-column: 1 / -1;
   font-family: var(--font);
   font-weight: normal;
-  margin: 16px 0 0;
+  margin: var(--section-gap) 0 0;
   color: var(--paper);
   font-size: var(--font-size-lg);
   padding: 0 0 10px 0;
@@ -232,7 +234,7 @@ main {
 .section-heading--sub {
   font-size: var(--font-size-md);
   color: var(--muted);
-  margin: 8px 0 0;
+  margin: var(--section-gap-sub) 0 0;
   padding: 0 0 8px 0;
   line-height: 1;
   display: flex;
@@ -245,6 +247,10 @@ main {
   background-size: 100% 2px;
   background-repeat: repeat-x;
   background-position: bottom;
+}
+
+.section-heading + .section-heading--sub {
+  margin-top: 12px;
 }
 
 .card {

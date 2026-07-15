@@ -24,7 +24,7 @@
       ]
     },
     "Skills": {
-      "images": [["Skills"]]
+      "images": [["1", "2", "3", "4", "5", "6"]]
     },
     "Tiles": {
       "images": [["Anvil", "Disks", "Trap"]]
