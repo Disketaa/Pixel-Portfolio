@@ -719,29 +719,22 @@ function render(works) {
     subtitle.href = `#section-${slug(folder)}`;
   }
 
+  renderHeaderTags(orderedSections);
   renderNav(orderedSections);
 }
 
-function renderNav(orderedSections) {
-  const nav = document.getElementById("site-nav");
-  if (!nav) return;
-  nav.innerHTML = "";
+function renderHeaderTags(orderedSections) {
+  const tags = document.getElementById("header-tags");
+  if (!tags) return;
+  tags.innerHTML = "";
   const frag = document.createDocumentFragment();
-  const seenFolders = new Set();
+  const seenSubs = new Set();
 
   for (const { folder, sub } of orderedSections) {
-    if (folder && !seenFolders.has(folder)) {
-      seenFolders.add(folder);
-      const pageLink = document.createElement("a");
-      pageLink.className = "site-nav__link site-nav__link--page";
-      pageLink.href = `#section-${slug(folder)}`;
-      pageLink.textContent = folder.toUpperCase();
-      pageLink.dataset.target = `section-${slug(folder)}`;
-      frag.appendChild(pageLink);
-    }
-    if (sub) {
+    if (sub && !seenSubs.has(`${folder}::${sub}`)) {
+      seenSubs.add(`${folder}::${sub}`);
       const link = document.createElement("a");
-      link.className = "site-nav__link";
+      link.className = "header-tag";
       link.href = `#section-${slug(sub)}`;
       link.textContent = sub;
       link.dataset.target = `section-${slug(sub)}`;
@@ -749,12 +742,21 @@ function renderNav(orderedSections) {
     }
   }
 
-  nav.appendChild(frag);
+  tags.appendChild(frag);
+  setupScrollSpy(tags);
+}
+
+function renderNav(orderedSections) {
+  const nav = document.getElementById("site-nav");
+  if (!nav) return;
+  nav.innerHTML = "";
   setupScrollSpy(nav);
 }
 
 function setupScrollSpy(nav) {
-  const links = Array.from(nav.querySelectorAll(".site-nav__link"));
+  const links = Array.from(
+    nav.querySelectorAll(".site-nav__link, .header-tag"),
+  );
   if (!links.length) return;
   const headings = Array.from(
     document.querySelectorAll(".section-heading[id]"),
@@ -791,6 +793,8 @@ const HEADER_SCROLL_RANGE = 140;
 const headerEl = document.querySelector(".site-header");
 const titleRow = document.querySelector(".title-row");
 const brandRow = document.querySelector(".brand-row");
+const brandGroup = document.querySelector(".brand-group");
+const headerTags = document.querySelector(".header-tags");
 const headerInner = document.querySelector(".header-inner");
 let scrollSpyUpdate = null;
 
@@ -812,10 +816,10 @@ function measureHeader() {
   if (HEADER_DEBUG) console.log("[header] measureHeader() — forces layout");
   const titleH = titleRow.offsetHeight;
   const brandH = brandRow.offsetHeight;
-  const gap = parseFloat(getComputedStyle(headerInner).rowGap) || 0;
+  const groupH = brandGroup ? brandGroup.offsetHeight : brandH;
   headerEl.style.setProperty("--title-h", `${titleH}px`);
-  headerEl.style.setProperty("--small-h", `${brandH}px`);
-  headerEl.style.setProperty("--full-h", `${titleH + brandH + gap}px`);
+  headerEl.style.setProperty("--small-h", `44px`);
+  headerEl.style.setProperty("--full-h", `128px`);
 }
 
 function updateHeader() {
@@ -867,9 +871,7 @@ function onScrollFrame() {
             1,
           )}ms (read ${readMs.toFixed(2)}ms, write ${writeMs.toFixed(
             2,
-          )}ms, animations running: ${
-            runningAnims || "none"
-          }) — ${
+          )}ms, animations running: ${runningAnims || "none"}) — ${
             readMs > writeMs
               ? "read phase dominates (possible forced reflow)"
               : "in-rAF work small but gap large (paint/compositing bottleneck?)"

@@ -16,7 +16,7 @@
   --main-padding-bottom: 40px;
   --grid-padding: 28px;
   --grid-mobile-padding: 16px;
-  --section-gap: 32px;
+  --section-gap: 256px;
   --section-gap-sub: 64px;
   --card-background-size: 20px;
   --badge-position: 6px;
@@ -34,7 +34,7 @@
   --lightbox-close-z-index: 2;
   --site-header-padding-top: 32px;
   --site-header-padding-horizontal: 32px;
-  --site-header-padding-bottom: 24px;
+  --site-header-padding-bottom: 32px;
   --site-header-gap-vertical: 8px;
   --site-header-gap-horizontal: 24px;
   --site-logo-size: 36px;
@@ -44,7 +44,7 @@
   --header-z-index: 20;
   --header-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 60%, transparent);
   --scroll-padding-top: 140px;
-  --brand-title-size: calc(var(--u) * 5);
+  --brand-title-size: calc(var(--u) * 4);
   --brand-title-name-color: var(--pyrite);
   --brand-title-suffix-color: var(--muted);
   --brand-title-rest-color: var(--pyrite);
@@ -209,10 +209,10 @@ canvas {
 
 .site-header {
   --p: 0;
-  --full-h: 140px;
-  --small-h: 64px;
+  --full-h: 128px;
+  --small-h: 52px;
   --title-h: 56px;
-  --header-row-gap: var(--subtitle-gap);
+  --header-row-gap: 4px;
   position: fixed;
   top: 0;
   left: 0;
@@ -242,7 +242,8 @@ body {
   align-items: stretch;
   align-self: stretch;
   height: 100%;
-  gap: var(--header-row-gap);
+  gap: 0;
+  padding: 8px 0;
   overflow: hidden;
 }
 
@@ -256,11 +257,18 @@ body {
   opacity: calc(1 - var(--p));
 }
 
+.brand-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
 .brand-row {
   display: flex;
   align-items: center;
   gap: var(--site-header-brand-gap);
-  padding: var(--site-header-padding-top-scrolled) 0;
+  padding: 0;
 }
 
 .site-header a:focus-visible,
@@ -326,13 +334,53 @@ body {
   border-right-width: var(--nav-bracket-thickness);
   padding: var(--subtitle-padding-y) var(--subtitle-padding-x);
   cursor: pointer;
-  transition: color var(--nav-transition), background-color var(--nav-transition);
+  transition:
+    color var(--nav-transition),
+    background-color var(--nav-transition);
 }
 
 .site-subtitle:hover,
 .site-subtitle:focus-visible {
   background: color-mix(in srgb, var(--accent) 80%, var(--paper));
   outline: none;
+}
+
+.header-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 0;
+}
+
+.header-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+  color: var(--nav-active-fg);
+  background: var(--nav-active-bg);
+  text-decoration: none;
+  border: 0 solid var(--accent);
+  border-left-width: var(--nav-bracket-thickness);
+  border-right-width: var(--nav-bracket-thickness);
+  padding: var(--nav-padding-y) var(--nav-padding-x);
+  cursor: pointer;
+  transition:
+    color var(--nav-transition),
+    background-color var(--nav-transition);
+}
+
+.header-tag:hover,
+.header-tag:focus-visible {
+  background: color-mix(in srgb, var(--accent) 80%, var(--paper));
+  outline: none;
+}
+
+.header-tag.is-active {
+  background: color-mix(in srgb, var(--accent) 80%, var(--paper));
 }
 
 @keyframes header-in {
@@ -365,7 +413,9 @@ body {
   border-right-width: var(--nav-bracket-thickness);
   padding: var(--nav-padding-y) var(--nav-padding-x);
   cursor: pointer;
-  transition: color var(--nav-transition), background-color var(--nav-transition),
+  transition:
+    color var(--nav-transition),
+    background-color var(--nav-transition),
     border-color var(--nav-transition);
 }
 
