@@ -68,11 +68,13 @@
 
 .header-tags {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
   gap: var(--gap);
   margin-top: 0;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .header-tags-row {
@@ -111,6 +113,7 @@
 }
 
 .header-tags__arrow {
+  flex-shrink: 0;
   transition: opacity var(--nav-transition);
 }
 
@@ -131,6 +134,7 @@
   cursor: pointer;
   overflow: hidden;
   isolation: isolate;
+  white-space: nowrap;
   transition:
     color var(--nav-transition),
     background-color var(--nav-transition),
@@ -176,6 +180,9 @@
     padding: 0 20px;
     height: auto;
     justify-content: center;
+  }
+  .header-brand__name {
+    display: none;
   }
 }
 
