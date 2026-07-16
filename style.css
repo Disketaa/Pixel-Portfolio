@@ -173,8 +173,8 @@ canvas {
 
 .site-header {
   --p: 0;
-  --full-h: 128px;
-  --small-h: 52px;
+  --full-h: 88px;
+  --small-h: 44px;
   --title-h: 56px;
   --header-row-gap: 4px;
   position: fixed;
@@ -186,7 +186,6 @@ canvas {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--site-header-gap-vertical) var(--site-header-gap-horizontal);
   padding: 0 var(--site-header-padding-horizontal);
   height: calc(var(--full-h) - var(--p) * (var(--full-h) - var(--small-h)));
   contain: layout style paint;
@@ -205,9 +204,11 @@ body {
   justify-content: flex-end;
   align-items: stretch;
   align-self: stretch;
-  height: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
   gap: 0;
   padding: 8px 0;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -314,6 +315,37 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.header-tags__spacer {
+  flex: 1 1 auto;
+  min-width: 16px;
+}
+
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.header-brand__name {
+  font-family: var(--font);
+  font-size: calc(var(--u) * 3);
+  line-height: 1;
+  color: var(--pyrite);
+  white-space: nowrap;
+}
+
+.header-brand__suffix {
+  color: var(--dutch-cocoa);
+}
+
+.header-brand__logo {
+  display: block;
+  width: calc(var(--u) * 3);
+  height: calc(var(--u) * 3);
+  image-rendering: pixelated;
 }
 
 .header-tags__arrow {

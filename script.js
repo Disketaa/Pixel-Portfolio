@@ -833,7 +833,7 @@ function measureHeader() {
   const groupH = brandGroup ? brandGroup.offsetHeight : brandH;
   headerEl.style.setProperty("--title-h", `${titleH}px`);
   headerEl.style.setProperty("--small-h", `44px`);
-  headerEl.style.setProperty("--full-h", `128px`);
+  headerEl.style.setProperty("--full-h", `100px`);
 }
 
 function updateHeader() {
@@ -852,8 +852,7 @@ function cacheTagSections() {
   const headings = Array.from(
     document.querySelectorAll(".section-heading[id]"),
   );
-  const docTopOf = (el) =>
-    el.getBoundingClientRect().top + window.scrollY;
+  const docTopOf = (el) => el.getBoundingClientRect().top + window.scrollY;
   tagMaxScroll = Math.max(
     0,
     document.documentElement.scrollHeight - window.innerHeight,
