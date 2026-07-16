@@ -125,7 +125,7 @@
   align-items: center;
   font-size: var(--font-size-xs);
   line-height: 1;
-  color: var(--text);
+  color: var(--font);
   text-decoration: none;
   padding: var(--u) calc(var(--u) * 2);
   cursor: pointer;
@@ -152,7 +152,7 @@
 .header-tag__label {
   position: relative;
   z-index: 1;
-  color: var(--text);
+  color: var(--font);
   mix-blend-mode: difference;
 }
 

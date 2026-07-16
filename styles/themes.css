@@ -2,7 +2,7 @@
 :root[data-theme="coffee"] {
   --background: var(--orka-black);
   --panel: var(--american-mahogany);
-  --text: var(--white-raisin);
+  --font: var(--white-raisin);
   --muted: var(--moroccan-dusk);
   --accent: var(--maple-syrup-brown);
 }
@@ -10,7 +10,7 @@
 :root[data-theme="snowy-blue"] {
   --background: var(--navy-blazer);
   --panel: var(--slate-court);
-  --text: var(--hawaiian-sky);
+  --font: var(--hawaiian-sky);
   --muted: var(--beguiling-blue);
   --accent: var(--skies-of-cyberspace);
 }

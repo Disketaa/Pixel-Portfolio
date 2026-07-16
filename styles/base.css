@@ -50,8 +50,8 @@ html {
 
 body {
   background: transparent;
-  color: var(--text);
-  font-family: var(--text);
+  color: var(--font);
+  font-family: var(--font);
   padding-top: var(--full-h);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
@@ -68,7 +68,7 @@ canvas {
 
 ::selection {
   background: color-mix(in srgb, var(--accent) 30%, var(--background));
-  color: var(--text);
+  color: var(--font);
 }
 
 ::-webkit-scrollbar {
@@ -85,7 +85,7 @@ canvas {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--accent) 70%, var(--text));
+  background: color-mix(in srgb, var(--accent) 70%, var(--font));
 }
 
 * {

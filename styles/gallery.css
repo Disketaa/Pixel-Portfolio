@@ -16,7 +16,7 @@ main {
   grid-column: 1 / -1;
   font-weight: normal;
   margin: 256px 0 0;
-  color: var(--text);
+  color: var(--font);
   font-size: var(--font-size-lg);
   line-height: 1;
   display: flex;
@@ -46,7 +46,7 @@ main {
 
 .section-heading--sub .section-heading__box {
   background-color: var(--muted);
-  color: var(--text);
+  color: var(--font);
 }
 
 .section-heading__underline {
