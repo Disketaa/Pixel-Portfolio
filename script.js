@@ -80,7 +80,7 @@ function createRow() {
 
 function buildCard(work, index) {
   const card = document.createElement("article");
-  card.className = "card";
+  card.className = "card bg-checker";
   card.tabIndex = 0;
   card.setAttribute("role", "button");
   card.setAttribute("aria-label", `Open ${toDisplayName(work.file)}`);
@@ -699,17 +699,19 @@ function renderHeaderTags(orderedSections) {
   }
 
   tags.appendChild(frag);
-  setupScrollSpy(tags);
-  cacheTagSections();
-  updateTagProgress();
-}
-
-function setupScrollSpy(nav) {
-  const links = Array.from(nav.querySelectorAll(".header-tag"));
-  if (!links.length) return;
   const headings = Array.from(
     document.querySelectorAll(".section-heading[id]"),
   );
+  setupScrollSpy(tags, headings);
+  cacheTagSections(headings);
+  updateTagProgress();
+}
+
+let scrollSpyUpdate = null;
+
+function setupScrollSpy(nav, headings) {
+  const links = Array.from(nav.querySelectorAll(".header-tag"));
+  if (!links.length) return;
   if (!headings.length) return;
 
   scrollSpyUpdate = function update() {
@@ -736,7 +738,6 @@ if (headerTagsArrow) {
 const HEADER_SCROLL_RANGE = 140;
 
 const headerEl = document.querySelector(".site-header");
-let scrollSpyUpdate = null;
 
 function updateHeader() {
   if (!headerEl) return;
@@ -747,13 +748,10 @@ function updateHeader() {
 let tagSections = [];
 let tagMaxScroll = 0;
 
-function cacheTagSections() {
+function cacheTagSections(headings) {
   tagSections = [];
   const tags = document.querySelectorAll(".header-tag");
   if (!tags.length) return;
-  const headings = Array.from(
-    document.querySelectorAll(".section-heading[id]"),
-  );
   const docTopOf = (el) => el.getBoundingClientRect().top + window.scrollY;
   tagMaxScroll = Math.max(
     0,
@@ -823,7 +821,9 @@ window.addEventListener(
 updateHeader();
 window.addEventListener("resize", () => {
   updateHeader();
-  cacheTagSections();
+  cacheTagSections(
+    Array.from(document.querySelectorAll(".section-heading[id]")),
+  );
   updateTagProgress();
 });
 if (document.fonts && document.fonts.ready) {

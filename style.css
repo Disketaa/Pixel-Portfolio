@@ -53,6 +53,7 @@ body {
   color: var(--paper);
   font-family: var(--font);
   min-height: 100vh;
+  padding-top: var(--full-h);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
   font-smooth: never;
@@ -112,10 +113,6 @@ canvas {
   background: var(--back-in-black);
   box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 60%, transparent);
   animation: header-in 0.9s ease both;
-}
-
-body {
-  padding-top: var(--full-h);
 }
 
 .header-inner {
@@ -355,18 +352,21 @@ main {
   display: inline-block;
 }
 
-.card {
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  padding: 8px;
+.bg-checker {
   background-color: var(--panel);
   background-image: repeating-conic-gradient(
     color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%,
     var(--panel) 0% 50%
   );
   background-size: var(--card-background-size) var(--card-background-size);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 8px;
   line-height: 0;
   opacity: 0.25;
 }
@@ -611,12 +611,6 @@ button {
   align-items: center;
   justify-content: center;
   padding: var(--lightbox-frame-padding);
-  background-color: var(--panel);
-  background-image: repeating-conic-gradient(
-    color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%,
-    var(--panel) 0% 50%
-  );
-  background-size: var(--card-background-size) var(--card-background-size);
   overflow: hidden;
   cursor: grab;
 }
