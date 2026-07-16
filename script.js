@@ -521,7 +521,7 @@ function renderLayout(works, layout, fragment, globalFlat) {
 
 function renderFallback(works, fragment, globalFlat) {
   if (!works.length) return;
-  const rowDiv = createRow(works.length);
+  const rowDiv = createRow();
   for (const work of works) {
     const card = buildCard(work, globalFlat.length);
     card.style.flex = "1";
@@ -705,9 +705,7 @@ function renderHeaderTags(orderedSections) {
 }
 
 function setupScrollSpy(nav) {
-  const links = Array.from(
-    nav.querySelectorAll(".site-nav__link, .header-tag"),
-  );
+  const links = Array.from(nav.querySelectorAll(".header-tag"));
   if (!links.length) return;
   const headings = Array.from(
     document.querySelectorAll(".section-heading[id]"),
