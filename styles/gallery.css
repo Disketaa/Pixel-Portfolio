@@ -16,7 +16,7 @@ main {
   grid-column: 1 / -1;
   font-weight: normal;
   margin: 256px 0 0;
-  color: var(--paper);
+  color: var(--font);
   font-size: var(--font-size-lg);
   line-height: 1;
   display: flex;
@@ -41,12 +41,12 @@ main {
   gap: 10px;
   padding: 6px 10px;
   background-color: var(--accent);
-  color: var(--ink);
+  color: var(--background);
 }
 
 .section-heading--sub .section-heading__box {
   background-color: var(--muted);
-  color: var(--paper);
+  color: var(--font);
 }
 
 .section-heading__underline {
@@ -85,7 +85,7 @@ main {
 .bg-checker {
   background-color: var(--panel);
   background-image: repeating-conic-gradient(
-    color-mix(in srgb, var(--panel) 85%, var(--ink)) 0% 25%,
+    color-mix(in srgb, var(--panel) 85%, var(--background)) 0% 25%,
     var(--panel) 0% 50%
   );
   background-size: var(--card-background-size) var(--card-background-size);

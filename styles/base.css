@@ -43,14 +43,14 @@ body {
 }
 
 html {
-  background: var(--ink);
+  background: var(--background);
   scroll-behavior: smooth;
   scroll-padding-top: var(--scroll-padding-top);
 }
 
 body {
   background: transparent;
-  color: var(--paper);
+  color: var(--font);
   font-family: var(--font);
   padding-top: var(--full-h);
   -webkit-font-smoothing: none;
@@ -67,8 +67,8 @@ canvas {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 30%, var(--ink));
-  color: var(--paper);
+  background: color-mix(in srgb, var(--accent) 30%, var(--background));
+  color: var(--font);
 }
 
 ::-webkit-scrollbar {
@@ -77,7 +77,7 @@ canvas {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ink);
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -85,12 +85,12 @@ canvas {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--accent) 70%, var(--paper));
+  background: color-mix(in srgb, var(--accent) 70%, var(--font));
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent) var(--ink);
+  scrollbar-color: var(--accent) var(--background);
 }
 
 :focus-visible {
