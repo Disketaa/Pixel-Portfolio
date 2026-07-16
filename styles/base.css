@@ -1,0 +1,109 @@
+@import url("palette.css");
+@import url("themes.css");
+
+:root {
+  --font: "tinylorder", monospace;
+  --u: 7px;
+  --font-size-xs: calc(var(--u) * 2);
+  --font-size-sm: calc(var(--u) * 3);
+  --font-size-md: calc(var(--u) * 4);
+  --font-size-lg: calc(var(--u) * 5);
+  --gap: 8px;
+  --card-background-size: 20px;
+  --scroll-padding-top: 140px;
+  --nav-transition: 0.18s ease;
+  --badge-transition-opacity-duration: 0.18s;
+  --accent-line-length: 6px;
+  --accent-line-spacing: 12px;
+  --accent-h-line-thickness: 12px;
+  --accent-v-line-thickness: 2px;
+  --lightbox-padding: 20px;
+  --lightbox-close-position: 16px;
+  --lightbox-frame-padding: 24px;
+}
+
+@font-face {
+  font-family: "tinylorder";
+  src: url("../assets/tinylorder.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--ink);
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-padding-top);
+}
+
+body {
+  background: transparent;
+  color: var(--paper);
+  font-family: var(--font);
+  padding-top: var(--full-h);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+}
+
+img,
+canvas {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, var(--ink));
+  color: var(--paper);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--accent) 70%, var(--paper));
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
