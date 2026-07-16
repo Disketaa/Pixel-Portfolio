@@ -5,6 +5,7 @@ let worksData = [];
 let layoutsData = {};
 
 let gridEl = null;
+let gifObserver = null;
 
 function createRow() {
   const row = document.createElement("div");
@@ -30,7 +31,7 @@ function buildCard(work, index) {
 
   if (work.isAnimated) {
     const img = document.createElement("img");
-    img.src = `assets/works/${work.file}`;
+    img.dataset.originalSrc = `assets/works/${work.file}`;
     img.alt = toDisplayName(work.file);
     img.loading = "lazy";
     img.decoding = "async";
@@ -143,6 +144,29 @@ export function initGallery(grid) {
       }
     }
   });
+
+  gifObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const img = entry.target;
+        if (!img.dataset.originalSrc) return;
+        if (entry.isIntersecting) {
+          if (!img.src) {
+            img.src = img.dataset.originalSrc;
+          } else if (img.dataset.paused) {
+            img.src = img.dataset.paused;
+            delete img.dataset.paused;
+          }
+        } else {
+          if (img.src) {
+            img.dataset.paused = img.src;
+            img.src = "";
+          }
+        }
+      });
+    },
+    { rootMargin: "200px" },
+  );
 }
 
 function makeHeading(tag, className, text, icon, id) {
@@ -268,6 +292,15 @@ export function render(works, layouts) {
   animated.forEach((el, i) => {
     el.style.setProperty("--enter-delay", `${i * 60}ms`);
   });
+
+  if (gifObserver) {
+    const gifImgs = gridEl.querySelectorAll(".card img");
+    gifImgs.forEach((img) => {
+      if (img.dataset.originalSrc && img.dataset.originalSrc.includes(".gif")) {
+        gifObserver.observe(img);
+      }
+    });
+  }
 
   const subtitle = document.getElementById("site-subtitle");
   if (subtitle && orderedSections.length) {
