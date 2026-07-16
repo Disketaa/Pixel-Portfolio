@@ -1,9 +1,7 @@
 const grid = document.getElementById("grid");
-const emptyState = document.getElementById("empty-state");
 const lightbox = document.getElementById("lightbox");
 const lightboxCanvas = document.getElementById("lightbox-image");
 const lightboxGifImg = document.getElementById("lightbox-image-gif");
-const lightboxData = document.getElementById("lightbox-data");
 const lightboxClose = document.getElementById("lightbox-close");
 
 let lastFocusedCard = null;
@@ -29,7 +27,7 @@ function createRow() {
   const row = document.createElement("div");
   row.style.cssText = `
     display: flex;
-    gap: var(--card-gap, 8px);
+    gap: var(--gap, 8px);
     grid-column: 1 / -1;
   `;
   return row;
@@ -548,7 +546,7 @@ function renderLayout(works, layout, fragment, globalFlat) {
 
   for (let row = 0; row < layout.cols.length; row++) {
     const rowColCount = layout.cols[row];
-    const rowDiv = createRow(rowColCount);
+    const rowDiv = createRow();
 
     for (let col = 0; col < rowColCount; col++) {
       const work = ordered[slotIdx];
@@ -586,11 +584,7 @@ function slug(name) {
 }
 
 function render(works) {
-  if (!works.length) {
-    emptyState.hidden = false;
-    grid.hidden = true;
-    return;
-  }
+  if (!works.length) return;
 
   const rootWorks = [];
   const folderMap = {};
@@ -719,7 +713,6 @@ function render(works) {
   }
 
   renderHeaderTags(orderedSections);
-  renderNav(orderedSections);
 }
 
 function renderHeaderTags(orderedSections) {
@@ -755,13 +748,6 @@ function renderHeaderTags(orderedSections) {
   updateTagProgress();
 }
 
-function renderNav(orderedSections) {
-  const nav = document.getElementById("site-nav");
-  if (!nav) return;
-  nav.innerHTML = "";
-  setupScrollSpy(nav);
-}
-
 function setupScrollSpy(nav) {
   const links = Array.from(
     nav.querySelectorAll(".site-nav__link, .header-tag"),
@@ -786,15 +772,6 @@ function setupScrollSpy(nav) {
   scrollSpyUpdate();
 }
 
-const homeLinks = document.querySelectorAll(".site-header__home");
-homeLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    history.replaceState(null, "", location.pathname + location.search);
-  });
-});
-
 const headerTagsArrow = document.getElementById("header-tags-arrow");
 if (headerTagsArrow) {
   headerTagsArrow.addEventListener("click", () => {
@@ -805,36 +782,7 @@ if (headerTagsArrow) {
 const HEADER_SCROLL_RANGE = 140;
 
 const headerEl = document.querySelector(".site-header");
-const titleRow = document.querySelector(".title-row");
-const brandRow = document.querySelector(".brand-row");
-const brandGroup = document.querySelector(".brand-group");
-const headerTags = document.querySelector(".header-tags");
-const headerInner = document.querySelector(".header-inner");
 let scrollSpyUpdate = null;
-
-const HEADER_DEBUG =
-  new URLSearchParams(location.search).has("debug") ||
-  (typeof localStorage !== "undefined" &&
-    localStorage.getItem("header-debug") === "1");
-
-let dbgFrames = 0;
-let dbgReadTotal = 0;
-let dbgWriteTotal = 0;
-let dbgInterTotal = 0;
-let dbgInterFrames = 0;
-let dbgMaxFrame = 0;
-let dbgPrevTs = 0;
-
-function measureHeader() {
-  if (!headerEl || !titleRow || !brandRow || !headerInner) return;
-  if (HEADER_DEBUG) console.log("[header] measureHeader() — forces layout");
-  const titleH = titleRow.offsetHeight;
-  const brandH = brandRow.offsetHeight;
-  const groupH = brandGroup ? brandGroup.offsetHeight : brandH;
-  headerEl.style.setProperty("--title-h", `${titleH}px`);
-  headerEl.style.setProperty("--small-h", `44px`);
-  headerEl.style.setProperty("--full-h", `100px`);
-}
 
 function updateHeader() {
   if (!headerEl) return;
@@ -897,187 +845,14 @@ let scrollTicking = false;
 let scrollIdleTimer = null;
 function onScrollFrame() {
   scrollTicking = false;
-  const ts = performance.now();
-  let readMs = 0;
-  let writeMs = 0;
   document.documentElement.classList.add("is-scrolling");
   if (scrollIdleTimer) clearTimeout(scrollIdleTimer);
   scrollIdleTimer = setTimeout(() => {
     document.documentElement.classList.remove("is-scrolling");
   }, 150);
-  if (typeof scrollSpyUpdate === "function") {
-    const r0 = performance.now();
-    scrollSpyUpdate();
-    readMs = performance.now() - r0;
-  }
-  const w0 = performance.now();
+  if (typeof scrollSpyUpdate === "function") scrollSpyUpdate();
   updateHeader();
   updateTagProgress();
-  writeMs = performance.now() - w0;
-
-  if (HEADER_DEBUG) {
-    const inter = dbgPrevTs ? ts - dbgPrevTs : 0;
-    dbgPrevTs = ts;
-    dbgFrames++;
-    dbgReadTotal += readMs;
-    dbgWriteTotal += writeMs;
-    if (inter > 0 && inter <= 200) {
-      dbgInterTotal += inter;
-      dbgInterFrames++;
-      dbgMaxFrame = Math.max(dbgMaxFrame, inter);
-      if (inter > 20) {
-        const anims = document.getAnimations ? document.getAnimations() : [];
-        const runningAnims = anims
-          .filter((a) => a.playState === "running")
-          .map((a) => a.animationName || a.constructor.name)
-          .slice(0, 5)
-          .join(",");
-        console.warn(
-          `[header] slow frame: inter-frame ${inter.toFixed(
-            1,
-          )}ms (read ${readMs.toFixed(2)}ms, write ${writeMs.toFixed(
-            2,
-          )}ms, animations running: ${runningAnims || "none"}) — ${
-            readMs > writeMs
-              ? "read phase dominates (possible forced reflow)"
-              : "in-rAF work small but gap large (paint/compositing bottleneck?)"
-          }`,
-        );
-      }
-    }
-    if (dbgFrames % 60 === 0 && dbgInterFrames) {
-      console.log(
-        `[header] ${dbgFrames} frames — avg read ${(
-          dbgReadTotal / dbgFrames
-        ).toFixed(3)}ms, avg write ${(dbgWriteTotal / dbgFrames).toFixed(
-          3,
-        )}ms, avg inter-frame ${(dbgInterTotal / dbgInterFrames).toFixed(
-          1,
-        )}ms (${(1000 / (dbgInterTotal / dbgInterFrames)).toFixed(0)}fps), max inter-frame ${dbgMaxFrame.toFixed(
-          1,
-        )}ms`,
-      );
-    }
-  }
-}
-
-if (HEADER_DEBUG) {
-  console.log(
-    "[header] debug on — scroll slowly with ?debug (or localStorage.header-debug=1) to profile; slow-frame threshold 20ms",
-  );
-  if ("PerformanceObserver" in window) {
-    try {
-      const longTaskObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          const attr = entry.attribution || [];
-          const summary = attr
-            .map(
-              (a) =>
-                `[${a.containerType || "task"}${
-                  a.containerId ? "#" + a.containerId : ""
-                }${a.containerSrc ? " " + a.containerSrc : ""}${
-                  a.containerName ? " name=" + a.containerName : ""
-                }]`,
-            )
-            .join(" ");
-          const stack = new Error().stack || "";
-          const stackTop = stack
-            .split("\n")
-            .slice(1, 6)
-            .map((l) => l.trim())
-            .join(" | ");
-          const inFlight = performance
-            .getEntriesByType("resource")
-            .filter(
-              (r) =>
-                r.responseEnd === 0 &&
-                r.duration < entry.startTime &&
-                r.startTime < entry.startTime,
-            )
-            .map((r) => `${r.initiatorType}:${r.name.split("/").pop()}`)
-            .slice(0, 5)
-            .join(", ");
-          const cards = Array.from(document.querySelectorAll(".card")).slice(
-            0,
-            5,
-          );
-          const cardState = cards
-            .map((c) => {
-              const img = c.querySelector("img");
-              const cv = c.querySelector("canvas");
-              const rect = c.getBoundingClientRect();
-              const inView = rect.bottom > 0 && rect.top < window.innerHeight;
-              return `${c.dataset.title || "?"}${
-                img
-                  ? ` img=${img.complete ? "ok" : "loading"}/${
-                      img.naturalWidth || 0
-                    }x${img.naturalHeight || 0}`
-                  : cv
-                    ? ` canvas=${cv.width}x${cv.height}`
-                    : ""
-              }${inView ? " IN-VIEW" : ""}`;
-            })
-            .join("\n  ");
-          console.warn(
-            `[header] LONG TASK ${entry.duration.toFixed(
-              1,
-            )}ms @ ${entry.startTime.toFixed(0)}ms${
-              summary ? "\n  attrib: " + summary : "\n  attrib: <empty>"
-            }\n  stack: ${stackTop || "<none>"}\n  in-flight resources: ${
-              inFlight || "<none>"
-            }\n  cards: \n  ${cardState || "<none>"}`,
-          );
-        }
-      });
-      longTaskObserver.observe({ entryTypes: ["longtask"] });
-    } catch (e) {
-      console.warn("[header] longtask observer unavailable:", e.message);
-    }
-    try {
-      const inpObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          console.warn(
-            `[header] INP event ${entry.duration.toFixed(1)}ms — ${
-              entry.name
-            } (start ${entry.startTime.toFixed(0)})`,
-          );
-        }
-      });
-      inpObserver.observe({ entryTypes: ["event"] });
-    } catch (e) {
-      console.warn("[header] event observer unavailable:", e.message);
-    }
-    try {
-      const paintObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          console.log(
-            `[header] paint ${entry.name} @ ${entry.startTime.toFixed(
-              0,
-            )}ms (duration ${entry.duration.toFixed(2)}ms)`,
-          );
-        }
-      });
-      paintObserver.observe({ entryTypes: ["paint"] });
-    } catch (e) {
-      console.warn("[header] paint observer unavailable:", e.message);
-    }
-    try {
-      const layoutObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (entry.duration > 0.5) {
-            console.warn(
-              `[header] layout shift ${entry.value.toFixed(
-                4,
-              )} @ ${entry.startTime.toFixed(0)}ms`,
-            );
-          }
-        }
-      });
-      layoutObserver.observe({ entryTypes: ["layout-shift"] });
-    } catch (e) {
-      console.warn("[header] layout-shift observer unavailable:", e.message);
-    }
-  }
 }
 
 window.addEventListener(
@@ -1091,17 +866,14 @@ window.addEventListener(
   { passive: true },
 );
 
-measureHeader();
 updateHeader();
 window.addEventListener("resize", () => {
-  measureHeader();
   updateHeader();
   cacheTagSections();
   updateTagProgress();
 });
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
-    measureHeader();
     updateHeader();
   });
 }

@@ -6,7 +6,7 @@
     <title>Disketaa</title>
     <meta
       name="description"
-      content="A pixel art portfolio. Drop PNG/GIF into works/ and define grid layouts with layout.txt."
+      content="A pixel art portfolio. Drop PNG/GIF into works/ and define grid layouts with layout.json."
     />
     <link rel="icon" href="assets/icon.png?" />
     <link rel="stylesheet" href="style.css" />
@@ -35,7 +35,9 @@
             ></nav>
             <span class="header-tags__spacer" aria-hidden="true"></span>
             <span class="header-brand">
-              <span class="header-brand__name">Disketaa<span class="header-brand__suffix">'s Art</span></span>
+              <span class="header-brand__name"
+                >Disketaa<span class="header-brand__suffix">'s Art</span></span
+              >
               <img
                 class="header-brand__logo"
                 src="assets/icon.png"
@@ -47,33 +49,25 @@
           </div>
         </div>
       </div>
-      <nav class="site-nav" id="site-nav" aria-label="Portfolio sections"></nav>
     </header>
 
     <main>
       <section class="grid" id="grid" aria-live="polite"></section>
-
-      <div class="empty-state" id="empty-state" hidden>
-        <p class="empty-state__title">Nothing on the wall yet.</p>
-        <p class="empty-state__body">
-          Drop PNG/GIF into <code>works/</code>, add <code>layout.txt</code> per
-          folder to define the grid, then push to <code>main</code>.
-        </p>
-      </div>
     </main>
 
     <div class="lightbox" id="lightbox" hidden>
       <div class="lightbox__backdrop" data-close></div>
       <div class="lightbox__panel" role="dialog" aria-modal="true">
-        <button class="icon-btn lightbox__close" id="lightbox-close" aria-label="Close">
-          <img src="assets/close.svg" alt="" width="11" height="11">
+        <button
+          class="icon-btn lightbox__close"
+          id="lightbox-close"
+          aria-label="Close"
+        >
+          <img src="assets/close.svg" alt="" width="11" height="11" />
         </button>
         <div class="lightbox__frame">
           <canvas class="lightbox__image" id="lightbox-image"></canvas>
           <img class="lightbox__image" id="lightbox-image-gif" alt="" hidden />
-        </div>
-        <div class="lightbox__meta">
-          <p class="lightbox__data" id="lightbox-data"></p>
         </div>
       </div>
     </div>
