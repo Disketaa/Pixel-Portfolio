@@ -131,8 +131,11 @@ function buildCard(work, index) {
   return card;
 }
 
-function toDisplayName(name) {
-  return name
+function toDisplayName(file) {
+  return file
+    .split("/")
+    .pop()
+    .replace(/\.[^.]+$/, "")
     .replace(/[-_]+/g, " ")
     .replace(/\s+/g, " ")
     .trim()
