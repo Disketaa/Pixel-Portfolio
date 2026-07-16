@@ -8,7 +8,6 @@ import {
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import zlib from "node:zlib";
 import { imageSize } from "image-size";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,7 +23,8 @@ function resolveIcon(name) {
   try {
     const files = readdirSync(ICONS_DIR);
     const match = files.find(
-      (f) => path.basename(f, path.extname(f)).toLowerCase() === base.toLowerCase(),
+      (f) =>
+        path.basename(f, path.extname(f)).toLowerCase() === base.toLowerCase(),
     );
     if (match) return `assets/icons/${match}`;
   } catch {}
@@ -60,88 +60,6 @@ function getGitAddedDate(filePath) {
   return stats.mtime.toISOString().slice(0, 10);
 }
 
-function hasTransparentPixels(buffer, width, height) {
-  if (buffer[0] !== 0x89 || buffer[1] !== 0x50) return false;
-  const colorType = buffer[25];
-  if (colorType !== 6 && colorType !== 4 && colorType !== 3) return false;
-  if (colorType === 3) {
-    for (let i = 8; i < buffer.length - 11; i++) {
-      if (
-        buffer[i] === 116 &&
-        buffer[i + 1] === 82 &&
-        buffer[i + 2] === 78 &&
-        buffer[i + 3] === 83
-      )
-        return true;
-    }
-    return false;
-  }
-
-  let data = Buffer.alloc(0);
-  let pos = 8;
-  while (pos < buffer.length - 12) {
-    const len = buffer.readUInt32BE(pos);
-    const type = buffer.toString("ascii", pos + 4, pos + 8);
-    if (type === "IDAT") {
-      data = Buffer.concat([data, buffer.subarray(pos + 8, pos + 8 + len)]);
-    }
-    if (type === "IEND") break;
-    pos += 12 + len;
-  }
-  if (data.length === 0) return false;
-
-  let raw;
-  try {
-    raw = zlib.inflateSync(data);
-  } catch {
-    return false;
-  }
-
-  const bpp = colorType === 6 ? 4 : 2;
-  const sl = width * bpp + 1;
-  const offset = colorType === 6 ? 3 : 1;
-  const above = new Uint8Array(width);
-  const curr = new Uint8Array(width);
-
-  const step = Math.max(1, Math.floor(height / 100));
-
-  for (let y = 0; y < height; y++) {
-    const row = y * sl;
-    const filter = raw[row];
-
-    for (let x = 0; x < width; x++) {
-      const rawA = raw[row + 1 + x * bpp + offset];
-      const left = x > 0 ? curr[x - 1] : 0;
-      const up = above[x];
-      const upLeft = x > 0 ? above[x - 1] : 0;
-
-      let a;
-      if (filter === 0) a = rawA;
-      else if (filter === 1) a = (rawA + left) & 0xff;
-      else if (filter === 2) a = (rawA + up) & 0xff;
-      else if (filter === 3) a = (rawA + ((left + up) >> 1)) & 0xff;
-      else {
-        const p = left + up - upLeft;
-        const pa = Math.abs(p - left);
-        const pb = Math.abs(p - up);
-        const pc = Math.abs(p - upLeft);
-        const pr = pa <= pb && pa <= pc ? left : pb <= pc ? up : upLeft;
-        a = (rawA + pr) & 0xff;
-      }
-
-      curr[x] = a;
-    }
-
-    if (y % step === 0) {
-      for (let x = 0; x < width; x++) {
-        if (curr[x] < 255) return true;
-      }
-    }
-    above.set(curr);
-  }
-  return false;
-}
-
 function walkDir(dir, baseDir) {
   const results = [];
   const items = readdirSync(dir, { withFileTypes: true });
@@ -174,9 +92,6 @@ function buildEntry(relPath) {
   const buffer = readFileSync(filePath);
   const { width, height } = imageSize(buffer);
   const isAnimated = ext === ".gif";
-  const hasAlpha = isAnimated
-    ? false
-    : hasTransparentPixels(buffer, width, height);
 
   const parts = relPath.split(/[/\\]/);
   let folder = null;
@@ -193,8 +108,6 @@ function buildEntry(relPath) {
     title: toTitleCase(relPath),
     width,
     height,
-    ratio: Number((width / height).toFixed(3)),
-    hasAlpha,
     isAnimated,
     addedAt: getGitAddedDate(filePath),
     folder,
@@ -330,6 +243,8 @@ function main() {
     return a.file.localeCompare(b.file);
   });
 
+  const output = entries.map(({ addedAt, ...rest }) => rest);
+
   console.log(`Scanning for layout.json files...`);
   const layouts = scanJsonLayouts();
 
@@ -348,14 +263,14 @@ function main() {
       .map((d) => d.name),
   );
 
-  const filtered = entries.filter((e) => {
+  const filtered = output.filter((e) => {
     if (!e.folder) return true;
     if (!folderHasLayout.has(e.folder)) return true;
     return layoutFiles.has(e.file);
   });
 
-  if (filtered.length !== entries.length) {
-    const removed = entries.length - filtered.length;
+  if (filtered.length !== output.length) {
+    const removed = output.length - filtered.length;
     console.log(`  filtered out ${removed} file(s) not in any layout`);
   }
 
