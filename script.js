@@ -23,6 +23,51 @@ let isDragging = false;
 let dragStartX = 0;
 let dragStartY = 0;
 
+const frame = document.querySelector(".lightbox__frame");
+
+function getFrameMetrics() {
+  const cs = getComputedStyle(frame);
+  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+  return {
+    cw: frame.clientWidth - padX,
+    ch: frame.clientHeight - padY,
+  };
+}
+
+function getImageFit(cw, ch, img) {
+  const imgAspect = img.naturalWidth / img.naturalHeight;
+  const conAspect = cw / ch;
+  if (imgAspect > conAspect) {
+    const dw = cw;
+    const dh = cw / imgAspect;
+    return { dw, dh, ox: 0, oy: (ch - dh) / 2 };
+  }
+  const dh = ch;
+  const dw = ch * imgAspect;
+  return { dw, dh, ox: (cw - dw) / 2, oy: 0 };
+}
+
+function resetView() {
+  targetZoomLevel = 1;
+  panX = 0;
+  panY = 0;
+  targetPanX = 0;
+  targetPanY = 0;
+}
+
+function initLightboxView(img) {
+  loadedLightboxImg = img;
+  zoomLevel = 1.05;
+  resetView();
+  isAnimating = true;
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  animatePan();
+  if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
+  lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
+  lightboxResizeObserver.observe(frame);
+}
+
 function createRow() {
   const row = document.createElement("div");
   row.style.cssText = `
@@ -95,31 +140,10 @@ function toDisplayName(name) {
 
 function drawLightboxImage() {
   if (!loadedLightboxImg) return;
-  const frame = document.querySelector(".lightbox__frame");
-  const cs = getComputedStyle(frame);
-  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-  const cw = frame.clientWidth - padX;
-  const ch = frame.clientHeight - padY;
+  const { cw, ch } = getFrameMetrics();
   if (cw <= 0 || ch <= 0) return;
 
-  const iw = loadedLightboxImg.naturalWidth;
-  const ih = loadedLightboxImg.naturalHeight;
-  const imgAspect = iw / ih;
-  const conAspect = cw / ch;
-
-  let dw, dh, ox, oy;
-  if (imgAspect > conAspect) {
-    dw = cw;
-    dh = cw / imgAspect;
-    ox = 0;
-    oy = (ch - dh) / 2;
-  } else {
-    dh = ch;
-    dw = ch * imgAspect;
-    ox = (cw - dw) / 2;
-    oy = 0;
-  }
+  const { dw, dh, ox, oy } = getImageFit(cw, ch, loadedLightboxImg);
 
   const zoomedDw = dw * zoomLevel;
   const zoomedDh = dh * zoomLevel;
@@ -168,30 +192,8 @@ function animatePan() {
 }
 
 function setZoom(level, anchorPx, anchorPy) {
-  const frame = document.querySelector(".lightbox__frame");
-  const cs = getComputedStyle(frame);
-  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-  const cw = frame.clientWidth - padX;
-  const ch = frame.clientHeight - padY;
-
-  const iw = loadedLightboxImg.naturalWidth;
-  const ih = loadedLightboxImg.naturalHeight;
-  const imgAspect = iw / ih;
-  const conAspect = cw / ch;
-
-  let dw, dh, ox, oy;
-  if (imgAspect > conAspect) {
-    dw = cw;
-    dh = cw / imgAspect;
-    ox = 0;
-    oy = (ch - dh) / 2;
-  } else {
-    dh = ch;
-    dw = ch * imgAspect;
-    ox = (cw - dw) / 2;
-    oy = 0;
-  }
+  const { cw, ch } = getFrameMetrics();
+  const { dw, dh, ox, oy } = getImageFit(cw, ch, loadedLightboxImg);
 
   const oldZoom = zoomLevel;
   const newZoom = Math.max(0.1, Math.min(8, level));
@@ -235,11 +237,7 @@ function resetZoom() {
 function resetZoomImmediate() {
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   zoomLevel = 1;
-  targetZoomLevel = 1;
-  panX = 0;
-  panY = 0;
-  targetPanX = 0;
-  targetPanY = 0;
+  resetView();
   isAnimating = false;
 }
 
@@ -253,21 +251,7 @@ function openLightbox(work, triggerEl, index) {
     lightboxGifImg.src = `works/${work.file}`;
     lightboxGifImg.onload = () => {
       if (currentIndex !== index) return;
-      loadedLightboxImg = lightboxGifImg;
-      zoomLevel = 1.05;
-      targetZoomLevel = 1;
-      panX = 0;
-      panY = 0;
-      targetPanX = 0;
-      targetPanY = 0;
-      isAnimating = true;
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animatePan();
-      if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
-      lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
-      lightboxResizeObserver.observe(
-        document.querySelector(".lightbox__frame"),
-      );
+      initLightboxView(lightboxGifImg);
     };
   } else {
     lightboxGifImg.src = "";
@@ -278,21 +262,7 @@ function openLightbox(work, triggerEl, index) {
     img.src = `works/${work.file}`;
     img.onload = () => {
       if (currentIndex !== index) return;
-      loadedLightboxImg = img;
-      zoomLevel = 1.05;
-      targetZoomLevel = 1;
-      panX = 0;
-      panY = 0;
-      targetPanX = 0;
-      targetPanY = 0;
-      isAnimating = true;
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animatePan();
-      if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
-      lightboxResizeObserver = new ResizeObserver(drawLightboxImage);
-      lightboxResizeObserver.observe(
-        document.querySelector(".lightbox__frame"),
-      );
+      initLightboxView(img);
     };
   }
 
@@ -341,11 +311,7 @@ function closeLightbox() {
   lightboxGifImg.hidden = true;
   lightboxCanvas.hidden = false;
   zoomLevel = 1;
-  targetZoomLevel = 1;
-  panX = 0;
-  panY = 0;
-  targetPanX = 0;
-  targetPanY = 0;
+  resetView();
   isAnimating = false;
   isDragging = false;
   document.body.style.overflow = "";
@@ -363,8 +329,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") navigateLightbox(1);
 });
 
-const frame = document.querySelector(".lightbox__frame");
-
 frame.addEventListener(
   "wheel",
   (event) => {
@@ -375,11 +339,7 @@ frame.addEventListener(
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
 
-    const cs = getComputedStyle(frame);
-    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    const cw = frame.clientWidth - padX;
-    const ch = frame.clientHeight - padY;
+    const { cw, ch } = getFrameMetrics();
 
     const normX = Math.max(0, Math.min(1, mouseX / cw));
     const normY = Math.max(0, Math.min(1, mouseY / ch));
@@ -401,11 +361,7 @@ frame.addEventListener("dblclick", (event) => {
     const rect = frame.getBoundingClientRect();
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
-    const cs = getComputedStyle(frame);
-    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    const cw = frame.clientWidth - padX;
-    const ch = frame.clientHeight - padY;
+    const { cw, ch } = getFrameMetrics();
     const normX = Math.max(0, Math.min(1, mouseX / cw));
     const normY = Math.max(0, Math.min(1, mouseY / ch));
     setZoom(2, normX, normY);
@@ -426,11 +382,7 @@ frame.addEventListener(
       const touch2 = event.touches[1];
 
       const rect = frame.getBoundingClientRect();
-      const cs = getComputedStyle(frame);
-      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-      const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-      const cw = frame.clientWidth - padX;
-      const ch = frame.clientHeight - padY;
+      const { cw, ch } = getFrameMetrics();
 
       initialPinchDistance = Math.hypot(
         touch2.clientX - touch1.clientX,
