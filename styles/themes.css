@@ -1,16 +1,16 @@
 :root,
 :root[data-theme="coffee"] {
-  --background: var(--orka-black);
+  --ink: var(--orka-black);
   --panel: var(--american-mahogany);
-  --font: var(--white-raisin);
+  --paper: var(--white-raisin);
   --muted: var(--moroccan-dusk);
   --accent: var(--maple-syrup-brown);
 }
 
 :root[data-theme="snowy-blue"] {
-  --background: var(--navy-blazer);
+  --ink: var(--navy-blazer);
   --panel: var(--slate-court);
-  --font: var(--hawaiian-sky);
+  --paper: var(--hawaiian-sky);
   --muted: var(--beguiling-blue);
   --accent: var(--skies-of-cyberspace);
 }
