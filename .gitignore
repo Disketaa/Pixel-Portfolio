@@ -1,8 +1,7 @@
 _site/
-.DS_Store
-/.*
 !.editorconfig
 !.gitattributes
 !.github/
-!.vscode/
+.DS_Store
+/.*
 node_modules/

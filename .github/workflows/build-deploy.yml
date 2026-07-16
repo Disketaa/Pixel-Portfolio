@@ -8,7 +8,6 @@ on:
       - 'scripts/**'
       - 'index.html'
       - 'style.css'
-      - 'script.js'
       - 'package.json'
       - '.github/workflows/build-deploy.yml'
       - 'manifest.json'
@@ -46,8 +45,9 @@ jobs:
 
       - name: Stage site
         run: |
-          mkdir -p _site/works _site/assets
-          cp index.html style.css script.js manifest.json _site/
+          mkdir -p _site/works _site/assets _site/scripts/helpers
+          cp index.html style.css manifest.json _site/
+          cp scripts/helpers/*.js _site/scripts/helpers/
           cp -r assets/. _site/assets/
           cp -r works/. _site/works/
           find _site/works -maxdepth 1 -type f ! \( -name '*.png' -o -name '*.gif' \) -delete
