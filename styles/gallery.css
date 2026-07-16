@@ -103,14 +103,14 @@ main {
 .card::before {
   content: "";
   position: absolute;
-  inset: 0px;
+  inset: -24px;
   z-index: -1;
   pointer-events: none;
   background-image: var(--glow-src, none);
   background-size: cover;
   background-position: center;
-  filter: blur(10px) saturate(15) brightness(2);
-  opacity: 0;
+  filter: blur(50px) saturate(15) brightness(2);
+  opacity: 20%;
   transition: opacity var(--badge-transition-opacity-duration) ease;
 }
 

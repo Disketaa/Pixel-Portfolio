@@ -23,14 +23,14 @@ function buildCard(work, index) {
   card.setAttribute("role", "button");
   card.setAttribute("aria-label", `Open ${toDisplayName(work.file)}`);
   card.dataset.index = index;
-  card.style.setProperty("--glow-src", `url("works/${work.file}")`);
+  card.style.setProperty("--glow-src", `url("/assets/works/${work.file}")`);
 
   const container = document.createElement("div");
   container.className = "card__img-container";
 
   if (work.isAnimated) {
     const img = document.createElement("img");
-    img.src = `works/${work.file}`;
+    img.src = `assets/works/${work.file}`;
     img.alt = toDisplayName(work.file);
     img.loading = "lazy";
     img.decoding = "async";
@@ -43,7 +43,7 @@ function buildCard(work, index) {
     canvas.setAttribute("role", "img");
     canvas.setAttribute("aria-label", toDisplayName(work.file));
     const img = new Image();
-    img.src = `works/${work.file}`;
+    img.src = `assets/works/${work.file}`;
     img.onload = () => {
       const ctx = canvas.getContext("2d");
       ctx.imageSmoothingEnabled = false;

@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'works/**'
+      - 'assets/works/**'
       - 'scripts/**'
       - 'index.html'
       - 'styles/**'
@@ -50,8 +50,7 @@ jobs:
           cp -r styles/. _site/styles/
           cp scripts/helpers/*.js _site/scripts/helpers/
           cp -r assets/. _site/assets/
-          cp -r works/. _site/works/
-          find _site/works -maxdepth 1 -type f ! \( -name '*.png' -o -name '*.gif' \) -delete
+          cp -r assets/works/. _site/works/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -12,7 +12,7 @@ import { imageSize } from "image-size";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const WORKS_DIR = path.join(ROOT, "works");
+const WORKS_DIR = path.join(ROOT, "assets", "works");
 const MANIFEST_PATH = path.join(ROOT, "manifest.json");
 const ICONS_DIR = path.join(ROOT, "assets", "icons");
 const ALLOWED_EXT = new Set([".png", ".gif"]);

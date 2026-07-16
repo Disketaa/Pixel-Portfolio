@@ -6,7 +6,7 @@
   "scripts": {
     "generate-manifest": "node scripts/generate-manifest.mjs",
     "dev": "npx --yes serve . -l 8000",
-    "watch": "npx --yes chokidar-cli \"works/**/*\" -c \"npm run generate-manifest\" --initial"
+    "watch": "npx --yes chokidar-cli \"assets/works/**/*\" -c \"npm run generate-manifest\" --initial"
   },
   "dependencies": {
     "image-size": "^1.1.1"
