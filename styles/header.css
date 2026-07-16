@@ -178,7 +178,6 @@
 @media (max-width: 640px) {
   .site-header {
     padding: 0 20px;
-    height: auto;
     justify-content: center;
   }
   .header-brand__name {
