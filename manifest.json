@@ -2,7 +2,6 @@
   "entries": [
     {
       "file": "Sokol/Buildings/Anvil, Building.gif",
-      "title": "Anvil, Building",
       "width": 128,
       "height": 128,
       "isAnimated": true,
@@ -11,7 +10,6 @@
     },
     {
       "file": "Sokol/Buildings/Bear Trap, Building.gif",
-      "title": "Bear Trap, Building",
       "width": 64,
       "height": 64,
       "isAnimated": true,
@@ -20,7 +18,6 @@
     },
     {
       "file": "Sokol/Buildings/Disks, Building.gif",
-      "title": "Disks, Building",
       "width": 128,
       "height": 128,
       "isAnimated": true,
@@ -29,7 +26,6 @@
     },
     {
       "file": "Sokol/Effects/Compressed Tube, Effect Mockup.gif",
-      "title": "Compressed Tube, Effect Mockup",
       "width": 512,
       "height": 512,
       "isAnimated": true,
@@ -38,7 +34,6 @@
     },
     {
       "file": "Sokol/Effects/Ice Cube, Effect Mockup.gif",
-      "title": "Ice Cube, Effect Mockup",
       "width": 512,
       "height": 512,
       "isAnimated": true,
@@ -47,7 +42,6 @@
     },
     {
       "file": "Sokol/Effects/Radioactive-Mushroom, Effect Mockup.gif",
-      "title": "Radioactive Mushroom, Effect Mockup",
       "width": 512,
       "height": 512,
       "isAnimated": true,
@@ -56,7 +50,6 @@
     },
     {
       "file": "Sokol/Effects/Smoke, Effect Mockup.gif",
-      "title": "Smoke, Effect Mockup",
       "width": 512,
       "height": 512,
       "isAnimated": true,
@@ -65,7 +58,6 @@
     },
     {
       "file": "Sokol/Entities/Hit & Death, Character Animation.gif",
-      "title": "Hit & Death, Character Animation",
       "width": 48,
       "height": 48,
       "isAnimated": true,
@@ -74,7 +66,6 @@
     },
     {
       "file": "Sokol/Entities/Hit & Death, Enemies Animation.gif",
-      "title": "Hit & Death, Enemies Animation",
       "width": 512,
       "height": 128,
       "isAnimated": true,
@@ -83,7 +74,6 @@
     },
     {
       "file": "Sokol/Entities/Idle & Attack, Character Animation.gif",
-      "title": "Idle & Attack, Character Animation",
       "width": 48,
       "height": 48,
       "isAnimated": true,
@@ -92,7 +82,6 @@
     },
     {
       "file": "Sokol/Entities/Idle & Attack, Enemies Animation.gif",
-      "title": "Idle & Attack, Enemies Animation",
       "width": 512,
       "height": 128,
       "isAnimated": true,
@@ -101,7 +90,6 @@
     },
     {
       "file": "Sokol/Entities/Reload & Shoot, Character Animation.gif",
-      "title": "Reload & Shoot, Character Animation",
       "width": 48,
       "height": 48,
       "isAnimated": true,
@@ -110,7 +98,6 @@
     },
     {
       "file": "Sokol/Entities/Teleport, Character Animation.gif",
-      "title": "Teleport, Character Animation",
       "width": 48,
       "height": 48,
       "isAnimated": true,
@@ -119,7 +106,6 @@
     },
     {
       "file": "Sokol/Interface/Pick Bullets Screen, Mockup.png",
-      "title": "Pick Bullets Screen, Mockup",
       "width": 2560,
       "height": 1440,
       "isAnimated": false,
@@ -128,7 +114,6 @@
     },
     {
       "file": "Sokol/Interface/Pick Bullets Tooltip, Mockup.png",
-      "title": "Pick Bullets Tooltip, Mockup",
       "width": 2560,
       "height": 1440,
       "isAnimated": false,
@@ -137,7 +122,6 @@
     },
     {
       "file": "Sokol/Interface/Pick Skills Screen, Mockup.png",
-      "title": "Pick Skills Screen, Mockup",
       "width": 2560,
       "height": 1440,
       "isAnimated": false,
@@ -146,7 +130,6 @@
     },
     {
       "file": "Sokol/Interface/Pick Skills Tooltip, Mockup.png",
-      "title": "Pick Skills Tooltip, Mockup",
       "width": 2560,
       "height": 1440,
       "isAnimated": false,
@@ -155,7 +138,6 @@
     },
     {
       "file": "Sokol/Menu, Mockup.gif",
-      "title": "Menu, Mockup",
       "width": 958,
       "height": 539,
       "isAnimated": true,
@@ -164,7 +146,6 @@
     },
     {
       "file": "Sokol/Skills/Attack, Skill.png",
-      "title": "Attack, Skill",
       "width": 16,
       "height": 16,
       "isAnimated": false,
@@ -173,7 +154,6 @@
     },
     {
       "file": "Sokol/Skills/Move, Skill.png",
-      "title": "Move, Skill",
       "width": 16,
       "height": 16,
       "isAnimated": false,
@@ -182,7 +162,6 @@
     },
     {
       "file": "Sokol/Skills/Reload, Skill.png",
-      "title": "Reload, Skill",
       "width": 16,
       "height": 16,
       "isAnimated": false,
@@ -191,7 +170,6 @@
     },
     {
       "file": "Sokol/Skills/Roll, Skill.png",
-      "title": "Roll, Skill",
       "width": 16,
       "height": 16,
       "isAnimated": false,
@@ -200,7 +178,6 @@
     },
     {
       "file": "Sokol/Skills/Shoot, Skill.png",
-      "title": "Shoot, Skill",
       "width": 16,
       "height": 16,
       "isAnimated": false,
@@ -209,7 +186,6 @@
     },
     {
       "file": "Sokol/Skills/Teleport, Skill.png",
-      "title": "Teleport, Skill",
       "width": 16,
       "height": 16,
       "isAnimated": false,

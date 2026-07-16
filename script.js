@@ -83,7 +83,7 @@ function buildCard(work, index) {
   card.className = "card";
   card.tabIndex = 0;
   card.setAttribute("role", "button");
-  card.setAttribute("aria-label", `Open ${work.title}`);
+  card.setAttribute("aria-label", `Open ${toDisplayName(work.file)}`);
   card.dataset.index = index;
   card.style.setProperty("--glow-src", `url("works/${work.file}")`);
 
@@ -93,7 +93,7 @@ function buildCard(work, index) {
   if (work.isAnimated) {
     const img = document.createElement("img");
     img.src = `works/${work.file}`;
-    img.alt = work.title;
+    img.alt = toDisplayName(work.file);
     img.loading = "lazy";
     img.decoding = "async";
     container.appendChild(img);
@@ -103,7 +103,7 @@ function buildCard(work, index) {
     canvas.width = work.width;
     canvas.height = work.height;
     canvas.setAttribute("role", "img");
-    canvas.setAttribute("aria-label", work.title);
+    canvas.setAttribute("aria-label", toDisplayName(work.file));
     const img = new Image();
     img.src = `works/${work.file}`;
     img.onload = () => {
@@ -116,13 +116,14 @@ function buildCard(work, index) {
 
   const tooltip = document.createElement("span");
   tooltip.className = "card__tooltip";
-  if (work.title.includes(",")) {
-    const parts = work.title.split(",");
+  const title = toDisplayName(work.file);
+  if (title.includes(",")) {
+    const parts = title.split(",");
     const first = parts[0].trim();
     const second = parts.slice(1).join(",").trim();
     tooltip.innerHTML = `<span class="card__tooltip-primary">${first}</span><span class="card__tooltip-secondary">${second}</span>`;
   } else {
-    tooltip.innerHTML = `<span class="card__tooltip-primary">${work.title}</span>`;
+    tooltip.innerHTML = `<span class="card__tooltip-primary">${title}</span>`;
   }
   container.appendChild(tooltip);
 

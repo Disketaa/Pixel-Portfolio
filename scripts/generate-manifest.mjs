@@ -32,15 +32,6 @@ function resolveIcon(name) {
   return null;
 }
 
-function toTitleCase(filename) {
-  return path
-    .basename(filename, path.extname(filename))
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
 function getGitAddedDate(filePath) {
   try {
     const relPath = path.relative(ROOT, filePath);
@@ -105,7 +96,6 @@ function buildEntry(relPath) {
 
   return {
     file: relPath,
-    title: toTitleCase(relPath),
     width,
     height,
     isAnimated,
