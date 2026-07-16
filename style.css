@@ -52,7 +52,6 @@ body {
   background: transparent;
   color: var(--paper);
   font-family: var(--font);
-  min-height: 100vh;
   padding-top: var(--full-h);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
@@ -345,7 +344,6 @@ main {
   width: auto;
   pointer-events: none;
   user-select: none;
-  -webkit-user-select: none;
 }
 
 .section-heading__text {
@@ -365,7 +363,6 @@ main {
   position: relative;
   overflow: hidden;
   user-select: none;
-  -webkit-user-select: none;
   padding: 8px;
   line-height: 0;
   opacity: 0.25;
