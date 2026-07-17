@@ -1,11 +1,18 @@
 .site-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: var(--small-h, 44px);
   padding: 0 32px;
   background: var(--back-in-black);
   border-top: 2px solid color-mix(in srgb, var(--background) 60%, transparent);
+}
+
+.site-footer__copyright {
+  font-family: var(--font);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+  color: var(--muted);
 }
 
 .site-footer__version {
