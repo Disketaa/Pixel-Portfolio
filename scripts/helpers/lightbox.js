@@ -27,6 +27,12 @@ let prevPinchDist = -1;
 let pinchStartZoom = 1;
 let pinchAnchorX = 0.5;
 let pinchAnchorY = 0.5;
+let velX = 0;
+let velY = 0;
+let momentumId = null;
+let lastMoveTime = 0;
+let smoothVelX = 0;
+let smoothVelY = 0;
 
 function getFrameMetrics() {
   const cs = getComputedStyle(frame);
@@ -226,6 +232,12 @@ export function closeLightbox() {
   resetView();
   isAnimating = false;
   isDragging = false;
+  velX = 0;
+  velY = 0;
+  if (momentumId) {
+    cancelAnimationFrame(momentumId);
+    momentumId = null;
+  }
   evCache.length = 0;
   prevPinchDist = -1;
   document.body.style.overflow = "";
@@ -301,6 +313,10 @@ export function initLightbox(opts) {
   frame.addEventListener("pointerdown", (event) => {
     if (!loadedLightboxImg) return;
     event.preventDefault();
+    if (momentumId) {
+      cancelAnimationFrame(momentumId);
+      momentumId = null;
+    }
     evCache.push(event);
 
     if (evCache.length === 2) {
@@ -331,6 +347,9 @@ export function initLightbox(opts) {
       frame.classList.add("lightbox__frame--grabbing");
       dragStartX = event.clientX;
       dragStartY = event.clientY;
+      smoothVelX = 0;
+      smoothVelY = 0;
+      lastMoveTime = performance.now();
 
       if (isAnimating) {
         zoomLevel = targetZoomLevel;
@@ -365,16 +384,46 @@ export function initLightbox(opts) {
     if (!isDragging) return;
     event.preventDefault();
 
+    const now = performance.now();
     const dx = event.clientX - dragStartX;
     const dy = event.clientY - dragStartY;
     dragStartX = event.clientX;
     dragStartY = event.clientY;
+
+    const dt = now - lastMoveTime || 16;
+    const w = Math.min(dt / 16, 3);
+    smoothVelX = (smoothVelX * (1 - 0.3 * w) + (dx / dt) * 16 * 0.3 * w);
+    smoothVelY = (smoothVelY * (1 - 0.3 * w) + (dy / dt) * 16 * 0.3 * w);
+    lastMoveTime = now;
 
     panX += dx;
     panY += dy;
 
     drawLightboxImage();
   });
+
+  function startMomentum() {
+    if (momentumId) cancelAnimationFrame(momentumId);
+    const friction = 0.92;
+    const minSpeed = 0.1;
+
+    function tick() {
+      velX *= friction;
+      velY *= friction;
+
+      if (Math.abs(velX) < minSpeed && Math.abs(velY) < minSpeed) {
+        momentumId = null;
+        return;
+      }
+
+      panX += velX;
+      panY += velY;
+      drawLightboxImage();
+      momentumId = requestAnimationFrame(tick);
+    }
+
+    momentumId = requestAnimationFrame(tick);
+  }
 
   function removePointer(event) {
     const idx = evCache.findIndex((e) => e.pointerId === event.pointerId);
@@ -386,6 +435,12 @@ export function initLightbox(opts) {
     if (evCache.length === 0) {
       isDragging = false;
       frame.classList.remove("lightbox__frame--grabbing");
+
+      if (Math.abs(smoothVelX) > 0.3 || Math.abs(smoothVelY) > 0.3) {
+        velX = smoothVelX;
+        velY = smoothVelY;
+        startMomentum();
+      }
     }
   }
 
