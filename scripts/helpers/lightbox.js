@@ -204,7 +204,7 @@ export function openLightbox(work, triggerEl, workList, index) {
   if (work.isAnimated) {
     lightboxCanvas.hidden = true;
     lightboxGifImg.hidden = false;
-    lightboxGifImg.src = `assets/works/${work.file}`;
+    lightboxGifImg.src = `assets/art/${work.file}`;
     lightboxGifImg.onload = () => {
       if (currentIndex !== index) return;
       initLightboxView(lightboxGifImg);
@@ -215,7 +215,7 @@ export function openLightbox(work, triggerEl, workList, index) {
     lightboxGifImg.hidden = true;
     lightboxCanvas.hidden = false;
     const img = new Image();
-    img.src = `assets/works/${work.file}`;
+    img.src = `assets/art/${work.file}`;
     img.onload = () => {
       if (currentIndex !== index) return;
       initLightboxView(img);
