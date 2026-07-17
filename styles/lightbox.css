@@ -71,6 +71,7 @@
   padding: var(--lightbox-frame-padding);
   overflow: hidden;
   cursor: grab;
+  touch-action: none;
 }
 
 .lightbox__frame--grabbing {
