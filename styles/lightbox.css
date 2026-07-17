@@ -64,6 +64,35 @@
   height: 10px;
 }
 
+.lightbox__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: var(--muted);
+}
+
+.lightbox__arrow img {
+  width: 10px;
+  height: 10px;
+}
+
+.lightbox__arrow--prev {
+  left: var(--lightbox-close-position);
+}
+
+.lightbox__arrow--prev img {
+  transform: rotate(-90deg);
+}
+
+.lightbox__arrow--next {
+  right: var(--lightbox-close-position);
+}
+
+.lightbox__arrow--next img {
+  transform: rotate(90deg);
+}
+
 .lightbox__frame {
   position: relative;
   height: 72vh;

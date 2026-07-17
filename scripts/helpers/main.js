@@ -10,6 +10,8 @@ initLightbox({
   canvas: document.getElementById("lightbox-image"),
   gifImg: document.getElementById("lightbox-image-gif"),
   close: document.getElementById("lightbox-close"),
+  prev: document.getElementById("lightbox-prev"),
+  next: document.getElementById("lightbox-next"),
 });
 
 initGallery(grid);

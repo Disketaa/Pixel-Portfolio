@@ -3,6 +3,8 @@ let lightboxEl;
 let lightboxCanvas;
 let lightboxGifImg;
 let lightboxClose;
+let lightboxPrev;
+let lightboxNext;
 
 let lastFocusedCard = null;
 let currentIndex = -1;
@@ -264,8 +266,12 @@ export function initLightbox(opts) {
   lightboxCanvas = opts.canvas;
   lightboxGifImg = opts.gifImg;
   lightboxClose = opts.close;
+  lightboxPrev = opts.prev;
+  lightboxNext = opts.next;
 
   lightboxClose.addEventListener("click", closeLightbox);
+  lightboxPrev.addEventListener("click", () => navigateLightbox(-1));
+  lightboxNext.addEventListener("click", () => navigateLightbox(1));
   lightboxEl
     .querySelector(".lightbox__backdrop")
     .addEventListener("click", closeLightbox);
