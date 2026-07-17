@@ -96,8 +96,32 @@
 .lightbox .card__tooltip {
   bottom: var(--lightbox-close-position);
   left: var(--lightbox-close-position);
+  right: var(--lightbox-close-position);
   opacity: 1;
   z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  max-width: none;
+  white-space: normal;
+}
+
+.lightbox .card__tooltip-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lightbox .card__tooltip-counter {
+  display: inline-block;
+  background: var(--back-in-black);
+  padding: 2px 6px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.lightbox .card__tooltip-counter .current {
+  color: var(--text);
 }
 
 .lightbox__frame {
