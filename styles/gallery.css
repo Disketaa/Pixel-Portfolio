@@ -274,6 +274,11 @@ main {
   animation-delay: var(--enter-delay, 0ms);
 }
 
+.site-footer {
+  animation: fadeIn 0.5s ease both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
 @keyframes enter {
   from {
     opacity: 0;
@@ -282,6 +287,15 @@ main {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -351,7 +365,8 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .section-heading,
   .section-description,
-  .card {
+  .card,
+  .site-footer {
     opacity: 1;
     transform: translateY(0);
     animation: none;

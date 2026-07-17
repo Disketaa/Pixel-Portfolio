@@ -354,6 +354,11 @@ export function render(works, layouts) {
     el.style.setProperty("--enter-delay", `${i * 60}ms`);
   });
 
+  const footer = document.querySelector(".site-footer");
+  if (footer) {
+    footer.style.setProperty("--enter-delay", `${animated.length * 60}ms`);
+  }
+
   if (gifObserver) {
     const gifImgs = gridEl.querySelectorAll(".card img");
     gifImgs.forEach((img) => {

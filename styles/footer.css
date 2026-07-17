@@ -6,6 +6,7 @@
   padding: 0 32px;
   background: var(--back-in-black);
   border-top: 2px solid color-mix(in srgb, var(--background) 60%, transparent);
+  opacity: 0;
 }
 
 .site-footer__left {
