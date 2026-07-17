@@ -111,6 +111,13 @@ main {
   font-size: var(--font-size-sm);
   color: var(--muted);
   line-height: 1.4;
+  font-style: italic;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.section-description span {
+  color: var(--text);
 }
 
 .bg-checker {
@@ -225,6 +232,7 @@ main {
 }
 
 .section-heading,
+.section-description,
 .card {
   animation: enter 0.5s ease both;
   animation-delay: var(--enter-delay, 0ms);
@@ -306,6 +314,7 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .section-heading,
+  .section-description,
   .card {
     opacity: 1;
     transform: translateY(0);

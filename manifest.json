@@ -208,7 +208,7 @@
           "url": "https://store.steampowered.com/app/4640160/SOKOL/"
         }
       ],
-      "description": "Sokol is a turn-based roguelike where every shot has to be planned. Bullets ricochet off the environment, pierce through enemies, and can trigger interactive objects. Line up your trajectory, calculate the bounce, and turn one well-placed shot into a chain of consequences."
+      "description": "<span>Sokol</span> is a <span>turn-based roguelike</span> where every shot has to be <span>planned</span>. Bullets <span>ricochet</span> off the environment, <span>pierce</span> through enemies, and can <span>trigger interactive objects</span>. Line up your trajectory, calculate the <span>bounce</span>, and turn one well-placed shot into a <span>chain of consequences</span>."
     },
     "Sokol/Effects": {
       "cols": [

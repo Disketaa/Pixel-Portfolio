@@ -212,10 +212,10 @@ function makeHeading(tag, className, text, icon, id, links) {
   return el;
 }
 
-function makeDescription(text) {
+function makeDescription(html) {
   const el = document.createElement("p");
   el.className = "section-description";
-  el.textContent = text;
+  el.innerHTML = html;
   return el;
 }
 
@@ -316,7 +316,9 @@ export function render(works, layouts) {
   worksData = flatData;
   gridEl.appendChild(fragment);
 
-  const animated = gridEl.querySelectorAll(".section-heading, .card");
+  const animated = gridEl.querySelectorAll(
+    ".section-heading, .section-description, .card",
+  );
   animated.forEach((el, i) => {
     el.style.setProperty("--enter-delay", `${i * 60}ms`);
   });
