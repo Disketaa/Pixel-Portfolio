@@ -91,6 +91,7 @@ function renderLayout(works, layout, fragment, globalFlat) {
   for (let row = 0; row < layout.cols.length; row++) {
     const rowColCount = layout.cols[row];
     const rowDiv = createRow();
+    rowDiv.style.setProperty("--cols", Math.ceil(rowColCount / 2));
 
     for (let col = 0; col < rowColCount; col++) {
       const work = ordered[slotIdx];
@@ -110,6 +111,7 @@ function renderLayout(works, layout, fragment, globalFlat) {
 function renderFallback(works, fragment, globalFlat) {
   if (!works.length) return;
   const rowDiv = createRow();
+  rowDiv.style.setProperty("--cols", Math.ceil(works.length / 2));
   for (const work of works) {
     const card = buildCard(work, globalFlat.length);
     card.style.flex = "1";
