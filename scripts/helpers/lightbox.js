@@ -394,8 +394,8 @@ export function initLightbox(opts) {
 
     const dt = now - lastMoveTime || 16;
     const w = Math.min(dt / 16, 3);
-    smoothVelX = (smoothVelX * (1 - 0.3 * w) + (dx / dt) * 16 * 0.3 * w);
-    smoothVelY = (smoothVelY * (1 - 0.3 * w) + (dy / dt) * 16 * 0.3 * w);
+    smoothVelX = smoothVelX * (1 - 0.3 * w) + (dx / dt) * 16 * 0.3 * w;
+    smoothVelY = smoothVelY * (1 - 0.3 * w) + (dy / dt) * 16 * 0.3 * w;
     lastMoveTime = now;
 
     panX += dx;
@@ -406,7 +406,7 @@ export function initLightbox(opts) {
 
   function startMomentum() {
     if (momentumId) cancelAnimationFrame(momentumId);
-    const friction = lastPointerType === "touch" ? 0.92 : 0.96;
+    const friction = lastPointerType === "touch" ? 0.92 : 0.8;
     const minSpeed = 0.1;
 
     function tick() {
@@ -438,11 +438,14 @@ export function initLightbox(opts) {
       isDragging = false;
       frame.classList.remove("lightbox__frame--grabbing");
 
-      if (Math.abs(smoothVelX) > 0.3 || Math.abs(smoothVelY) > 0.3) {
+      const stale = performance.now() - lastMoveTime > 60;
+      if (!stale && (Math.abs(smoothVelX) > 0.3 || Math.abs(smoothVelY) > 0.3)) {
         velX = smoothVelX;
         velY = smoothVelY;
         startMomentum();
       }
+      smoothVelX = 0;
+      smoothVelY = 0;
     }
   }
 
