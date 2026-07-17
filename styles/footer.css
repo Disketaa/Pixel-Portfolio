@@ -8,6 +8,27 @@
   border-top: 2px solid color-mix(in srgb, var(--background) 60%, transparent);
 }
 
+.site-footer__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-footer__repo {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.site-footer__repo:hover {
+  opacity: 1;
+}
+
+.site-footer__repo img {
+  display: block;
+}
+
 .site-footer__copyright {
   font-family: var(--font);
   font-size: var(--font-size-xs);
