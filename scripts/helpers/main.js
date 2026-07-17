@@ -39,15 +39,14 @@ async function loadManifest() {
 }
 
 async function loadVersion() {
+  const el = document.getElementById("site-version");
   try {
     const res = await fetch("version.json");
-    if (!res.ok) return;
+    if (!res.ok) { el.textContent = "N/A"; return; }
     const data = await res.json();
-    if (data.version) {
-      document.getElementById("site-version").textContent = `0.${data.version}`;
-    }
+    el.textContent = data.version ? `0.${data.version}` : "N/A";
   } catch {
-    // version.json absent in local dev — ignore
+    el.textContent = "N/A";
   }
 }
 
