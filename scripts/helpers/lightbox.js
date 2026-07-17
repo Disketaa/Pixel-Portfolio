@@ -33,6 +33,7 @@ let momentumId = null;
 let lastMoveTime = 0;
 let smoothVelX = 0;
 let smoothVelY = 0;
+let lastPointerType = "mouse";
 
 function getFrameMetrics() {
   const cs = getComputedStyle(frame);
@@ -344,6 +345,7 @@ export function initLightbox(opts) {
       );
     } else if (evCache.length === 1) {
       isDragging = true;
+      lastPointerType = event.pointerType;
       frame.classList.add("lightbox__frame--grabbing");
       dragStartX = event.clientX;
       dragStartY = event.clientY;
@@ -404,7 +406,7 @@ export function initLightbox(opts) {
 
   function startMomentum() {
     if (momentumId) cancelAnimationFrame(momentumId);
-    const friction = 0.92;
+    const friction = lastPointerType === "touch" ? 0.92 : 0.96;
     const minSpeed = 0.1;
 
     function tick() {
