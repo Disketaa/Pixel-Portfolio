@@ -1,0 +1,22 @@
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: var(--small-h, 44px);
+  padding: 0 32px;
+  background: var(--back-in-black);
+  border-top: 2px solid color-mix(in srgb, var(--background) 60%, transparent);
+}
+
+.site-footer__version {
+  font-family: var(--font);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    padding: 0 20px;
+  }
+}

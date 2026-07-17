@@ -46,6 +46,7 @@ jobs:
       - name: Stage site
         run: |
           mkdir -p _site/works _site/assets _site/styles _site/scripts/helpers
+          echo "{\"version\":$GITHUB_RUN_NUMBER}" > _site/version.json
           cp index.html manifest.json _site/
           cp -r styles/. _site/styles/
           cp scripts/helpers/*.js _site/scripts/helpers/

@@ -36,4 +36,18 @@ async function loadManifest() {
   }
 }
 
+async function loadVersion() {
+  try {
+    const res = await fetch("version.json");
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.version) {
+      document.getElementById("site-version").textContent = `v${data.version}`;
+    }
+  } catch {
+    // version.json absent in local dev — ignore
+  }
+}
+
 loadManifest();
+loadVersion();
