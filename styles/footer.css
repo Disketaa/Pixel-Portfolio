@@ -13,7 +13,6 @@
   font-size: var(--font-size-xs);
   line-height: 1;
   color: var(--muted);
-  cursor: default;
 }
 
 @media (max-width: 640px) {

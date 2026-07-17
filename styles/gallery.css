@@ -95,6 +95,7 @@ main {
   position: relative;
   overflow: hidden;
   user-select: none;
+  cursor: pointer;
   padding: 8px;
   line-height: 0;
   opacity: 0.25;
