@@ -41,8 +41,7 @@ function getFrameMetrics() {
   return {
     cw: frame.clientWidth,
     ch: frame.clientHeight,
-    padX: pad * 2,
-    padY: pad * 2,
+    pad,
   };
 }
 
@@ -81,15 +80,15 @@ function initLightboxView(img) {
 
 function drawLightboxImage() {
   if (!loadedLightboxImg) return;
-  const { cw, ch, padX, padY } = getFrameMetrics();
+  const { cw, ch, pad } = getFrameMetrics();
   if (cw <= 0 || ch <= 0) return;
 
-  const fitW = cw - padX;
-  const fitH = ch - padY;
+  const fitW = cw - pad;
+  const fitH = ch - pad;
   const { dw, dh, ox, oy } = getImageFit(fitW, fitH, loadedLightboxImg);
 
-  const drawOx = ox + padX / 2;
-  const drawOy = oy + padY / 2;
+  const drawOx = ox + pad / 2;
+  const drawOy = oy + pad / 2;
 
   const zoomedDw = dw * zoomLevel;
   const zoomedDh = dh * zoomLevel;
@@ -116,6 +115,10 @@ function drawLightboxImage() {
 }
 
 function animatePan() {
+  if (momentumId) {
+    cancelAnimationFrame(momentumId);
+    momentumId = null;
+  }
   const zoomDiff = targetZoomLevel - zoomLevel;
   const panDiffX = targetPanX - panX;
   const panDiffY = targetPanY - panY;
@@ -141,13 +144,13 @@ function animatePan() {
 }
 
 function setZoom(level, anchorPx, anchorPy) {
-  const { cw, ch, padX, padY } = getFrameMetrics();
-  const fitW = cw - padX;
-  const fitH = ch - padY;
+  const { cw, ch, pad } = getFrameMetrics();
+  const fitW = cw - pad;
+  const fitH = ch - pad;
   const { dw, dh, ox, oy } = getImageFit(fitW, fitH, loadedLightboxImg);
 
-  const drawOx = ox + padX / 2;
-  const drawOy = oy + padY / 2;
+  const drawOx = ox + pad / 2;
+  const drawOy = oy + pad / 2;
 
   const oldZoom = zoomLevel;
   const newZoom = Math.max(0.1, Math.min(8, level));
@@ -186,13 +189,6 @@ function resetZoom() {
     isAnimating = true;
     animatePan();
   }
-}
-
-function resetZoomImmediate() {
-  if (animationFrameId) cancelAnimationFrame(animationFrameId);
-  zoomLevel = 1;
-  resetView();
-  isAnimating = false;
 }
 
 export function openLightbox(work, triggerEl, workList, index) {
@@ -423,7 +419,7 @@ export function initLightbox(opts) {
 
   function startMomentum() {
     if (momentumId) cancelAnimationFrame(momentumId);
-    const friction = lastPointerType === "touch" ? 0.92 : 0.8;
+    const friction = 0.92;
     const minSpeed = 0.1;
 
     function tick() {
