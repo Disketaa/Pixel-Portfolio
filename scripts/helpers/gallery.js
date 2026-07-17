@@ -24,7 +24,7 @@ function buildCard(work, index) {
   card.setAttribute("role", "button");
   card.setAttribute("aria-label", `Open ${toDisplayName(work.file)}`);
   card.dataset.index = index;
-  card.style.setProperty("--glow-src", `url("/assets/art/${work.file}")`);
+  card.style.setProperty("--glow-src", `url("assets/art/${work.file}")`);
 
   const container = document.createElement("div");
   container.className = "card__img-container";
