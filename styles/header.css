@@ -108,8 +108,8 @@
 
 .header-brand__logo {
   display: block;
-  width: calc(var(--u) * 3);
-  height: calc(var(--u) * 3);
+  width: 22px;
+  height: 22px;
 }
 
 .header-tags__arrow {
