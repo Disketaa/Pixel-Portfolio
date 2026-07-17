@@ -33,7 +33,7 @@ function buildCard(work, index) {
   loader.className = "card__loader";
   loader.setAttribute("aria-hidden", "true");
   const loaderImg = document.createElement("img");
-  loaderImg.src = "assets/icons/loading.svg";
+  loaderImg.src = "assets/icons/loading.png";
   loaderImg.alt = "";
   loaderImg.width = 10;
   loaderImg.height = 10;
@@ -42,7 +42,7 @@ function buildCard(work, index) {
   container.appendChild(loader);
 
   function showError() {
-    loaderImg.src = "assets/icons/error.svg";
+    loaderImg.src = "assets/icons/error.png";
     loaderImg.style.animation = "none";
   }
 
