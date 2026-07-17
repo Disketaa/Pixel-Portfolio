@@ -232,7 +232,9 @@ function parseJsonLayout(content, folderPath, folderName) {
         }
       }
     }
-    result[key] = { cols, order, icon, links };
+    const layoutEntry = { cols, order, icon };
+    if (links.length) layoutEntry.links = links;
+    result[key] = layoutEntry;
     console.log(
       `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
     );
