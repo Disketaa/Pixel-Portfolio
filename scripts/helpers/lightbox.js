@@ -1,3 +1,5 @@
+import { buildTitleHTML } from "./utils.js";
+
 let frame;
 let lightboxEl;
 let lightboxCanvas;
@@ -5,6 +7,7 @@ let lightboxGifImg;
 let lightboxClose;
 let lightboxPrev;
 let lightboxNext;
+let lightboxTitle;
 
 let lastFocusedCard = null;
 let currentIndex = -1;
@@ -220,6 +223,7 @@ export function openLightbox(work, triggerEl, workList, index) {
   }
 
   lightboxEl.hidden = false;
+  lightboxTitle.innerHTML = buildTitleHTML(work.file, "lightbox__title-primary", "lightbox__title-secondary");
   document.body.style.overflow = "hidden";
   lightboxClose.focus();
 }
@@ -231,6 +235,7 @@ export function navigateLightbox(direction) {
 
 export function closeLightbox() {
   lightboxEl.hidden = true;
+  lightboxTitle.innerHTML = "";
   if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   loadedLightboxImg = null;
@@ -268,6 +273,7 @@ export function initLightbox(opts) {
   lightboxClose = opts.close;
   lightboxPrev = opts.prev;
   lightboxNext = opts.next;
+  lightboxTitle = document.getElementById("lightbox-title");
 
   lightboxClose.addEventListener("click", closeLightbox);
   lightboxPrev.addEventListener("click", () => navigateLightbox(-1));

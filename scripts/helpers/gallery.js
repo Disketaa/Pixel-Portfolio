@@ -1,4 +1,4 @@
-import { toDisplayName, slug } from "./utils.js";
+import { toDisplayName, slug, buildTitleHTML } from "./utils.js";
 import { openLightbox } from "./lightbox.js";
 
 let worksData = [];
@@ -55,15 +55,7 @@ function buildCard(work, index) {
 
   const tooltip = document.createElement("span");
   tooltip.className = "card__tooltip";
-  const title = toDisplayName(work.file);
-  if (title.includes(",")) {
-    const parts = title.split(",");
-    const first = parts[0].trim();
-    const second = parts.slice(1).join(",").trim();
-    tooltip.innerHTML = `<span class="card__tooltip-primary">${first}</span><span class="card__tooltip-secondary">${second}</span>`;
-  } else {
-    tooltip.innerHTML = `<span class="card__tooltip-primary">${title}</span>`;
-  }
+  tooltip.innerHTML = buildTitleHTML(work.file, "card__tooltip-primary", "card__tooltip-secondary");
   container.appendChild(tooltip);
 
   card.appendChild(container);
