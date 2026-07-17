@@ -223,7 +223,7 @@ export function openLightbox(work, triggerEl, workList, index) {
   }
 
   lightboxEl.hidden = false;
-  lightboxTitle.innerHTML = buildTitleHTML(work.file, "lightbox__title-primary", "lightbox__title-secondary");
+  lightboxTitle.innerHTML = buildTitleHTML(work.file, "card__tooltip-primary", "card__tooltip-secondary");
   document.body.style.overflow = "hidden";
   lightboxClose.focus();
 }

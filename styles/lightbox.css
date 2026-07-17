@@ -93,31 +93,11 @@
   transform: rotate(90deg);
 }
 
-.lightbox__title {
-  position: absolute;
+.lightbox .card__tooltip {
   bottom: var(--lightbox-close-position);
   left: var(--lightbox-close-position);
+  opacity: 1;
   z-index: 2;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-  font-size: var(--font-size-xs);
-  color: var(--floral-scent);
-  line-height: 1;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.lightbox__title-primary,
-.lightbox__title-secondary {
-  display: inline-block;
-  background: var(--back-in-black);
-  padding: 2px 6px;
-}
-
-.lightbox__title-secondary {
-  color: var(--muted);
 }
 
 .lightbox__frame {
