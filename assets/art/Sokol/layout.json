@@ -2,6 +2,9 @@
   "theme": "snowy-blue",
   "layouts": {
     ".": {
+      "links": [
+        { "icon": "steam", "url": "https://store.steampowered.com/app/4640160/SOKOL/" }
+      ],
       "images": [["Menu, Mockup"]]
     },
     "Effects": {

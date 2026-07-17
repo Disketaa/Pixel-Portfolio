@@ -55,7 +55,11 @@ function buildCard(work, index) {
 
   const tooltip = document.createElement("span");
   tooltip.className = "card__tooltip";
-  tooltip.innerHTML = buildTitleHTML(work.file, "card__tooltip-primary", "card__tooltip-secondary");
+  tooltip.innerHTML = buildTitleHTML(
+    work.file,
+    "card__tooltip-primary",
+    "card__tooltip-secondary",
+  );
   container.appendChild(tooltip);
 
   card.appendChild(container);
@@ -163,7 +167,7 @@ export function initGallery(grid) {
   );
 }
 
-function makeHeading(tag, className, text, icon, id) {
+function makeHeading(tag, className, text, icon, id, links) {
   const el = document.createElement(tag);
   el.className = className;
   if (id) el.id = id;
@@ -186,6 +190,25 @@ function makeHeading(tag, className, text, icon, id) {
   const underline = document.createElement("span");
   underline.className = "section-heading__underline";
   el.appendChild(underline);
+  if (links && links.length) {
+    const linksContainer = document.createElement("span");
+    linksContainer.className = "section-heading__links";
+    for (const link of links) {
+      const a = document.createElement("a");
+      a.className = "section-heading__link";
+      a.href = link.url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      const img = document.createElement("img");
+      img.src = link.icon;
+      img.alt = "";
+      img.loading = "lazy";
+      img.draggable = false;
+      a.appendChild(img);
+      linksContainer.appendChild(a);
+    }
+    el.appendChild(linksContainer);
+  }
   return el;
 }
 
@@ -259,6 +282,7 @@ export function render(works, layouts) {
           toDisplayName(folder),
           folderLayout && folderLayout.icon,
           `section-${slug(folder)}`,
+          folderLayout && folderLayout.links,
         ),
       );
       lastFolder = folder;

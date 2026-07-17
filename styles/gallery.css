@@ -78,6 +78,30 @@ main {
   user-select: none;
 }
 
+.section-heading__links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.section-heading__link {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.section-heading__link:hover {
+  opacity: 1;
+}
+
+.section-heading__link img {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
 .section-heading__text {
   display: inline-block;
 }
@@ -266,6 +290,10 @@ main {
   main {
     padding-left: 12px;
     padding-right: 12px;
+  }
+  .section-heading__link img {
+    width: 20px;
+    height: 20px;
   }
 }
 

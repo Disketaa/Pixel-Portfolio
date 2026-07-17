@@ -28,7 +28,8 @@ function resolveIcon(name) {
     const match = files.find(
       (f) =>
         f.isFile() &&
-        path.basename(f.name, path.extname(f.name)).toLowerCase() === base.toLowerCase(),
+        path.basename(f.name, path.extname(f.name)).toLowerCase() ===
+          base.toLowerCase(),
     );
     if (match) {
       return `assets/icons/${trimmed}${path.extname(match.name)}`;
@@ -109,6 +110,28 @@ function buildEntry(relPath) {
     folder,
     subfolder,
   };
+}
+
+function resolveLinkIcon(name) {
+  if (typeof name !== "string" || !name.trim()) return null;
+  const trimmed = name.trim();
+  const parts = trimmed.split("/");
+  const base = parts.pop();
+  const subDir = parts.length > 0 ? path.join(ICONS_DIR, ...parts) : ICONS_DIR;
+  try {
+    const files = readdirSync(subDir, { withFileTypes: true });
+    const match = files.find(
+      (f) =>
+        f.isFile() &&
+        path.basename(f.name, path.extname(f.name)).toLowerCase() ===
+          base.toLowerCase(),
+    );
+    if (match) {
+      return `assets/icons/${trimmed}${path.extname(match.name)}`;
+    }
+  } catch {}
+  console.error(`  link icon "${trimmed}" not found in assets/icons/`);
+  return null;
 }
 
 function parseJsonLayout(content, folderPath, folderName) {
@@ -198,7 +221,18 @@ function parseJsonLayout(content, folderPath, folderName) {
 
     const key = isRoot ? folderName : `${folderName}/${subKey}`;
     const icon = resolveIcon(layout.icon);
-    result[key] = { cols, order, icon };
+    const links = [];
+    if (layout.links && Array.isArray(layout.links)) {
+      for (const link of layout.links) {
+        if (link.icon && link.url) {
+          const linkIcon = resolveLinkIcon(link.icon);
+          if (linkIcon) {
+            links.push({ icon: linkIcon, url: link.url });
+          }
+        }
+      }
+    }
+    result[key] = { cols, order, icon, links };
     console.log(
       `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
     );
