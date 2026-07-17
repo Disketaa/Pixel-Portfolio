@@ -136,7 +136,6 @@ main {
   cursor: pointer;
   padding: 8px;
   line-height: 0;
-  opacity: 0.25;
 }
 
 .card::before {
