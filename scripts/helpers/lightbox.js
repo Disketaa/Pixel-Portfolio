@@ -36,12 +36,13 @@ let smoothVelY = 0;
 let lastPointerType = "mouse";
 
 function getFrameMetrics() {
-  const cs = getComputedStyle(frame);
-  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+  const cs = getComputedStyle(document.documentElement);
+  const pad = parseFloat(cs.getPropertyValue("--lightbox-frame-padding")) || 24;
   return {
-    cw: frame.clientWidth - padX,
-    ch: frame.clientHeight - padY,
+    cw: frame.clientWidth,
+    ch: frame.clientHeight,
+    padX: pad * 2,
+    padY: pad * 2,
   };
 }
 
@@ -80,17 +81,25 @@ function initLightboxView(img) {
 
 function drawLightboxImage() {
   if (!loadedLightboxImg) return;
-  const { cw, ch } = getFrameMetrics();
+  const { cw, ch, padX, padY } = getFrameMetrics();
   if (cw <= 0 || ch <= 0) return;
 
-  const { dw, dh, ox, oy } = getImageFit(cw, ch, loadedLightboxImg);
+  const fitW = cw - padX;
+  const fitH = ch - padY;
+  const { dw, dh, ox, oy } = getImageFit(fitW, fitH, loadedLightboxImg);
+
+  const drawOx = ox + padX / 2;
+  const drawOy = oy + padY / 2;
 
   const zoomedDw = dw * zoomLevel;
   const zoomedDh = dh * zoomLevel;
-  const drawX = ox + panX;
-  const drawY = oy + panY;
+  const drawX = drawOx + panX;
+  const drawY = drawOy + panY;
 
   if (lightboxCanvas.hidden) {
+    lightboxGifImg.style.position = "absolute";
+    lightboxGifImg.style.left = `${drawOx}px`;
+    lightboxGifImg.style.top = `${drawOy}px`;
     lightboxGifImg.style.width = `${dw}px`;
     lightboxGifImg.style.height = `${dh}px`;
     lightboxGifImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
@@ -132,8 +141,13 @@ function animatePan() {
 }
 
 function setZoom(level, anchorPx, anchorPy) {
-  const { cw, ch } = getFrameMetrics();
-  const { dw, dh, ox, oy } = getImageFit(cw, ch, loadedLightboxImg);
+  const { cw, ch, padX, padY } = getFrameMetrics();
+  const fitW = cw - padX;
+  const fitH = ch - padY;
+  const { dw, dh, ox, oy } = getImageFit(fitW, fitH, loadedLightboxImg);
+
+  const drawOx = ox + padX / 2;
+  const drawOy = oy + padY / 2;
 
   const oldZoom = zoomLevel;
   const newZoom = Math.max(0.1, Math.min(8, level));
@@ -141,8 +155,8 @@ function setZoom(level, anchorPx, anchorPy) {
   const anchorX = anchorPx * cw;
   const anchorY = anchorPy * ch;
 
-  const imgX = ox + panX;
-  const imgY = oy + panY;
+  const imgX = drawOx + panX;
+  const imgY = drawOy + panY;
 
   const anchorOffsetX = anchorX - imgX;
   const anchorOffsetY = anchorY - imgY;
@@ -154,8 +168,8 @@ function setZoom(level, anchorPx, anchorPy) {
   const newImgY = anchorY - anchorRatioY * (dh * newZoom);
 
   targetZoomLevel = newZoom;
-  targetPanX = newImgX - ox;
-  targetPanY = newImgY - oy;
+  targetPanX = newImgX - drawOx;
+  targetPanY = newImgY - drawOy;
 
   if (!isAnimating) {
     isAnimating = true;
@@ -224,6 +238,9 @@ export function closeLightbox() {
   loadedLightboxImg = null;
   lightboxGifImg.onload = null;
   lightboxGifImg.src = "";
+  lightboxGifImg.style.position = "";
+  lightboxGifImg.style.left = "";
+  lightboxGifImg.style.top = "";
   lightboxGifImg.style.width = "";
   lightboxGifImg.style.height = "";
   lightboxGifImg.style.transform = "";
@@ -439,7 +456,10 @@ export function initLightbox(opts) {
       frame.classList.remove("lightbox__frame--grabbing");
 
       const stale = performance.now() - lastMoveTime > 60;
-      if (!stale && (Math.abs(smoothVelX) > 0.3 || Math.abs(smoothVelY) > 0.3)) {
+      if (
+        !stale &&
+        (Math.abs(smoothVelX) > 0.3 || Math.abs(smoothVelY) > 0.3)
+      ) {
         velX = smoothVelX;
         velY = smoothVelY;
         startMomentum();

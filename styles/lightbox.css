@@ -65,12 +65,12 @@
 }
 
 .lightbox__frame {
+  position: relative;
   height: 72vh;
   min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--lightbox-frame-padding);
   overflow: hidden;
   cursor: grab;
   touch-action: none;
@@ -98,7 +98,6 @@
     overflow: hidden;
   }
   .lightbox__frame {
-    padding: var(--lightbox-frame-padding);
     min-height: 200px;
   }
 }
