@@ -42,7 +42,7 @@ async function loadVersion() {
     if (!res.ok) return;
     const data = await res.json();
     if (data.version) {
-      document.getElementById("site-version").textContent = `v${data.version}`;
+      document.getElementById("site-version").textContent = `0.${data.version}`;
     }
   } catch {
     // version.json absent in local dev — ignore
