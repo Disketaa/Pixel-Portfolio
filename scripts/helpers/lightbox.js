@@ -223,6 +223,7 @@ export function openLightbox(work, triggerEl, workList, index) {
       if (currentIndex !== index) return;
       hideLoader();
       lightboxGifImg.classList.add("is-loaded");
+      lightboxGifImg.style.filter = "";
       initLightboxView(lightboxGifImg);
     };
     lightboxGifImg.onerror = () => {
