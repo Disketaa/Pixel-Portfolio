@@ -43,14 +43,14 @@ jobs:
       - name: Generate manifest
         run: npm run generate-manifest
 
-- name: Stage site
-         run: |
-           mkdir -p _site/assets/art _site/assets/icons _site/assets/fonts _site/styles _site/scripts/helpers
-           echo "{\"version\":$GITHUB_RUN_NUMBER}" > _site/version.json
-           cp index.html manifest.json _site/
-           cp -r styles/. _site/styles/
-           cp scripts/helpers/*.js _site/scripts/helpers/
-           cp -r assets/. _site/assets/
+      - name: Stage site
+        run: |
+          mkdir -p _site/assets/art _site/assets/icons _site/assets/fonts _site/styles _site/scripts/helpers
+          echo "{\"version\":$GITHUB_RUN_NUMBER}" > _site/version.json
+          cp index.html manifest.json _site/
+          cp -r styles/. _site/styles/
+          cp scripts/helpers/*.js _site/scripts/helpers/
+          cp -r assets/. _site/assets/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
