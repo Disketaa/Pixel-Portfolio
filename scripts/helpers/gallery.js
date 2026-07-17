@@ -212,6 +212,13 @@ function makeHeading(tag, className, text, icon, id, links) {
   return el;
 }
 
+function makeDescription(text) {
+  const el = document.createElement("p");
+  el.className = "section-description";
+  el.textContent = text;
+  return el;
+}
+
 export function render(works, layouts) {
   layoutsData = layouts;
   if (!works.length) return { worksData: [], orderedSections: [] };
@@ -285,6 +292,9 @@ export function render(works, layouts) {
           folderLayout && folderLayout.links,
         ),
       );
+      if (folderLayout && folderLayout.description) {
+        fragment.appendChild(makeDescription(folderLayout.description));
+      }
       lastFolder = folder;
     }
     if (sub) {

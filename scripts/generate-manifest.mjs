@@ -219,22 +219,23 @@ function parseJsonLayout(content, folderPath, folderName) {
 
     if (!rowOk) continue;
 
-    const key = isRoot ? folderName : `${folderName}/${subKey}`;
-    const icon = resolveIcon(layout.icon);
-    const links = [];
-    if (layout.links && Array.isArray(layout.links)) {
-      for (const link of layout.links) {
-        if (link.icon && link.url) {
-          const linkIcon = resolveLinkIcon(link.icon);
-          if (linkIcon) {
-            links.push({ icon: linkIcon, url: link.url });
-          }
-        }
-      }
-    }
-    const layoutEntry = { cols, order, icon };
-    if (links.length) layoutEntry.links = links;
-    result[key] = layoutEntry;
+const key = isRoot ? folderName : `${folderName}/${subKey}`;
+     const icon = resolveIcon(layout.icon);
+     const links = [];
+     if (layout.links && Array.isArray(layout.links)) {
+       for (const link of layout.links) {
+         if (link.icon && link.url) {
+           const linkIcon = resolveLinkIcon(link.icon);
+           if (linkIcon) {
+             links.push({ icon: linkIcon, url: link.url });
+           }
+         }
+       }
+     }
+     const layoutEntry = { cols, order, icon };
+     if (links.length) layoutEntry.links = links;
+     if (layout.description) layoutEntry.description = layout.description;
+     result[key] = layoutEntry;
     console.log(
       `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
     );
