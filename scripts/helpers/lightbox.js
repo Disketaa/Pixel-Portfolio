@@ -290,6 +290,14 @@ export function initLightbox(opts) {
     }
   });
 
+  frame.addEventListener(
+    "touchmove",
+    (event) => {
+      if (event.touches.length <= 2) event.preventDefault();
+    },
+    { passive: false },
+  );
+
   frame.addEventListener("pointerdown", (event) => {
     if (!loadedLightboxImg) return;
     event.preventDefault();
@@ -304,11 +312,20 @@ export function initLightbox(opts) {
       const p1 = evCache[0];
       const p2 = evCache[1];
 
-      prevPinchDist = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+      prevPinchDist = Math.hypot(
+        p2.clientX - p1.clientX,
+        p2.clientY - p1.clientY,
+      );
       pinchStartZoom = zoomLevel;
 
-      pinchAnchorX = Math.max(0, Math.min(1, ((p1.clientX + p2.clientX) / 2 - rect.left) / cw));
-      pinchAnchorY = Math.max(0, Math.min(1, ((p1.clientY + p2.clientY) / 2 - rect.top) / ch));
+      pinchAnchorX = Math.max(
+        0,
+        Math.min(1, ((p1.clientX + p2.clientX) / 2 - rect.left) / cw),
+      );
+      pinchAnchorY = Math.max(
+        0,
+        Math.min(1, ((p1.clientY + p2.clientY) / 2 - rect.top) / ch),
+      );
     } else if (evCache.length === 1) {
       isDragging = true;
       frame.classList.add("lightbox__frame--grabbing");
@@ -336,7 +353,11 @@ export function initLightbox(opts) {
       const dist = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
 
       if (prevPinchDist > 0) {
-        setZoom(pinchStartZoom * (dist / prevPinchDist), pinchAnchorX, pinchAnchorY);
+        setZoom(
+          pinchStartZoom * (dist / prevPinchDist),
+          pinchAnchorX,
+          pinchAnchorY,
+        );
       }
       return;
     }
