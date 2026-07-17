@@ -4,6 +4,7 @@ let frame;
 let lightboxEl;
 let lightboxCanvas;
 let lightboxGifImg;
+let lightboxLoader;
 let lightboxClose;
 let lightboxPrev;
 let lightboxNext;
@@ -61,6 +62,18 @@ function getImageFit(cw, ch, img) {
   const dh = ch;
   const dw = ch * imgAspect;
   return { dw, dh, ox: (cw - dw) / 2, oy: 0 };
+}
+
+function showLoader() {
+  lightboxLoader.hidden = false;
+  frame.classList.add("lightbox__frame--loading");
+  lightboxCanvas.classList.remove("is-loaded");
+  lightboxGifImg.classList.remove("is-loaded");
+}
+
+function hideLoader() {
+  lightboxLoader.hidden = true;
+  frame.classList.remove("lightbox__frame--loading");
 }
 
 function resetView() {
@@ -204,20 +217,43 @@ export function openLightbox(work, triggerEl, workList, index) {
   if (work.isAnimated) {
     lightboxCanvas.hidden = true;
     lightboxGifImg.hidden = false;
+    showLoader();
     lightboxGifImg.src = `assets/art/${work.file}`;
     lightboxGifImg.onload = () => {
       if (currentIndex !== index) return;
+      hideLoader();
+      lightboxGifImg.classList.add("is-loaded");
+      initLightboxView(lightboxGifImg);
+    };
+    lightboxGifImg.onerror = () => {
+      if (currentIndex !== index) return;
+      hideLoader();
+      lightboxGifImg.classList.add("is-loaded");
+      lightboxGifImg.style.filter = "grayscale(50%)";
       initLightboxView(lightboxGifImg);
     };
   } else {
     lightboxGifImg.src = "";
     lightboxGifImg.onload = null;
+    lightboxGifImg.onerror = null;
     lightboxGifImg.hidden = true;
     lightboxCanvas.hidden = false;
+    showLoader();
     const img = new Image();
     img.src = `assets/art/${work.file}`;
     img.onload = () => {
       if (currentIndex !== index) return;
+      hideLoader();
+      lightboxCanvas.classList.add("is-loaded");
+      initLightboxView(img);
+    };
+    img.onerror = () => {
+      if (currentIndex !== index) return;
+      hideLoader();
+      lightboxCanvas.classList.add("is-loaded");
+      const ctx = lightboxCanvas.getContext("2d");
+      ctx.fillStyle = "var(--muted)";
+      ctx.fillRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
       initLightboxView(img);
     };
   }
@@ -254,6 +290,9 @@ export function closeLightbox() {
   lightboxGifImg.style.transform = "";
   lightboxGifImg.hidden = true;
   lightboxCanvas.hidden = false;
+  lightboxLoader.hidden = true;
+  lightboxCanvas.classList.remove("is-loaded");
+  lightboxGifImg.classList.remove("is-loaded");
   zoomLevel = 1;
   resetView();
   isAnimating = false;
@@ -275,6 +314,7 @@ export function initLightbox(opts) {
   lightboxEl = opts.lightbox;
   lightboxCanvas = opts.canvas;
   lightboxGifImg = opts.gifImg;
+  lightboxLoader = document.getElementById("lightbox-loader");
   lightboxClose = opts.close;
   lightboxPrev = opts.prev;
   lightboxNext = opts.next;

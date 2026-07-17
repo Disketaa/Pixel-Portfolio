@@ -140,10 +140,44 @@
   cursor: grabbing;
 }
 
+.lightbox__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightbox__loader img {
+  width: 10px;
+  height: 10px;
+  animation: spin 0.5s linear infinite;
+}
+
+.lightbox__frame--loading .lightbox__loader {
+  opacity: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .lightbox__image {
   display: block;
   width: 100%;
   height: 100%;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox__image.is-loaded {
+  opacity: 1;
 }
 
 #lightbox-image[hidden],

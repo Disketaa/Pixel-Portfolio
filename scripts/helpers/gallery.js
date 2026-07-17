@@ -29,12 +29,37 @@ function buildCard(work, index) {
   const container = document.createElement("div");
   container.className = "card__img-container";
 
+  const loader = document.createElement("div");
+  loader.className = "card__loader";
+  loader.setAttribute("aria-hidden", "true");
+  const loaderImg = document.createElement("img");
+  loaderImg.src = "assets/icons/loading.svg";
+  loaderImg.alt = "";
+  loaderImg.width = 10;
+  loaderImg.height = 10;
+  loader.appendChild(loaderImg);
+  card.classList.add("card--loading");
+  container.appendChild(loader);
+
+  function showError() {
+    loaderImg.src = "assets/icons/error.svg";
+    loaderImg.style.animation = "none";
+  }
+
   if (work.isAnimated) {
     const img = document.createElement("img");
     img.dataset.originalSrc = `assets/art/${work.file}`;
     img.alt = toDisplayName(work.file);
     img.loading = "lazy";
     img.decoding = "async";
+    img.onload = () => {
+      loader.remove();
+      card.classList.remove("card--loading");
+      img.classList.add("is-loaded");
+    };
+    img.onerror = () => {
+      showError();
+    };
     container.appendChild(img);
   } else {
     const canvas = document.createElement("canvas");
@@ -49,6 +74,12 @@ function buildCard(work, index) {
       const ctx = canvas.getContext("2d");
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, 0, 0);
+      loader.remove();
+      card.classList.remove("card--loading");
+      canvas.classList.add("is-loaded");
+    };
+    img.onerror = () => {
+      showError();
     };
     container.appendChild(canvas);
   }
