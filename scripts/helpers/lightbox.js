@@ -458,6 +458,7 @@ export function initLightbox(opts) {
       const stale = performance.now() - lastMoveTime > 60;
       if (
         !stale &&
+        lastPointerType === "touch" &&
         (Math.abs(smoothVelX) > 0.3 || Math.abs(smoothVelY) > 0.3)
       ) {
         velX = smoothVelX;
