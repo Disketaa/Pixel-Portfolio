@@ -19,16 +19,22 @@ const ALLOWED_EXT = new Set([".png", ".gif"]);
 
 function resolveIcon(name) {
   if (typeof name !== "string" || !name.trim()) return null;
-  const base = name.trim();
+  const trimmed = name.trim();
+  const parts = trimmed.split("/");
+  const base = parts.pop();
+  const subDir = parts.length > 0 ? path.join(ICONS_DIR, ...parts) : ICONS_DIR;
   try {
-    const files = readdirSync(ICONS_DIR);
+    const files = readdirSync(subDir, { withFileTypes: true });
     const match = files.find(
       (f) =>
-        path.basename(f, path.extname(f)).toLowerCase() === base.toLowerCase(),
+        f.isFile() &&
+        path.basename(f.name, path.extname(f.name)).toLowerCase() === base.toLowerCase(),
     );
-    if (match) return `assets/icons/${match}`;
+    if (match) {
+      return `assets/icons/${trimmed}${path.extname(match.name)}`;
+    }
   } catch {}
-  console.error(`  icon "${base}" not found in assets/icons/`);
+  console.error(`  icon "${trimmed}" not found in assets/icons/`);
   return null;
 }
 
