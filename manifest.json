@@ -201,7 +201,13 @@
       "order": [
         "Sokol/Menu, Mockup.gif"
       ],
-      "icon": null
+      "icon": null,
+      "links": [
+        {
+          "icon": "assets/icons/steam.svg",
+          "url": "https://store.steampowered.com/app/4640160/SOKOL/"
+        }
+      ]
     },
     "Sokol/Effects": {
       "cols": [
@@ -213,7 +219,8 @@
         "Sokol/Effects/Radioactive-Mushroom, Effect Mockup.gif",
         "Sokol/Effects/Smoke, Effect Mockup.gif"
       ],
-      "icon": "assets/icons/Sokol/ice_cube.gif"
+      "icon": "assets/icons/Sokol/ice_cube.gif",
+      "links": []
     },
     "Sokol/Entities": {
       "cols": [
@@ -229,7 +236,8 @@
         "Sokol/Entities/Idle & Attack, Enemies Animation.gif",
         "Sokol/Entities/Hit & Death, Enemies Animation.gif"
       ],
-      "icon": "assets/icons/Sokol/frog.gif"
+      "icon": "assets/icons/Sokol/frog.gif",
+      "links": []
     },
     "Sokol/Interface": {
       "cols": [
@@ -242,7 +250,8 @@
         "Sokol/Interface/Pick Skills Screen, Mockup.png",
         "Sokol/Interface/Pick Skills Tooltip, Mockup.png"
       ],
-      "icon": "assets/icons/Sokol/button.gif"
+      "icon": "assets/icons/Sokol/button.gif",
+      "links": []
     },
     "Sokol/Skills": {
       "cols": [
@@ -256,7 +265,8 @@
         "Sokol/Skills/Shoot, Skill.png",
         "Sokol/Skills/Attack, Skill.png"
       ],
-      "icon": "assets/icons/Sokol/skill.gif"
+      "icon": "assets/icons/Sokol/skill.gif",
+      "links": []
     },
     "Sokol/Buildings": {
       "cols": [
@@ -267,7 +277,8 @@
         "Sokol/Buildings/Disks, Building.gif",
         "Sokol/Buildings/Bear Trap, Building.gif"
       ],
-      "icon": "assets/icons/Sokol/bear_trap.gif"
+      "icon": "assets/icons/Sokol/bear_trap.gif",
+      "links": []
     }
   }
 }
