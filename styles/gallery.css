@@ -15,7 +15,6 @@ main {
 .section-heading {
   grid-column: 1 / -1;
   font-weight: normal;
-  margin: 256px 0 0;
   color: var(--text);
   font-size: var(--font-size-lg);
   line-height: 1;
