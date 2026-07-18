@@ -27,11 +27,7 @@ function updateViewMode() {
 
 function createRow() {
   const row = document.createElement("div");
-  row.style.cssText = `
-    display: flex;
-    gap: var(--gap, 8px);
-    grid-column: 1 / -1;
-  `;
+  row.classList.add("collage-row");
   return row;
 }
 

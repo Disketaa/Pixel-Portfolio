@@ -12,6 +12,12 @@ main {
   max-width: 1400px;
 }
 
+.collage-row {
+  display: flex;
+  gap: var(--gap);
+  grid-column: 1 / -1;
+}
+
 .section-heading {
   grid-column: 1 / -1;
   font-weight: normal;

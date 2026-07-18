@@ -290,13 +290,7 @@ function main() {
   }
 
   const folderHasLayout = new Set(
-    readdirSync(WORKS_DIR, { withFileTypes: true })
-      .filter(
-        (d) =>
-          d.isDirectory() &&
-          existsSync(path.join(WORKS_DIR, d.name, "layout.json")),
-      )
-      .map((d) => d.name),
+    Object.keys(layouts).map((k) => k.split("/")[0]),
   );
 
   const filtered = output.filter((e) => {
