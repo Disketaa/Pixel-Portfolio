@@ -345,8 +345,16 @@ main {
   height: 11px;
 }
 
+.grid[data-mode="grid"] {
+  grid-template-columns: repeat(6, 1fr);
+}
+
 .grid[data-mode="grid"] > div {
   display: contents !important;
+}
+
+.grid[data-mode="grid"] .section-heading--sub {
+  display: none !important;
 }
 
 .grid[data-mode="grid"] > div > .card {
@@ -375,6 +383,9 @@ main {
   .section-heading__link img {
     width: 20px;
     height: 20px;
+  }
+  .grid[data-mode="grid"] {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
