@@ -34,7 +34,3 @@ export function buildTitleHTML(file, primaryClass, secondaryClass, counter) {
   }
   return html;
 }
-
-export function clamp(v, min, max) {
-  return v < min ? min : v > max ? max : v;
-}

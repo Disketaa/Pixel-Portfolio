@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--small-h, 44px);
+  height: var(--small-h);
   padding: 0 32px;
   background: var(--back-in-black);
   border-top: 2px solid color-mix(in srgb, var(--background) 60%, transparent);

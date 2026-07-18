@@ -10,8 +10,8 @@
   --font-size-lg: calc(var(--u) * 5);
   --gap: 8px;
   --card-background-size: 20px;
-  --scroll-padding-top: 140px;
-  --nav-transition: 0.18s ease;
+  --small-h: 44px;
+  --scroll-padding-top: var(--small-h);
   --badge-transition-opacity-duration: 0.18s;
   --accent-line-length: 6px;
   --accent-line-spacing: 12px;
@@ -52,7 +52,7 @@ body {
   background: transparent;
   color: var(--text);
   font-family: var(--font);
-  padding-top: var(--full-h);
+  padding-top: var(--small-h);
   cursor: default;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;

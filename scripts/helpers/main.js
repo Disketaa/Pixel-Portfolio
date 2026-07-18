@@ -1,6 +1,5 @@
 import { initLightbox } from "./lightbox.js";
 import { initGallery, render } from "./gallery.js";
-import { initHeaderScroll, renderHeaderTags } from "./header-scroll.js";
 
 const grid = document.getElementById("grid");
 
@@ -15,7 +14,6 @@ initLightbox({
 });
 
 initGallery(grid);
-initHeaderScroll();
 
 document.addEventListener("contextmenu", (event) => {
   if (event.target.closest(".card") || event.target.closest(".lightbox")) {
@@ -30,8 +28,7 @@ async function loadManifest() {
     const data = await res.json();
     const entries = Array.isArray(data) ? data : data.entries || [];
     const layouts = data.layouts || {};
-    const { orderedSections } = render(entries, layouts);
-    renderHeaderTags(orderedSections);
+    render(entries, layouts);
   } catch (err) {
     console.error("Failed to load manifest.json:", err);
     render([], {});
@@ -42,7 +39,10 @@ async function loadVersion() {
   const el = document.getElementById("site-version");
   try {
     const res = await fetch("version.json");
-    if (!res.ok) { el.textContent = "N/A"; return; }
+    if (!res.ok) {
+      el.textContent = "N/A";
+      return;
+    }
     const data = await res.json();
     el.textContent = data.version ? `0.${data.version}` : "N/A";
   } catch {

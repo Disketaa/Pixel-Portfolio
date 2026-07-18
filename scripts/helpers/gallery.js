@@ -296,7 +296,7 @@ function makeDescription(html) {
 
 export function render(works, layouts) {
   layoutsData = layouts;
-  if (!works.length) return { worksData: [], orderedSections: [] };
+  if (!works.length) return;
 
   const rootWorks = [];
   const folderMap = {};
@@ -419,6 +419,4 @@ export function render(works, layouts) {
   }
 
   updateViewMode();
-
-  return { worksData: flatData, orderedSections };
 }
