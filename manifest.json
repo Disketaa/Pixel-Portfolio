@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "file": "Sokol/Sokol.gif",
+      "width": 958,
+      "height": 380,
+      "isAnimated": true,
+      "folder": "Sokol",
+      "subfolder": null
+    },
+    {
       "file": "Sokol/Buildings/Anvil, Building.gif",
       "width": 128,
       "height": 128,
@@ -137,14 +145,6 @@
       "subfolder": "Interface"
     },
     {
-      "file": "Sokol/Menu, Mockup.gif",
-      "width": 958,
-      "height": 539,
-      "isAnimated": true,
-      "folder": "Sokol",
-      "subfolder": null
-    },
-    {
       "file": "Sokol/Skills/Attack, Skill.png",
       "width": 16,
       "height": 16,
@@ -199,7 +199,7 @@
         1
       ],
       "order": [
-        "Sokol/Menu, Mockup.gif"
+        "Sokol/Sokol.gif"
       ],
       "icon": null,
       "links": [

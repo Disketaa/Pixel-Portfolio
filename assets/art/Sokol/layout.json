@@ -9,7 +9,7 @@
         }
       ],
       "description": "<span>Sokol</span> is a <span>turn-based roguelike</span> where every shot has to be <span>planned</span>. Bullets <span>ricochet</span> off the environment, <span>pierce</span> through enemies, and can <span>trigger interactive objects</span>. Line up your trajectory, calculate the <span>bounce</span>, and turn one well-placed shot into a <span>chain of consequences</span>.",
-      "images": [["Menu, Mockup"]]
+      "images": [["Sokol"]]
     },
     "Effects": {
       "icon": "Sokol/ice_cube",
