@@ -393,9 +393,6 @@ main {
   .grid > div > .card {
     flex: 1 1 calc((100% - var(--gap) * (var(--cols) - 1)) / var(--cols)) !important;
   }
-  .card::before {
-    filter: none;
-  }
   main {
     padding-left: 12px;
     padding-right: 12px;
@@ -406,6 +403,12 @@ main {
   }
   .grid[data-mode="grid"] {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (hover: none) {
+  .card::before {
+    display: none;
   }
 }
 
