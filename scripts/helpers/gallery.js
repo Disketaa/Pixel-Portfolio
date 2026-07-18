@@ -18,6 +18,10 @@ function updateViewMode() {
         ? "assets/icons/blocks.png"
         : "assets/icons/grid.png";
   });
+
+  gridEl.classList.add("no-reveal");
+  void gridEl.offsetHeight;
+  gridEl.classList.remove("no-reveal");
 }
 
 function createRow() {

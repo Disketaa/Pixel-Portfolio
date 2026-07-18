@@ -273,6 +273,12 @@ main {
   animation-delay: var(--enter-delay, 0ms);
 }
 
+.no-reveal .section-heading,
+.no-reveal .section-description,
+.no-reveal .card {
+  animation: none !important;
+}
+
 .site-footer {
   animation: fadeIn 0.5s ease both;
   animation-delay: var(--enter-delay, 0ms);
