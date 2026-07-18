@@ -299,6 +299,19 @@ main {
   animation: none !important;
 }
 
+.card--error {
+  opacity: 0.5;
+  animation: none;
+}
+
+.card--error::before {
+  opacity: 0 !important;
+}
+
+.card--error::after {
+  display: none;
+}
+
 .site-footer {
   animation: fadeIn 0.5s ease both;
   animation-delay: var(--enter-delay, 0ms);

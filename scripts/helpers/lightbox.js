@@ -236,7 +236,6 @@ export function openLightbox(work, triggerEl, workList, index) {
       if (currentIndex !== index) return;
       hideLoader();
       lightboxGifImg.classList.add("is-loaded");
-      lightboxGifImg.style.filter = "grayscale(50%)";
       initLightboxView(lightboxGifImg);
     };
   } else {

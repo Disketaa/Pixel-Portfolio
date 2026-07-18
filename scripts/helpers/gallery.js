@@ -60,6 +60,7 @@ function buildCard(work, index) {
   function showError() {
     loaderImg.src = "assets/icons/error.png";
     loaderImg.style.animation = "none";
+    card.classList.add("card--error");
   }
 
   if (work.isAnimated) {
@@ -166,6 +167,7 @@ function renderFallback(works, fragment, globalFlat) {
 }
 
 function handleCardActivation(card) {
+  if (card.classList.contains("card--error")) return;
   const index = parseInt(card.dataset.index, 10);
   if (!isNaN(index) && worksData[index]) {
     openLightbox(worksData[index], card, worksData, index);
