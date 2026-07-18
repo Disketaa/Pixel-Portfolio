@@ -426,6 +426,10 @@ main {
   .section-heading {
     font-size: var(--font-size-sm);
   }
+  .section-heading__box {
+    min-width: 0;
+    overflow: hidden;
+  }
   .section-description {
     font-size: var(--font-size-xs);
   }
