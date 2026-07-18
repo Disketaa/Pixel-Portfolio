@@ -396,12 +396,12 @@ export function render(works, layouts) {
     ".section-heading, .section-description, .card",
   );
   animated.forEach((el, i) => {
-    el.style.setProperty("--enter-delay", `${i * 60}ms`);
+    el.style.setProperty("--enter-delay", `${Math.min(i * 60, 1000)}ms`);
   });
 
   const footer = document.querySelector(".site-footer");
   if (footer) {
-    footer.style.setProperty("--enter-delay", `${animated.length * 60}ms`);
+    footer.style.setProperty("--enter-delay", `${Math.min(animated.length * 60, 1000)}ms`);
   }
 
   if (gifObserver) {

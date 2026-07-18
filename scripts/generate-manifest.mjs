@@ -39,23 +39,38 @@ function resolveIcon(name) {
   return null;
 }
 
-function getGitAddedDate(filePath) {
+function buildGitAddedDates() {
+  const dates = new Map();
   try {
-    const relPath = path.relative(ROOT, filePath);
     const output = execSync(
-      `git log --diff-filter=A --follow --format=%aI -- "${relPath}"`,
+      'git log --diff-filter=A --name-only --format=%aI -- "assets/art/"',
       { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"] },
-    )
-      .toString()
-      .trim()
-      .split("\n")
-      .filter(Boolean);
-    if (output.length > 0) {
-      return output[output.length - 1].slice(0, 10);
+    ).toString();
+
+    let currentDate = null;
+    for (const line of output.split("\n")) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) {
+        currentDate = trimmed.slice(0, 10);
+      } else if (currentDate) {
+        const relFromArt = trimmed.replace(/^assets[/\\]art[/\\]/, "").replace(/\\/g, "/");
+        dates.set(relFromArt, currentDate);
+      }
     }
   } catch {}
-  const stats = statSync(filePath);
-  return stats.mtime.toISOString().slice(0, 10);
+  return dates;
+}
+
+function getGitAddedDate(filePath, gitDates) {
+  const relFromArt = path.relative(WORKS_DIR, filePath).replace(/\\/g, "/");
+  if (gitDates.has(relFromArt)) return gitDates.get(relFromArt);
+  try {
+    const stats = statSync(filePath);
+    return stats.mtime.toISOString().slice(0, 10);
+  } catch {
+    return new Date().toISOString().slice(0, 10);
+  }
 }
 
 function walkDir(dir, baseDir) {
@@ -84,11 +99,17 @@ function toDisplayName(name) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function buildEntry(relPath) {
+function buildEntry(relPath, gitDates) {
   const filePath = path.join(WORKS_DIR, relPath);
   const ext = path.extname(relPath).toLowerCase();
   const buffer = readFileSync(filePath);
-  const { width, height } = imageSize(buffer);
+  let width, height;
+  try {
+    ({ width, height } = imageSize(buffer));
+  } catch (err) {
+    console.error(`  skipping ${relPath}: ${err.message || err}`);
+    return null;
+  }
   const isAnimated = ext === ".gif";
 
   const parts = relPath.split(/[/\\]/);
@@ -106,7 +127,7 @@ function buildEntry(relPath) {
     width,
     height,
     isAnimated,
-    addedAt: getGitAddedDate(filePath),
+    addedAt: getGitAddedDate(filePath, gitDates),
     folder,
     subfolder,
   };
@@ -211,6 +232,7 @@ function parseJsonLayout(content, folderPath, folderName) {
       }
     }
     const layoutEntry = { cols, order, icon };
+    // TODO: wire up theme field once per-artwork theming ships
     if (links.length) layoutEntry.links = links;
     if (layout.description) layoutEntry.description = layout.description;
     result[key] = layoutEntry;
@@ -247,7 +269,10 @@ function main() {
 
   const files = walkDir(WORKS_DIR, "").sort();
 
-  const entries = files.map(buildEntry);
+  console.log("Building git date index...");
+  const gitDates = buildGitAddedDates();
+
+  const entries = files.map((f) => buildEntry(f, gitDates)).filter(Boolean);
 
   entries.sort((a, b) => {
     if (a.addedAt !== b.addedAt) return b.addedAt.localeCompare(a.addedAt);

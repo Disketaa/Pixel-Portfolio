@@ -35,20 +35,4 @@ async function loadManifest() {
   }
 }
 
-async function loadVersion() {
-  const el = document.getElementById("site-version");
-  try {
-    const res = await fetch("version.json");
-    if (!res.ok) {
-      el.textContent = "N/A";
-      return;
-    }
-    const data = await res.json();
-    el.textContent = data.version ? `0.${data.version}` : "N/A";
-  } catch {
-    el.textContent = "N/A";
-  }
-}
-
 loadManifest();
-loadVersion();

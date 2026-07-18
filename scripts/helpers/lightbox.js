@@ -40,6 +40,8 @@ let lastMoveTime = 0;
 let smoothVelX = 0;
 let smoothVelY = 0;
 let lastPointerType = "mouse";
+let cachedCanvasW = 0;
+let cachedCanvasH = 0;
 
 function getFrameMetrics() {
   const cs = getComputedStyle(document.documentElement);
@@ -124,8 +126,12 @@ function drawLightboxImage() {
     return;
   }
 
-  lightboxCanvas.width = cw;
-  lightboxCanvas.height = ch;
+  if (cachedCanvasW !== cw || cachedCanvasH !== ch) {
+    lightboxCanvas.width = cw;
+    lightboxCanvas.height = ch;
+    cachedCanvasW = cw;
+    cachedCanvasH = ch;
+  }
   const ctx = lightboxCanvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, cw, ch);
@@ -234,7 +240,7 @@ export function openLightbox(work, triggerEl, workList, index) {
       initLightboxView(lightboxGifImg);
     };
   } else {
-    lightboxGifImg.src = "";
+    lightboxGifImg.removeAttribute("src");
     lightboxGifImg.onload = null;
     lightboxGifImg.onerror = null;
     lightboxGifImg.hidden = true;
@@ -253,7 +259,8 @@ export function openLightbox(work, triggerEl, workList, index) {
       hideLoader();
       lightboxCanvas.classList.add("is-loaded");
       const ctx = lightboxCanvas.getContext("2d");
-      ctx.fillStyle = "var(--muted)";
+      const mutedColor = getComputedStyle(document.documentElement).getPropertyValue("--muted").trim() || "#465456";
+      ctx.fillStyle = mutedColor;
       ctx.fillRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
       initLightboxView(img);
     };
@@ -281,8 +288,10 @@ export function closeLightbox() {
   if (lightboxResizeObserver) lightboxResizeObserver.disconnect();
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   loadedLightboxImg = null;
+  cachedCanvasW = 0;
+  cachedCanvasH = 0;
   lightboxGifImg.onload = null;
-  lightboxGifImg.src = "";
+  lightboxGifImg.removeAttribute("src");
   lightboxGifImg.style.position = "";
   lightboxGifImg.style.left = "";
   lightboxGifImg.style.top = "";
