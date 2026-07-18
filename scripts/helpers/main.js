@@ -1,5 +1,5 @@
 import { initLightbox } from "./lightbox.js";
-import { initGallery, render } from "./gallery.js";
+import { initGallery, initScrollToTop, render } from "./gallery.js";
 
 const grid = document.getElementById("grid");
 
@@ -14,6 +14,7 @@ initLightbox({
 });
 
 initGallery(grid);
+initScrollToTop();
 
 document.addEventListener("contextmenu", (event) => {
   if (event.target.closest(".card") || event.target.closest(".lightbox")) {

@@ -6,7 +6,6 @@ let layoutsData = {};
 
 let gridEl = null;
 let gifObserver = null;
-let topBtn = null;
 
 let viewMode = localStorage.getItem("gallery-view-mode") || "collage";
 
@@ -291,6 +290,29 @@ function makeDescription(html) {
   return el;
 }
 
+export function initScrollToTop() {
+  const btn = document.createElement("button");
+  btn.className = "icon-btn section-heading__top is-hidden";
+  btn.type = "button";
+  btn.setAttribute("aria-label", "Back to top");
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  const img = document.createElement("img");
+  img.src = "assets/icons/arrow.png";
+  img.alt = "";
+  img.width = 11;
+  img.height = 11;
+  btn.appendChild(img);
+  document.body.appendChild(btn);
+
+  function updateTopBtn() {
+    btn.classList.toggle("is-hidden", window.scrollY < 400);
+  }
+  window.addEventListener("scroll", updateTopBtn, { passive: true });
+  updateTopBtn();
+}
+
 export function render(works, layouts) {
   layoutsData = layouts;
   if (!works.length) return;
@@ -401,9 +423,9 @@ export function render(works, layouts) {
   }
 
   if (gifObserver) {
-    const gifImgs = gridEl.querySelectorAll(".card img");
+    const gifImgs = gridEl.querySelectorAll(".card img[data-original-src]");
     gifImgs.forEach((img) => {
-      if (img.dataset.originalSrc && img.dataset.originalSrc.includes(".gif")) {
+      if (img.dataset.originalSrc.includes(".gif")) {
         gifObserver.observe(img);
       }
     });
@@ -416,27 +438,4 @@ export function render(works, layouts) {
   }
 
   updateViewMode();
-
-  if (!topBtn) {
-    topBtn = document.createElement("button");
-    topBtn.className = "icon-btn section-heading__top is-hidden";
-    topBtn.type = "button";
-    topBtn.setAttribute("aria-label", "Back to top");
-    topBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    const img = document.createElement("img");
-    img.src = "assets/icons/arrow.png";
-    img.alt = "";
-    img.width = 11;
-    img.height = 11;
-    topBtn.appendChild(img);
-    document.body.appendChild(topBtn);
-
-    function updateTopBtn() {
-      topBtn.classList.toggle("is-hidden", window.scrollY < 400);
-    }
-    window.addEventListener("scroll", updateTopBtn, { passive: true });
-    updateTopBtn();
-  }
 }
