@@ -103,8 +103,78 @@ button {
   font-family: inherit;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 50% 50%,
+      color-mix(in srgb, var(--accent) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 60% at 50% 50%,
+      color-mix(in srgb, var(--muted) 26%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 70% 40% at 50% 50%,
+      color-mix(in srgb, var(--panel) 30%, transparent),
+      transparent 60%
+    );
+  background-size:
+    150% 150%,
+    180% 180%,
+    200% 200%;
+  background-position:
+    0% 0%,
+    100% 100%,
+    50% 50%;
+  animation: bg-shift 35s ease-in-out infinite alternate;
+}
+
+@keyframes bg-shift {
+  0% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      50% 50%;
+  }
+  25% {
+    background-position:
+      30% 20%,
+      70% 30%,
+      40% 60%;
+  }
+  50% {
+    background-position:
+      60% 40%,
+      30% 70%,
+      60% 30%;
+  }
+  75% {
+    background-position:
+      20% 50%,
+      80% 40%,
+      35% 70%;
+  }
+  100% {
+    background-position:
+      40% 10%,
+      60% 80%,
+      65% 25%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  body::before {
+    animation: none;
   }
 }
