@@ -162,12 +162,6 @@
   opacity: 1;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .lightbox__image {
   display: block;
   width: 100%;

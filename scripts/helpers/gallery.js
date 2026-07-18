@@ -7,6 +7,19 @@ let layoutsData = {};
 let gridEl = null;
 let gifObserver = null;
 
+let viewMode = localStorage.getItem("gallery-view-mode") || "collage";
+
+function updateViewMode() {
+  if (!gridEl) return;
+  gridEl.dataset.mode = viewMode;
+  gridEl.querySelectorAll(".section-heading__toggle-icon").forEach((img) => {
+    img.src =
+      viewMode === "collage"
+        ? "assets/icons/blocks.png"
+        : "assets/icons/grid.png";
+  });
+}
+
 function createRow() {
   const row = document.createElement("div");
   row.style.cssText = `
@@ -24,7 +37,10 @@ function buildCard(work, index) {
   card.setAttribute("role", "button");
   card.setAttribute("aria-label", `Open ${toDisplayName(work.file)}`);
   card.dataset.index = index;
-  card.style.setProperty("--glow-src", `url("${new URL(`assets/art/${work.file}`, document.baseURI).href}")`);
+  card.style.setProperty(
+    "--glow-src",
+    `url("${new URL(`assets/art/${work.file}`, document.baseURI).href}")`,
+  );
 
   const container = document.createElement("div");
   container.className = "card__img-container";
@@ -103,6 +119,16 @@ function getLayoutKey(work) {
   return parts.slice(0, -1).join("/");
 }
 
+function appendCardsToRow(rowDiv, works, globalFlat) {
+  for (const work of works) {
+    const card = buildCard(work, globalFlat.length);
+    card.style.flex = "1";
+    card.style.aspectRatio = `${work.width} / ${work.height}`;
+    globalFlat.push(work);
+    rowDiv.appendChild(card);
+  }
+}
+
 function renderLayout(works, layout, fragment, globalFlat) {
   const byFile = {};
   for (const w of works) byFile[w.file] = w;
@@ -120,17 +146,13 @@ function renderLayout(works, layout, fragment, globalFlat) {
     const rowDiv = createRow();
     rowDiv.style.setProperty("--cols", Math.ceil(rowColCount / 2));
 
+    const rowWorks = [];
     for (let col = 0; col < rowColCount; col++) {
       const work = ordered[slotIdx];
-      if (work) {
-        const card = buildCard(work, globalFlat.length);
-        card.style.flex = "1";
-        card.style.aspectRatio = `${work.width} / ${work.height}`;
-        globalFlat.push(work);
-        rowDiv.appendChild(card);
-      }
+      if (work) rowWorks.push(work);
       slotIdx++;
     }
+    appendCardsToRow(rowDiv, rowWorks, globalFlat);
     fragment.appendChild(rowDiv);
   }
 }
@@ -139,13 +161,7 @@ function renderFallback(works, fragment, globalFlat) {
   if (!works.length) return;
   const rowDiv = createRow();
   rowDiv.style.setProperty("--cols", Math.ceil(works.length / 2));
-  for (const work of works) {
-    const card = buildCard(work, globalFlat.length);
-    card.style.flex = "1";
-    card.style.aspectRatio = `${work.width} / ${work.height}`;
-    globalFlat.push(work);
-    rowDiv.appendChild(card);
-  }
+  appendCardsToRow(rowDiv, works, globalFlat);
   fragment.appendChild(rowDiv);
 }
 
@@ -160,6 +176,13 @@ export function initGallery(grid) {
   gridEl = grid;
 
   grid.addEventListener("click", (event) => {
+    const toggle = event.target.closest(".section-heading__toggle");
+    if (toggle) {
+      viewMode = viewMode === "collage" ? "grid" : "collage";
+      localStorage.setItem("gallery-view-mode", viewMode);
+      updateViewMode();
+      return;
+    }
     const card = event.target.closest(".card");
     if (card) handleCardActivation(card);
   });
@@ -202,6 +225,23 @@ function makeHeading(tag, className, text, icon, id, links) {
   const el = document.createElement(tag);
   el.className = className;
   if (id) el.id = id;
+  if (tag === "h2") {
+    const toggle = document.createElement("button");
+    toggle.className = "icon-btn section-heading__toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-label", "Toggle grid view");
+    const toggleImg = document.createElement("img");
+    toggleImg.className = "section-heading__toggle-icon";
+    toggleImg.alt = "";
+    toggleImg.width = 11;
+    toggleImg.height = 11;
+    toggleImg.src =
+      viewMode === "collage"
+        ? "assets/icons/blocks.png"
+        : "assets/icons/grid.png";
+    toggle.appendChild(toggleImg);
+    el.appendChild(toggle);
+  }
   const box = document.createElement("span");
   box.className = "section-heading__box";
   if (icon) {
@@ -373,6 +413,8 @@ export function render(works, layouts) {
     const folder = orderedSections[0].folder;
     subtitle.textContent = folder;
   }
+
+  updateViewMode();
 
   return { worksData: flatData, orderedSections };
 }

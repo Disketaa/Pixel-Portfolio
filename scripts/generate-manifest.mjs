@@ -112,28 +112,6 @@ function buildEntry(relPath) {
   };
 }
 
-function resolveLinkIcon(name) {
-  if (typeof name !== "string" || !name.trim()) return null;
-  const trimmed = name.trim();
-  const parts = trimmed.split("/");
-  const base = parts.pop();
-  const subDir = parts.length > 0 ? path.join(ICONS_DIR, ...parts) : ICONS_DIR;
-  try {
-    const files = readdirSync(subDir, { withFileTypes: true });
-    const match = files.find(
-      (f) =>
-        f.isFile() &&
-        path.basename(f.name, path.extname(f.name)).toLowerCase() ===
-          base.toLowerCase(),
-    );
-    if (match) {
-      return `assets/icons/${trimmed}${path.extname(match.name)}`;
-    }
-  } catch {}
-  console.error(`  link icon "${trimmed}" not found in assets/icons/`);
-  return null;
-}
-
 function parseJsonLayout(content, folderPath, folderName) {
   let json;
   try {
@@ -219,23 +197,23 @@ function parseJsonLayout(content, folderPath, folderName) {
 
     if (!rowOk) continue;
 
-const key = isRoot ? folderName : `${folderName}/${subKey}`;
-     const icon = resolveIcon(layout.icon);
-     const links = [];
-     if (layout.links && Array.isArray(layout.links)) {
-       for (const link of layout.links) {
-         if (link.icon && link.url) {
-           const linkIcon = resolveLinkIcon(link.icon);
-           if (linkIcon) {
-             links.push({ icon: linkIcon, url: link.url });
-           }
-         }
-       }
-     }
-     const layoutEntry = { cols, order, icon };
-     if (links.length) layoutEntry.links = links;
-     if (layout.description) layoutEntry.description = layout.description;
-     result[key] = layoutEntry;
+    const key = isRoot ? folderName : `${folderName}/${subKey}`;
+    const icon = resolveIcon(layout.icon);
+    const links = [];
+    if (layout.links && Array.isArray(layout.links)) {
+      for (const link of layout.links) {
+        if (link.icon && link.url) {
+          const linkIcon = resolveIcon(link.icon);
+          if (linkIcon) {
+            links.push({ icon: linkIcon, url: link.url });
+          }
+        }
+      }
+    }
+    const layoutEntry = { cols, order, icon };
+    if (links.length) layoutEntry.links = links;
+    if (layout.description) layoutEntry.description = layout.description;
+    result[key] = layoutEntry;
     console.log(
       `  layout.json: ${key} (${cols.join("+")} slots, ${order.length} files)`,
     );

@@ -336,6 +336,23 @@ main {
   opacity: 1;
 }
 
+.section-heading__toggle {
+  flex-shrink: 0;
+}
+
+.section-heading__toggle img {
+  width: 11px;
+  height: 11px;
+}
+
+.grid[data-mode="grid"] > div {
+  display: contents !important;
+}
+
+.grid[data-mode="grid"] > div > .card {
+  aspect-ratio: 1 / 1 !important;
+}
+
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
