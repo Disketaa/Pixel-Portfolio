@@ -423,6 +423,12 @@ main {
   .grid[data-mode="grid"] {
     grid-template-columns: repeat(3, 1fr);
   }
+  .section-heading {
+    font-size: var(--font-size-sm);
+  }
+  .section-description {
+    font-size: var(--font-size-xs);
+  }
 }
 
 @media (hover: none) {
